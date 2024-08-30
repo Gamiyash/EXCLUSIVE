@@ -138,6 +138,8 @@ const Navbar = ({ user, setUser  }) => {
     <>
       <nav className='flex justify-around items-center pt-5 '>
         <div className="logo font-bold text-xl tracking-wider">Exclusive</div>
+        {/* <img width={70} className='rounded-full' src="../logo.jpg" alt="" /> */}
+        {/* <img width={70} className='rounded-md w-28 h-16 object-cover transform scale-110' src="../Exclusive1.png" alt="" /> */}
         <ul className="flex gap-14">
           <Link to={"/home"} className="hover:border-b-2 border-transparent hover:border-slate-500 cursor-pointer">Home</Link>
           <Link className="hover:border-b-2 border-transparent hover:border-slate-500 cursor-pointer">Contact</Link>

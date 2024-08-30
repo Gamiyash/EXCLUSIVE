@@ -16,8 +16,6 @@ import MensFashionproductsList from './MensFashion/MensFashionProductList';
 import FlashProductDetails from './ProductDetails/FlashProductDetails';
 import AllProductDetails from './ProductDetails/Allproductdetails';
 import ThisMonthBestProductsDetails from './ProductDetails/ThisMonthBestproducts';
-import WomenFashionProductDetails from './ProductDetails/WomenFashionProductsDetails';
-import MensFashionProductDetails from './ProductDetails/MensFashionProductDetails';
 import Cart from './cart/Cart';
 import Footer from './componets/Footer';
 import WishList from './WishList/WishList';
@@ -104,8 +102,6 @@ function App() {
                   <Route path="/Flashproductdetails/:id" element={<FlashProductDetails user={user} setUser={setUser} />} />
                   <Route path="/Allproductdetails/:id" element={<AllProductDetails user={user} setUser={setUser} />} />
                   <Route path="/ThismonthBestProductDetails/:id" element={<ThisMonthBestProductsDetails user={user} setUser={setUser} />} />
-                  <Route path="/WomenFashionproductsDetails/:id" element={<WomenFashionProductDetails user={user} setUser={setUser} />} />
-                  <Route path="/MensFashionproductsDetails/:id" element={<MensFashionProductDetails user={user} setUser={setUser} />} />
                   <Route path="/Login" element={<Login user={user} setUser={setUser}  />} />
                   <Route path="/verify-otp" element={<OtpVerification setUser={setUser} />} />
                   <Route path="/Cart" element={<Cart user={user} setUser={setUser} />} />
