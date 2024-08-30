@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const Product = require('./models/product'); // Adjust the path as necessary
+const Product = require('../models/product'); // Adjust the path as necessary
 
 mongoose.connect('mongodb://localhost:27017/EcommorceSignup', { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {

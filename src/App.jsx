@@ -11,8 +11,8 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import ProductList from './AllProducts/ProductList';
 import Flashlist from './FlashProducts/Flashlist';
 import ThismonthList from './ThisMonthBestProducts/ThismonthList';
-import WomenFashionproductsList from './WomenFashion/WomenFashionProductsList';
-import MensFashionproductsList from './MensFashion/MensFashionProductList';
+import WomenFashionproductsList from './CategoriesPages/WomenFashionProductsList';
+import MensFashionproductsList from './CategoriesPages/MensFashionProductList';
 import FlashProductDetails from './ProductDetails/FlashProductDetails';
 import AllProductDetails from './ProductDetails/Allproductdetails';
 import ThisMonthBestProductsDetails from './ProductDetails/ThisMonthBestproducts';

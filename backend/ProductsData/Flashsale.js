@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const FlashProduct = require('./models/Flashproduct');
+const FlashProduct = require('../models/Flashproduct');
 
 mongoose.connect('mongodb://localhost:27017/EcommorceSignup', { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {

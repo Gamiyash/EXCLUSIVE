@@ -1,10 +1,9 @@
 
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-// import WomenFashionproducts from './WomenFashionProducts';
 import Sidebar from '../componets/Sidebar';
 import Allproducts from '../AllProducts/Allproducts';
-// import WomenFashion from '../../backend/models/WomenFashion';
+
 
 
 const WomenFashionproductsList = ({user}) => {

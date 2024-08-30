@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 // const Thismonth = require('./models/Thismonth'); 
-const ThismonthBestProduct = require('./models/Thismonth');
+const ThismonthBestProduct = require('../models/Thismonth');
 
 mongoose.connect('mongodb://localhost:27017/EcommorceSignup', { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
