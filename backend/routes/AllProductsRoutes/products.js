@@ -14,9 +14,11 @@ router.get('/products', async (req, res) => {
 
 const synonymsDictionary = {
   "dress": ["gown", "frock", "attire"],
-  "shirt": ["top", "blouse", "tee"],
+  "shirt": ["top", "blouse", "tee", "WomenShirt"],
   "phone": ["mobile", "smartphone", "mobilephone"],
-  "smartwatch":["digitalwatch","watch","wristsmartwatch"]
+  "smartwatch": ["digitalwatch", "watch", "wristsmartwatch"],
+  "women": ["woman", "female", "ladies", "girls"],
+  "womenshirt": ["shirt", "womenshirt", "WomenFashion", "women"]
 }
 
 // Function to get synonyms for a query term
@@ -67,8 +69,6 @@ function calculateRelevanceScore(query, product) {
 }
 
 
-
-
 router.get('/search', async (req, res) => {
   const query = req.query.q.trim();
 
@@ -85,16 +85,28 @@ router.get('/search', async (req, res) => {
     // Search products using regex pattern
     let products = await Product.find({
       $or: [
-        { name: regex },
-        { keyword: regex }
+        { keyword: regex },
+        { name: regex }
+
       ]
     });
 
+    // // Calculate relevance score for each product
+    // products = products.map(product => ({
+    //   ...product.toObject(),
+    //   relevanceScore: calculateRelevanceScore(query, product)
+    // }));
+
     // Calculate relevance score for each product
-    products = products.map(product => ({
-      ...product.toObject(),
-      relevanceScore: calculateRelevanceScore(query, product)
-    }));
+    products = products.map(product => {
+      const relevance = calculateRelevanceScore(query, product);
+      console.log(`Product: ${product.name}, Score: ${relevance.score}, Matched Keyword: ${relevance.matchedKeyword}`);
+      return {
+        ...product.toObject(),
+        relevanceScore: relevance.score,
+        matchedKeyword: relevance.matchedKeyword
+      };
+    });
 
     // Sort by relevance score
     products.sort((a, b) => b.relevanceScore - a.relevanceScore);
@@ -111,7 +123,7 @@ router.get('/search', async (req, res) => {
 
 // Route to create a new product
 router.post('/products', async (req, res) => {
-  const { name, image, offerPrice, actualPrice, discount, rating, discription, size,sideimg1,sideimg2,sideimg3,sideimg4 } = req.body;
+  const { name, image, offerPrice, actualPrice, discount, rating, discription, size, sideimg1, sideimg2, sideimg3, sideimg4 } = req.body;
 
   const newProduct = new Product({
     name,

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-// Define the calculateRelevanceScore function
+// // Define the calculateRelevanceScore function
 // const calculateRelevanceScore = (product, query) => {
 //   const nameScore = product.name.toLowerCase().includes(query.toLowerCase()) ? 1 : 0;
 //   return nameScore;
@@ -54,7 +54,15 @@ const SearchComponent = () => {
       const fetchSuggestions = async () => {
         try {
           const response = await axios.get('/api/search', { params: { q: query } });
-          const products = Array.isArray(response.data) ? response.data : [];
+          // const products = Array.isArray(response.data) ? response.data : [];
+          const products = response.data;
+          // Sort the products based on relevance score
+          const sortedSuggestions = products.sort((a, b) =>b.relevanceScore - a.relevanceScore);
+
+          sortedSuggestions.forEach(product => {
+            console.log(`Product: ${product.name}, Relevance Score: ${product.relevanceScore}`);
+          });
+          setSuggestions(sortedSuggestions);
 
           // Process suggestions to include only matched keywords
           const filteredSuggestions = products.flatMap(product =>
@@ -66,7 +74,9 @@ const SearchComponent = () => {
             }))
           );
 
-          setSuggestions(filteredSuggestions);
+          // setSuggestions(filteredSuggestions);
+          console.log("API response data:", products);
+
         } catch (error) {
           console.error('Error fetching search suggestions:', error);
         }
@@ -85,12 +95,26 @@ const SearchComponent = () => {
     } catch (error) {
       console.error('Error fetching search results:', error);
     }
+
   };
 
+  // const handleSelectSuggestion = async (product) => {
+  //   // setQuery(product.name);
+  //   // setSuggestions([]);
+  //   // // navigate(`/Allproductdetails/${product._id}`);
+  //   try {
+  //     const response = await axios.get('/api/search', { params: { q: query } });
+  //     const products = response.data;
+  //     navigate('/searchproducts', { state: { products } });
+  //   } catch (error) {
+  //     console.error('Error fetching search results:', error);
+  //   }
+  // };
+
   const handleSelectSuggestion = async (product) => {
-    // setQuery(product.name);
-    // setSuggestions([]);
-    // navigate(`/Allproductdetails/${product._id}`);
+    // setQuery(product.name); // Or product.name based on your preference
+    setSuggestions([]);
+
     try {
       const response = await axios.get('/api/search', { params: { q: query } });
       const products = response.data;
@@ -119,7 +143,7 @@ const SearchComponent = () => {
           ref={suggestionsRef}>
           {suggestions.map((product) => (
             <li
-              key={product._id}
+              key={product.id}
               onClick={() => handleSelectSuggestion(product)}
               className="flex items-center p-2 cursor-pointer hover:bg-gray-100"
             >
@@ -129,6 +153,7 @@ const SearchComponent = () => {
                 className="w-8 h-8 object-cover mr-2 rounded"
               />
               {product.name}
+              {/* {product.matchedKeyword} */}
             </li>
           ))}
         </ul>
