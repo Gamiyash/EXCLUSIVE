@@ -335,7 +335,8 @@ app.get('/api/auth/google/callback',
         await userCollection.insertOne({ username: displayName, email });
       }
 
-      res.redirect('http://localhost:5173/home');
+      // res.redirect('http://localhost:5173/home');
+      res.redirect(`${process.env.FRONTEND_URL}/home`)
     } catch (error) {
       console.error('Error in Google OAuth callback:', error);
       res.redirect('/signup');
