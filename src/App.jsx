@@ -20,11 +20,13 @@ import Cart from './cart/Cart';
 import Footer from './componets/Footer';
 import WishList from './WishList/WishList';
 import ProductsPage from './componets/SearchProducts';
+import ElectronicsproductsList from './CategoriesPages/Electronics';
 
 
 function App() {
 
   const [user, setUser] = useState(null);
+  
 
   // useEffect(() => {
   //   const checkAuth = async () => {
@@ -98,6 +100,7 @@ function App() {
                   <Route path="/Flashproducts" element={<Flashlist user={user} setUser={setUser} />} />
                   <Route path="/WomenFashionproducts" element={<WomenFashionproductsList user={user} setUser={setUser} />} />
                   <Route path="/MensFashionproducts" element={<MensFashionproductsList user={user} setUser={setUser} />} />
+                  <Route path="/Electronics" element={<ElectronicsproductsList user={user} setUser={setUser} />} />
                   <Route path="/Thismonth" element={<ThismonthList user={user} setUser={setUser} />} />
                   <Route path="/Flashproductdetails/:id" element={<FlashProductDetails user={user} setUser={setUser} />} />
                   <Route path="/Allproductdetails/:id" element={<AllProductDetails user={user} setUser={setUser} />} />

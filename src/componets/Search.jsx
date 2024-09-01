@@ -2,12 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-// // Define the calculateRelevanceScore function
-// const calculateRelevanceScore = (product, query) => {
-//   const nameScore = product.name.toLowerCase().includes(query.toLowerCase()) ? 1 : 0;
-//   return nameScore;
-// };
-
 const SearchComponent = () => {
   const [query, setQuery] = useState('');
   const [suggestions, setSuggestions] = useState([]);
@@ -24,30 +18,6 @@ const SearchComponent = () => {
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
-
-  // useEffect(() => {
-  //   if (query.trim()) {
-  //     const fetchSuggestions = async () => {
-  //       try {
-  //         const response = await axios.get('/api/search', { params: { q: query } });
-  //         const products = response.data;
-
-  //         // Calculate relevance scores and sort products
-  //         const scoredProducts = products.map(product => ({
-  //           ...product,
-  //           score: calculateRelevanceScore(product, query),
-  //         })).sort((a, b) => b.score - a.score);
-
-  //         setSuggestions(scoredProducts);
-  //       } catch (error) {
-  //         console.error('Error fetching search suggestions:', error);
-  //       }
-  //     };
-  //     fetchSuggestions();
-  //   } else {
-  //     setSuggestions([]);
-  //   }
-  // }, [query]);
 
   useEffect(() => {
     if (query.trim()) {
@@ -75,7 +45,7 @@ const SearchComponent = () => {
           );
 
           // setSuggestions(filteredSuggestions);
-          console.log("API response data:", products);
+          // console.log("API response data:", products);
 
         } catch (error) {
           console.error('Error fetching search suggestions:', error);
@@ -92,24 +62,12 @@ const SearchComponent = () => {
       const response = await axios.get('/api/search', { params: { q: query } });
       const products = response.data;
       navigate('/searchproducts', { state: { products } });
+      
     } catch (error) {
       console.error('Error fetching search results:', error);
     }
 
   };
-
-  // const handleSelectSuggestion = async (product) => {
-  //   // setQuery(product.name);
-  //   // setSuggestions([]);
-  //   // // navigate(`/Allproductdetails/${product._id}`);
-  //   try {
-  //     const response = await axios.get('/api/search', { params: { q: query } });
-  //     const products = response.data;
-  //     navigate('/searchproducts', { state: { products } });
-  //   } catch (error) {
-  //     console.error('Error fetching search results:', error);
-  //   }
-  // };
 
   const handleSelectSuggestion = async (product) => {
     // setQuery(product.name); // Or product.name based on your preference
@@ -118,7 +76,9 @@ const SearchComponent = () => {
     try {
       const response = await axios.get('/api/search', { params: { q: query } });
       const products = response.data;
-      navigate('/searchproducts', { state: { products } });
+      // navigate('/searchproducts',{ state: { products, triggerFilterRerender: true } });
+      navigate('/searchproducts',{ state: { products} });
+      // window.location.reload();
     } catch (error) {
       console.error('Error fetching search results:', error);
     }

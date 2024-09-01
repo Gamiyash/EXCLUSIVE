@@ -155,6 +155,9 @@ const AllProductDetails = ({ user, productId }) => {
 
     const { name, image, offerPrice, rating, discription, size, sideimg1, sideimg2, sideimg3, sideimg4 } = product;
 
+
+    const formattedDescription = discription
+    const Discription = formattedDescription.replace(/, /g, '\n');
     return (
         <>
             <div className='Main flex w-[100vw]'>
@@ -206,8 +209,8 @@ const AllProductDetails = ({ user, productId }) => {
                         <FaIndianRupeeSign size={17} />{offerPrice}
                     </div>
 
-                    <div className="description">
-                        {discription}
+                    <div className="description font-bold text-gray-400 flex whitespace-pre-line">
+                        {Discription}
                     </div>
 
                     <div className="line h-px bg-gray-600"></div>

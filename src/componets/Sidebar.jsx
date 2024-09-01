@@ -22,12 +22,12 @@ const Sidebar = () => {
                         </span>
                     </Link>
 
-                    <li className="flex items-center gap-12 group cursor-pointer hover:bg-gray-200 p-2 w-fit rounded-md">
+                    <Link to={"/Electronics"} className="flex items-center gap-12 group cursor-pointer hover:bg-gray-200 p-2 w-fit rounded-md">
                         Electronics
                         <span className="opacity-0 transition-opacity duration-300 ease-in-out group-hover:opacity-100">
                             <FaAngleRight />
                         </span>
-                    </li>
+                    </Link>
 
                     <li className="flex items-center gap-12 group cursor-pointer hover:bg-gray-200 p-2 w-fit rounded-md">
                         Home & Lifestyle
