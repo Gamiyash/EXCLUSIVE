@@ -66,6 +66,36 @@ const Allproducts = ({ product ,user}) => {
         }
     };
 
+    
+    function numberWithCommas(num) {
+        // Convert number to string and handle decimal places
+        let [integerPart, decimalPart] = num.toString().split('.');
+
+        // Handle the integer part
+        let formattedIntegerPart = '';
+        let length = integerPart.length;
+
+        if (length > 3) {
+            // Add the last 3 digits (thousands) first
+            formattedIntegerPart = integerPart.slice(-3);
+
+            // Add commas for the rest of the integer part
+            integerPart = integerPart.slice(0, -3);
+            while (integerPart.length > 2) {
+                formattedIntegerPart = integerPart.slice(-2) + ',' + formattedIntegerPart;
+                integerPart = integerPart.slice(0, -2);
+            }
+
+            // Add any remaining digits
+            formattedIntegerPart = integerPart + ',' + formattedIntegerPart;
+        } else {
+            formattedIntegerPart = integerPart;
+        }
+
+        // Reconstruct the final formatted number
+        return decimalPart ? formattedIntegerPart + '.' + decimalPart : formattedIntegerPart;
+    }
+
     return (
         <div
             className="card mb-7 p-2 w-[300px] flex flex-col items-start justify-start relative hover:bg-[#ffff] hover:scale-105 transition-transform hover:shadow-md "
@@ -86,10 +116,10 @@ const Allproducts = ({ product ,user}) => {
             <div className="title font-medium text-lg mt-2">{name}</div>
             <div className="price flex items-center gap-2 mt-2">
                 <div className="Offer-price font-medium text-xl text-[#DB4444] flex items-center">
-                    <FaIndianRupeeSign size={17} /> {offerPrice}
+                    <FaIndianRupeeSign size={17} /> {numberWithCommas(offerPrice)}
                 </div>
                 <div className="Actual-price font-medium text-xl line-through text-gray-400 flex items-center">
-                    <FaIndianRupeeSign size={17} /> {actualPrice}
+                    <FaIndianRupeeSign size={17} /> {numberWithCommas(actualPrice)}
                 </div>
                 <div className="offer-per font-medium text-xl text-green-500">{discount}% off</div>
             </div>

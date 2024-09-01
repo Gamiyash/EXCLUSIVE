@@ -151,6 +151,36 @@ const FlashProductDetails = ({ user, productId }) => {
         }
     };
 
+    
+    function numberWithCommas(num) {
+        // Convert number to string and handle decimal places
+        let [integerPart, decimalPart] = num.toString().split('.');
+
+        // Handle the integer part
+        let formattedIntegerPart = '';
+        let length = integerPart.length;
+
+        if (length > 3) {
+            // Add the last 3 digits (thousands) first
+            formattedIntegerPart = integerPart.slice(-3);
+
+            // Add commas for the rest of the integer part
+            integerPart = integerPart.slice(0, -3);
+            while (integerPart.length > 2) {
+                formattedIntegerPart = integerPart.slice(-2) + ',' + formattedIntegerPart;
+                integerPart = integerPart.slice(0, -2);
+            }
+
+            // Add any remaining digits
+            formattedIntegerPart = integerPart + ',' + formattedIntegerPart;
+        } else {
+            formattedIntegerPart = integerPart;
+        }
+
+        // Reconstruct the final formatted number
+        return decimalPart ? formattedIntegerPart + '.' + decimalPart : formattedIntegerPart;
+    }
+
     if (loading) return <p>Loading...</p>;
     if (error) return <p>{error}</p>;
     if (!product) return <p>No product found</p>;
@@ -205,7 +235,7 @@ const FlashProductDetails = ({ user, productId }) => {
                     </div>
 
                     <div className="offerprice flex items-center gap-1 text-xl">
-                        <FaIndianRupeeSign size={17} />{offerPrice}
+                        <FaIndianRupeeSign size={17} />{numberWithCommas(offerPrice)}
                     </div>
 
                     <div className="description">

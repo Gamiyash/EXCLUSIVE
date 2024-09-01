@@ -70,14 +70,44 @@ const ThisMonth = ({ThismonthBestProduct,user}) => {
         }
     };
 
+    
+    function numberWithCommas(num) {
+        // Convert number to string and handle decimal places
+        let [integerPart, decimalPart] = num.toString().split('.');
+
+        // Handle the integer part
+        let formattedIntegerPart = '';
+        let length = integerPart.length;
+
+        if (length > 3) {
+            // Add the last 3 digits (thousands) first
+            formattedIntegerPart = integerPart.slice(-3);
+
+            // Add commas for the rest of the integer part
+            integerPart = integerPart.slice(0, -3);
+            while (integerPart.length > 2) {
+                formattedIntegerPart = integerPart.slice(-2) + ',' + formattedIntegerPart;
+                integerPart = integerPart.slice(0, -2);
+            }
+
+            // Add any remaining digits
+            formattedIntegerPart = integerPart + ',' + formattedIntegerPart;
+        } else {
+            formattedIntegerPart = integerPart;
+        }
+
+        // Reconstruct the final formatted number
+        return decimalPart ? formattedIntegerPart + '.' + decimalPart : formattedIntegerPart;
+    }
+
     return (
 
         <div
-            className="card p-2 rounded-md w-[250px] flex flex-col items-start justify-start relative  hover:bg-[#ffff] hover:scale-105 transition-transform hover:shadow-md "
+            className="card p-2 rounded-md w-[260px] flex flex-col items-start justify-start relative  hover:bg-[#ffff] hover:scale-105 transition-transform hover:shadow-md "
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
         >
-            <div className="w-[250px] h-[300px] bg-white shadow-md rounded-md border-gray-300 relative flex justify-center items-center overflow-hidden">
+            <div className="w-[260px] h-[300px] bg-white shadow-md rounded-md border-gray-300 relative flex justify-center items-center overflow-hidden">
                 <img className="object-contain w-3/4 h-3/4" src={image} alt={name} onClick={handleClick} />
                 {isHovered && (
                     <button className="absolute bottom-0 left-0 right-0 bg-black text-white py-2" onClick={AddtoCart}>
@@ -91,10 +121,10 @@ const ThisMonth = ({ThismonthBestProduct,user}) => {
             <div className="title font-medium text-lg mt-2">{name}</div>
             <div className="price flex items-center gap-2 mt-2">
                 <div className="Offer-price font-medium text-xl text-[#DB4444] flex items-center">
-                    <FaIndianRupeeSign size={17} /> {offerPrice}
+                    <FaIndianRupeeSign size={17} /> {numberWithCommas(offerPrice)}
                 </div>
                 <div className="Actual-price font-medium text-xl line-through text-gray-400 flex items-center">
-                    <FaIndianRupeeSign size={17} /> {actualPrice}
+                    <FaIndianRupeeSign size={17} /> {numberWithCommas(actualPrice)}
                 </div>
                 <div className="offer-per font-medium text-xl text-green-500">{discount}% off</div>
             </div>

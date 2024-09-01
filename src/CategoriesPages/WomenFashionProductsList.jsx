@@ -13,22 +13,6 @@ const WomenFashionproductsList = ({user}) => {
 
     console.log("The user is",user)
 
-    // useEffect(() => {
-    //     const fetchProducts = async () => {
-    //         try {
-    //             const response = await axios.get('http://localhost:3000/api/womenfashion');
-    //             setProducts(response.data);
-    //             setLoading(false);
-    //         } catch (error) {
-    //             setError('Error fetching products');
-    //             setLoading(false);
-    //         }
-    //     };
-
-    //     fetchProducts();
-    // }, []);
-
-
     useEffect(() => {
         const fetchProducts = async () => {
             try {

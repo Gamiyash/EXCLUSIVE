@@ -14,9 +14,7 @@ const ProductsPage = () => {
     const handleFilter = (filtered) => {
         setFilteredProducts(filtered);
     };
-
-
-
+    
     return (
         <div>
             {products.length > 0 ? (
