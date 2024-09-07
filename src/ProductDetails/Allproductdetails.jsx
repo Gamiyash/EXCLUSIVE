@@ -87,24 +87,38 @@ const AllProductDetails = ({ user, productId }) => {
             alert('Please select a size');
             return;
         }
+        // const userEmail = JSON.parse(localStorage.getItem('user'))?.email
+       
         try {
-            const username = user.email;
-            await axios.post('http://localhost:3000/api/addToCartallproduct', {
-                email: username,
-                productId: product._id,
-                offerPrice: product.offerPrice,
-                discription: product.discription,
-                quantity,
-                size: selectedSize
-            }, {
+            const userEmail = JSON.parse(localStorage.getItem('user'))?.email;
+            console.log('User object:', user);
+            // const username = user.email;
+            const payload = {
+           
+                email: userEmail,  // Ensure user is defined and has an email
+                productId: product._id,      // Ensure _id is defined
+                offerPrice: product.offerPrice,  // Ensure offerPrice is a valid number
+                discription: product.discription,  // Ensure discription is not empty
+                quantity,         // Ensure quantity is a valid number
+                size: selectedSize            // Ensure size is a valid string
+            };
+
+            console.log('Payload:', payload);
+
+            await axios.post('http://localhost:3000/api/addToCartallproduct', payload, {
+                withCredentials: true
+            });
+
+            await axios.post('http://localhost:3000/api/Checkout', payload, {
                 withCredentials: true
             });
 
             alert('Product added to cart!');
         } catch (error) {
-            console.error('Error adding product to cart:', error.message);
+            console.error('Error adding product to cart:', error.response?.data || error.message);
         }
     };
+
 
     const handleSizeChange = (size) => setSelectedSize(size);
     const handleSideImageClick = (img) => setMainImage(img);
@@ -131,6 +145,7 @@ const AllProductDetails = ({ user, productId }) => {
         } catch (error) {
             console.error('Error submitting comment:', error.message);
         }
+    
     };
 
 
@@ -149,7 +164,7 @@ const AllProductDetails = ({ user, productId }) => {
         }
     };
 
-    
+
     function numberWithCommas(num) {
         // Convert number to string and handle decimal places
         let [integerPart, decimalPart] = num.toString().split('.');

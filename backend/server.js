@@ -33,6 +33,12 @@ const ThismonthcommentsRoutes = require("./routes/ThisMonthBestProductsRoutes/Th
 const WomenFashionCommentRoutes = require('./routes/WomenFashionProductsRoutes/WomenFashionComment')
 const MensFashionCommentsRoutes = require('./routes/MensFashionProductsRoutes/MensFashionComments')
 
+//Cuppon Route
+const CupponRoute = require('./routes/Cuppon/Cuppon')
+
+//BillingDetailsRoute
+const UserBillingDetailsRoute = require('./routes/BillingDetailsOfUsers/UserBillingData')
+
 const mongoose = require('./db');
 
 dotenv.config();
@@ -129,6 +135,13 @@ app.use('/api/MensFashion', MensFashionCommentsRoutes)
 app.use('/api', WomenFashionWishListRoutes);
 app.use('/api', FlashWishlistRoutes)
 app.use('/api', ThismonthWishlistRoutes)
+
+//CupponRoute
+app.use('/api', CupponRoute)
+
+//BillingDetailsRoute
+app.use('/api', UserBillingDetailsRoute)
+
 
 // const authenticateToken = (req, res, next) => {
 //   const token = req.cookies.token;
@@ -335,8 +348,8 @@ app.get('/api/auth/google/callback',
         await userCollection.insertOne({ username: displayName, email });
       }
 
-      // res.redirect('http://localhost:5173/home');
-      res.redirect(`${process.env.FRONTEND_URL}/home`)
+      res.redirect('http://localhost:5173/home');
+      // res.redirect(`${process.env.FRONTEND_URL}/home`)
     } catch (error) {
       console.error('Error in Google OAuth callback:', error);
       res.redirect('/signup');

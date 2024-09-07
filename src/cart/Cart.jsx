@@ -4,6 +4,7 @@ import axios from 'axios';
 import { FaIndianRupeeSign } from 'react-icons/fa6';
 import { FaTrash } from 'react-icons/fa';
 import { MdOutlineKeyboardArrowUp, MdOutlineKeyboardArrowDown } from 'react-icons/md';
+import { useNavigate } from 'react-router-dom';
 
 const Cart = ({ user }) => {
     const [cartItems, setCartItems] = useState([]);
@@ -11,11 +12,13 @@ const Cart = ({ user }) => {
     const [error, setError] = useState(null);
     // const [quantity, setQuantity] = useState(1);
 
+    const navigate = useNavigate();
+
     useEffect(() => {
         const fetchCartData = async () => {
             try {
                 // console.log("the user is",user,user.email)
-                const userEmail =JSON.parse(localStorage.getItem('user'))?.email; // Replace with actual email logic or context
+                const userEmail = JSON.parse(localStorage.getItem('user'))?.email; // Replace with actual email logic or context
                 const response = await axios.get(`http://localhost:3000/api/getCart/${userEmail}`);
                 setCartItems(response.data);
             } catch (err) {
@@ -132,6 +135,10 @@ const Cart = ({ user }) => {
         return decimalPart ? formattedIntegerPart + '.' + decimalPart : formattedIntegerPart;
     }
 
+    const RedirectToCheckout = () => {
+        navigate("/Checkout")
+    }
+
 
 
     if (loading) return <p className='flex justify-center items-center text-2xl'>Loading...</p>;
@@ -220,8 +227,8 @@ const Cart = ({ user }) => {
 
                         <div className="subtotal flex justify-between">
                             <div className='font-medium'>Sub Total</div>
-                            <div className='font-medium'>
-                                {numberWithCommas(subtotal)}
+                            <div className='font-medium flex items-center'>
+                            <FaIndianRupeeSign />{numberWithCommas(subtotal)}
                             </div>
                         </div>
                         <div className="line h-px bg-gray-600"></div>
@@ -234,13 +241,13 @@ const Cart = ({ user }) => {
 
                         <div className="subtotal flex justify-between">
                             <div className='font-medium'>Total</div>
-                            <div className='font-medium'>
-                                {numberWithCommas(subtotal)}
+                            <div className='font-medium flex items-center'>
+                            <FaIndianRupeeSign />{numberWithCommas(subtotal)}
                             </div>
                         </div>
 
                         <div className="btn flex justify-center items-center">
-                            <button className='p-3 pr-8 pl-8 border bg-[#DB4444] text-white rounded-sm'>Proceed To Checkout</button>
+                            <button onClick={RedirectToCheckout} className='p-3 pr-8 pl-8 border bg-[#DB4444] text-white rounded-sm'>Proceed To Checkout</button>
                         </div>
                     </div>
                 </div>

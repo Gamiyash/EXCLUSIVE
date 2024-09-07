@@ -24,8 +24,8 @@ const Allproducts = ({ product ,user}) => {
             const payload = {
                 email: userEmail,  // Ensure user is defined and has an email
                 productId: _id,      // Ensure _id is defined
-                offerPrice: offerPrice,  // Ensure offerPrice is a valid number
-                discription: discription,  // Ensure discription is not empty
+                offerPrice:offerPrice,  // Ensure offerPrice is a valid number
+                discription:discription,  // Ensure discription is not empty
                 quantity: 1,         // Ensure quantity is a valid number
                 size: "M"            // Ensure size is a valid string
             };
@@ -33,6 +33,10 @@ const Allproducts = ({ product ,user}) => {
             console.log('Payload:', payload);
 
             await axios.post('http://localhost:3000/api/addToCartallproduct', payload, {
+                withCredentials: true
+            });
+
+            await axios.post('http://localhost:3000/api/Checkout', payload, {
                 withCredentials: true
             });
 

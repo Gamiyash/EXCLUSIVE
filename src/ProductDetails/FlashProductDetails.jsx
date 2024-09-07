@@ -89,22 +89,51 @@ const FlashProductDetails = ({ user, productId }) => {
             alert('Please select a size');
             return;
         }
+        // try {
+        //     const username = user.email;
+        //     await axios.post('http://localhost:3000/api/addToCart', {
+        //         email: username,
+        //         productId: product._id,
+        //         offerPrice: product.offerPrice,
+        //         discription: product.discription,
+        //         quantity,
+        //         size: selectedSize
+        //     }, {
+        //         withCredentials: true
+        //     });
+
+        //     alert('Product added to cart!');
+        // } catch (error) {
+        //     console.error('Error adding product to cart:', error.message);
+        // }
+
         try {
-            const username = user.email;
-            await axios.post('http://localhost:3000/api/addToCart', {
-                email: username,
-                productId: product._id,
-                offerPrice: product.offerPrice,
-                discription: product.discription,
-                quantity,
-                size: selectedSize
-            }, {
+            const userEmail = JSON.parse(localStorage.getItem('user'))?.email;
+            console.log('User object:', user);
+            // const username = user.email;
+            const payload = {
+           
+                email: userEmail,  // Ensure user is defined and has an email
+                productId: product._id,      // Ensure _id is defined
+                offerPrice: product.offerPrice,  // Ensure offerPrice is a valid number
+                discription: product.discription,  // Ensure discription is not empty
+                quantity,         // Ensure quantity is a valid number
+                size: selectedSize            // Ensure size is a valid string
+            };
+
+            console.log('Payload:', payload);
+
+            await axios.post('http://localhost:3000/api/addToCart', payload, {
+                withCredentials: true
+            });
+
+            await axios.post('http://localhost:3000/api/FlashProductCheckout', payload, {
                 withCredentials: true
             });
 
             alert('Product added to cart!');
         } catch (error) {
-            console.error('Error adding product to cart:', error.message);
+            console.error('Error adding product to cart:', error.response?.data || error.message);
         }
     };
 

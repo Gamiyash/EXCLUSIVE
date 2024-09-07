@@ -1,7 +1,4 @@
 
-
-// export default Signup;
-// Signup.jsx
 import React from 'react';
 // import SignupNavbar from './components/SignupNavbar';
 import Footer from '../../componets/Footer';

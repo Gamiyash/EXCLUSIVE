@@ -37,6 +37,10 @@ const Flashslaes = ({ FlashProduct,user }) => {
                 withCredentials: true
             });
 
+            await axios.post('http://localhost:3000/api/FlashProductCheckout', payload, {
+                withCredentials: true
+            });
+
             alert('Product added to cart!');
         } catch (error) {
             console.error('Error adding product to cart:', error.response?.data || error.message);

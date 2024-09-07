@@ -21,6 +21,7 @@ import Footer from './componets/Footer';
 import WishList from './WishList/WishList';
 import ProductsPage from './componets/SearchProducts';
 import ElectronicsproductsList from './CategoriesPages/Electronics';
+import Checkout from './Checkout/Checkout';
 
 
 function App() {
@@ -108,8 +109,10 @@ function App() {
                   <Route path="/Login" element={<Login user={user} setUser={setUser}  />} />
                   <Route path="/verify-otp" element={<OtpVerification setUser={setUser} />} />
                   <Route path="/Cart" element={<Cart user={user} setUser={setUser} />} />
+                  <Route path="/Checkout" element={<Checkout user={user} setUser={setUser} />} />
                   <Route path="/WishList" element={<WishList user={user} setUser={setUser} />} />
                   <Route path="/searchproducts" element={<ProductsPage />} />
+                  
 
                   <Route path="/home" element={user ? <Home user={user} /> : <Navigate to="/login" />} />
                   <Route path="/home" element={<Navigate to="/Signup" />} />
@@ -118,6 +121,7 @@ function App() {
                   <Route path="/Login" element={<Navigate to="/verify-otp" />} />
                   <Route path="/Login" element={<Navigate to="/home" />} />
                   <Route path="/Home" element={<Navigate to="/Cart" />} />
+                  <Route path="/Cart" element={<Navigate to="/Checkout" />} />
                 </Routes>
               </div>
             </div>
