@@ -22,6 +22,8 @@ import WishList from './WishList/WishList';
 import ProductsPage from './componets/SearchProducts';
 import ElectronicsproductsList from './CategoriesPages/Electronics';
 import Checkout from './Checkout/Checkout';
+// import Wheel from './componets/Wheel';
+// import WheelComponet from './componets/Wheel';
 
 
 function App() {
@@ -112,6 +114,7 @@ function App() {
                   <Route path="/Checkout" element={<Checkout user={user} setUser={setUser} />} />
                   <Route path="/WishList" element={<WishList user={user} setUser={setUser} />} />
                   <Route path="/searchproducts" element={<ProductsPage />} />
+                  {/* <Route path="/RollingWheeler" element={<Wheel />} /> */}
                   
 
                   <Route path="/home" element={user ? <Home user={user} /> : <Navigate to="/login" />} />

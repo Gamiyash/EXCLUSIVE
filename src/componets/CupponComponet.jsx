@@ -37,13 +37,6 @@ const CouponComponent = ({ onApplyCoupon }) => {
         <div className="CouponComponent">
             <div className="Cupponcodes flex gap-3 items-center">
                 <div className="Cupponcodes flex gap-3 items-center">
-                    {/* <input className='text-gray-600 border border-gray-700 p-3 w-[17vw] rounded-sm'
-                        type="text"
-                        placeholder='Coupon Code'
-                        value={couponCode}
-                        onChange={(e) => setCouponCode(e.target.value)}
-                    />
-                    <button className='p-3 pr-8 pl-8 border bg-[#DB4444] text-white rounded-sm'>Apply Coupon</button> */}
                 </div>
                 <input
                     className='text-gray-600 border border-gray-700 p-3 w-[17vw] rounded-sm'
@@ -61,7 +54,7 @@ const CouponComponent = ({ onApplyCoupon }) => {
             </div>
 
             {error && <p className="text-red-500 mt-2">{error}</p>}
-            {success && <p className="text-green-500 mt-2">{success}</p>}
+            {success && <p className="text-green-500 text-lg mt-2">{success}</p>}
         </div>
     );
 };

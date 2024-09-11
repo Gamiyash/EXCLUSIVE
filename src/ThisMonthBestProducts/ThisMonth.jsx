@@ -39,7 +39,8 @@ const ThisMonth = ({ThismonthBestProduct,user}) => {
                 withCredentials: true
             });
 
-            await axios.post('http://localhost:3000/api/ThismonthCheckout', payload, {
+            
+            await axios.post('http://localhost:3000/api/Checkout', payload, {
                 withCredentials: true
             });
 

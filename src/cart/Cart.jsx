@@ -106,6 +106,54 @@ const Cart = ({ user }) => {
         }
     };
 
+
+
+    const handleUpdateCart = async () => {
+        try {
+            const userEmail = JSON.parse(localStorage.getItem('user'))?.email;
+    
+            const updateRequests = cartItems.map(item => {
+                return axios.put('http://localhost:3000/api/updateCart', {
+                    email: userEmail,
+                    productId: item.productId,
+                    quantity: item.quantity || 1, // Send the updated quantity
+                    size: item.size ,// Ensure size is a single value
+                    offerPrice:item.offerPrice
+                });
+            });
+    
+            // Wait for all update requests to finish
+            await Promise.all(updateRequests);
+    
+            alert('Cart updated successfully!');
+        } catch (error) {
+            console.error('Error updating cart:', error.response?.data || error.message);
+            alert('Error updating cart!');
+        }
+
+        try {
+            const userEmail = JSON.parse(localStorage.getItem('user'))?.email;
+          
+            const AddDataIntoCheckoutRequests = cartItems.map(item => {
+                return axios.post('http://localhost:3000/api/Checkout', {
+                    email: userEmail,
+                    productId: item.productId,
+                    quantity: item.quantity || 1, // Send the updated quantity
+                    size: item.size ,// Ensure size is a single value
+                    offerPrice:item.offerPrice
+                });
+            });
+
+             // Wait for all update requests to finish
+             await Promise.all(AddDataIntoCheckoutRequests);
+
+            // alert('Product added to cart!');
+        } catch (error) {
+            console.error('Error adding product to cart:', error.response?.data || error.message);
+        }
+    };
+    
+
     function numberWithCommas(num) {
         // Convert number to string and handle decimal places
         let [integerPart, decimalPart] = num.toString().split('.');
@@ -135,14 +183,14 @@ const Cart = ({ user }) => {
         return decimalPart ? formattedIntegerPart + '.' + decimalPart : formattedIntegerPart;
     }
 
-    const RedirectToCheckout = () => {
+    const RedirectToCheckout =  () => {
         navigate("/Checkout")
     }
 
 
 
     if (loading) return <p className='flex justify-center items-center text-2xl'>Loading...</p>;
-    if (error) return <p>Error: {error}</p>;
+    if (error) return <p className='flex justify-center items-center mt-20'>Error: {error}</p>;
 
 
 
@@ -210,7 +258,7 @@ const Cart = ({ user }) => {
 
                 <div className="btns flex justify-between pl-32 pr-32 pt-5">
                     <div className="ReturnShopBtn">
-                        <button className='font-medium p-3 pr-8 pl-8 border rounded-md hover:bg-[#DB4444] hover:text-white'>Return To Shop</button>
+                        <button className='font-medium p-3 pr-8 pl-8 border rounded-md hover:bg-[#DB4444] hover:text-white' onClick={handleUpdateCart}>Update Cart</button>
                     </div>
                     <div className="UpdateCartbtn">
                         <button className='font-medium p-3 pr-8 pl-8 border rounded-md hover:bg-[#DB4444] hover:text-white' onClick={handleClearCart}>Clear All </button>

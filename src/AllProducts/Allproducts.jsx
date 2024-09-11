@@ -30,7 +30,7 @@ const Allproducts = ({ product ,user}) => {
                 size: "M"            // Ensure size is a valid string
             };
 
-            console.log('Payload:', payload);
+            // console.log('Payload:', payload);
 
             await axios.post('http://localhost:3000/api/addToCartallproduct', payload, {
                 withCredentials: true

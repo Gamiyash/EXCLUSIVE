@@ -127,7 +127,7 @@ const FlashProductDetails = ({ user, productId }) => {
                 withCredentials: true
             });
 
-            await axios.post('http://localhost:3000/api/FlashProductCheckout', payload, {
+            await axios.post('http://localhost:3000/api/Checkout', payload, {
                 withCredentials: true
             });
 

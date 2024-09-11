@@ -20,6 +20,7 @@ const FlashcartRoutes = require('./routes/FlashProductsRoutes/Flashsalecart')
 const DeleteProductRoutes = require("./routes/CartRoutes/DeleteperticularProduct")
 const DeleteWishListProducts = require("./routes/WishlistDeleteroute/WishlistDeleteRoutr")
 const ClearAllProductRoutes = require('./routes/CartRoutes/CleareAllProduct')
+const UpdateCartRoutes = require('./routes/CartRoutes/UpdateCartRoute')
 const productcartRoutes = require("./routes/AllProductsRoutes/Productcart")
 const ThismonthscartRoutes = require("./routes/ThisMonthBestProductsRoutes/Thismonthcart")
 const WomenFashionCartRoutes = require('./routes/WomenFashionProductsRoutes/WomenFashionCart')
@@ -122,7 +123,8 @@ app.use('/api', MensFashionRoutes)
 app.use('/api', FlashcartRoutes);
 app.use("/api", DeleteProductRoutes);
 app.use('/api', DeleteWishListProducts);
-app.use('/api', ClearAllProductRoutes)
+app.use('/api', ClearAllProductRoutes);
+app.use('/api', UpdateCartRoutes);
 app.use('/api', productcartRoutes);
 app.use('/api', ThismonthscartRoutes);
 app.use('/api', WomenFashionCartRoutes);
