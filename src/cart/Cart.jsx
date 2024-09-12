@@ -106,8 +106,6 @@ const Cart = ({ user }) => {
         }
     };
 
-
-
     const handleUpdateCart = async () => {
         try {
             const userEmail = JSON.parse(localStorage.getItem('user'))?.email;
@@ -183,7 +181,27 @@ const Cart = ({ user }) => {
         return decimalPart ? formattedIntegerPart + '.' + decimalPart : formattedIntegerPart;
     }
 
-    const RedirectToCheckout =  () => {
+    const RedirectToCheckout = async () => {
+        try {
+            const userEmail = JSON.parse(localStorage.getItem('user'))?.email;
+          
+            const AddDataIntoCheckoutRequests = cartItems.map(item => {
+                return axios.post('http://localhost:3000/api/Checkout', {
+                    email: userEmail,
+                    productId: item.productId,
+                    quantity: item.quantity || 1, // Send the updated quantity
+                    size: item.size ,// Ensure size is a single value
+                    offerPrice:item.offerPrice
+                });
+            });
+
+             // Wait for all update requests to finish
+             await Promise.all(AddDataIntoCheckoutRequests);
+
+            // alert('Product added to cart!');
+        } catch (error) {
+            console.error('Error adding product to cart:', error.response?.data || error.message);
+        }
         navigate("/Checkout")
     }
 

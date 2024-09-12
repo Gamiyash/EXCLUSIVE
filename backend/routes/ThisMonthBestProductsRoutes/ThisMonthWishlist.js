@@ -13,9 +13,9 @@ router.post('/addToThismonthWishList', async (req, res) => {
         if (!email || !productId || !offerPrice || !quantity || !size) {
             return res.status(400).json({ message: 'Missing required fields' });
         }
-        if (Array.isArray(size)) {
-            return res.status(400).json({ message: 'Size should be a single value' });
-        }
+        // if (Array.isArray(size)) {
+        //     return res.status(400).json({ message: 'Size should be a single value' });
+        // }
 
         // Find the product by ID
         const product = await Product.findById(productId);
@@ -65,7 +65,7 @@ router.get('/getToThismonthWishList/:email', async (req, res) => {
         const wishlistItems = await WishListCollection.find({}).toArray();
         res.status(200).json(wishlistItems);
     } catch (error) {
-        console.error('Error fetching cart:', error);
+        console.error('Error fetching wishlist:', error);
         res.status(500).json({ message: 'Internal server error', error: error.message });
     }
 });

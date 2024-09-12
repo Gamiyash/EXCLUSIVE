@@ -88,37 +88,35 @@ const AllProductDetails = ({ user, productId }) => {
             return;
         }
         // const userEmail = JSON.parse(localStorage.getItem('user'))?.email
-       
+
         try {
             const userEmail = JSON.parse(localStorage.getItem('user'))?.email;
             console.log('User object:', user);
             // const username = user.email;
             const payload = {
-           
                 email: userEmail,  // Ensure user is defined and has an email
                 productId: product._id,      // Ensure _id is defined
                 offerPrice: product.offerPrice,  // Ensure offerPrice is a valid number
                 discription: product.discription,  // Ensure discription is not empty
                 quantity,         // Ensure quantity is a valid number
-                size: selectedSize            // Ensure size is a valid string
+                size: selectedSize       // Ensure size is a valid string
             };
 
-            console.log('Payload:', payload);
+            // console.log('Payload:', payload);
 
             await axios.post('http://localhost:3000/api/addToCartallproduct', payload, {
                 withCredentials: true
             });
 
-            await axios.post('http://localhost:3000/api/Checkout', payload, {
-                withCredentials: true
-            });
+            // await axios.post('http://localhost:3000/api/Checkout', payload, {
+            //     withCredentials: true
+            // });
 
             alert('Product added to cart!');
         } catch (error) {
             console.error('Error adding product to cart:', error.response?.data || error.message);
         }
     };
-
 
     const handleSizeChange = (size) => setSelectedSize(size);
     const handleSideImageClick = (img) => setMainImage(img);
@@ -145,7 +143,7 @@ const AllProductDetails = ({ user, productId }) => {
         } catch (error) {
             console.error('Error submitting comment:', error.message);
         }
-    
+
     };
 
 
@@ -198,8 +196,30 @@ const AllProductDetails = ({ user, productId }) => {
     if (error) return <p>{error}</p>;
     if (!product) return <p>No product found</p>;
 
-    const { name, image, offerPrice, rating, discription, size, sideimg1, sideimg2, sideimg3, sideimg4 } = product;
+    const { name, image, offerPrice, rating, discription, size, _id, sideimg1, sideimg2, sideimg3, sideimg4 } = product;
 
+
+    const AddtoWishList = async () => {
+        try {
+            const userEmail = JSON.parse(localStorage.getItem('user'))?.email;
+            const payload1 = {
+                email: userEmail,  // Ensure user is defined and has an email
+                productId: product._id,      // Ensure _id is defined
+                offerPrice: product.offerPrice,  // Ensure offerPrice is a valid number
+                discription: product.discription,  // Ensure discription is not empty
+                quantity: 1,           // Ensure quantity is a valid number
+                size: 'M'       // Ensure size is a valid string 
+            };
+
+            await axios.post('http://localhost:3000/api/addToWishList', payload1, {
+                withCredentials: true
+            });
+
+            alert('Product added to Wishlist!');
+        } catch (error) {
+            console.error('Error adding product to wishlist:', error.response?.data || error.message);
+        }
+    };
 
     const formattedDescription = discription
     const Discription = formattedDescription.replace(/, /g, '\n');
@@ -306,8 +326,8 @@ const AllProductDetails = ({ user, productId }) => {
                             </button>
                         </div>
                         <div className="like">
-                            <div className='border rounded-sm w-9 h-9 flex justify-center items-center'>
-                                <CiHeart size={25} />
+                            <div className='border rounded-sm w-9 h-9 flex justify-center items-center cursor-pointer'>
+                                <CiHeart size={25} onClick={AddtoWishList} />
                             </div>
                         </div>
                     </div>

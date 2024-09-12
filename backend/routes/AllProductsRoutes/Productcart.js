@@ -12,9 +12,9 @@ router.post('/addToCartallproduct', async (req, res) => {
         if (!email || !productId || !offerPrice || !quantity || !size) {
             return res.status(400).json({ message: 'Missing required fields' });
         }
-        if (Array.isArray(size)) {
-            return res.status(400).json({ message: 'Size should be a single value' });
-        }
+        // if (Array.isArray(size)) {
+        //     return res.status(400).json({ message: 'Size should be a single value' });
+        // }
 
         // Find the product by ID
         const product = await Product.findById(productId);
@@ -66,49 +66,6 @@ router.get('/getAllProductsCartData/:email', async (req, res) => {
         res.status(500).json({ message: 'Internal server error', error: error.message });
     }
 });
-
-// router.post('/Checkout', async (req, res) => {
-//     try {
-//         const { email } = req.body; // Get email from the request body
-        
-//         // Validate the input
-//         if (!email) {
-//             return res.status(400).json({ message: 'Missing email' });
-//         }
-
-//         // Connect to user's specific database
-//         const userDbName = email.replace(/[^a-zA-Z0-9_]/g, '_'); // Sanitize user database name
-//         const userDb = mongoose.connection.useDb(userDbName);
-//         const cartCollection = userDb.collection('cart');
-//         const checkoutCollection = userDb.collection('checkout');
-
-//         // const existingCartItem = await checkoutCollection.findOne({ productId });
-//         //         if (existingCartItem) {
-//         //             // Update quantity if product already exists in cart
-//         //             await checkoutCollection.updateOne(
-//         //                 { productId },
-//         //                 { $inc: { quantity } }
-//         //             );
-
-//         // Retrieve all items from the cart
-//         const cartItems = await cartCollection.find({}).toArray();
-        
-//         if (cartItems.length === 0) {
-//             return res.status(400).json({ message: 'Cart is empty' });
-//         }
-
-//         // Insert all items into the checkout collection
-//         await checkoutCollection.insertMany(cartItems);
-
-//         // Optionally, clear the cart
-//         // await cartCollection.deleteMany({});
-
-//         res.status(200).json({ message: 'Checkout successful, items moved to checkout' });
-//     } catch (error) {
-//         console.error('Error during checkout:', error);
-//         res.status(500).json({ message: 'Internal server error', error: error.message });
-//     }
-// });
 
 router.post('/Checkout', async (req, res) => {
     try {

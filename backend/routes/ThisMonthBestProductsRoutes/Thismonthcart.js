@@ -12,9 +12,9 @@ router.post('/addToCartThismonthBestProducts', async (req, res) => {
         if (!email || !productId || !offerPrice || !quantity || !size) {
             return res.status(400).json({ message: 'Missing required fields' });
         }
-        if (Array.isArray(size)) {
-            return res.status(400).json({ message: 'Size should be a single value' });
-        }
+        // if (Array.isArray(size)) {
+        //     return res.status(400).json({ message: 'Size should be a single value' });
+        // }
 
         // Find the product by ID
         const product = await ThismonthBestProduct.findById(productId);
