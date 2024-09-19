@@ -40,6 +40,9 @@ const CupponRoute = require('./routes/Cuppon/Cuppon')
 //BillingDetailsRoute
 const UserBillingDetailsRoute = require('./routes/BillingDetailsOfUsers/UserBillingData')
 
+//RazorpayRoutes
+const RazorPayPaymentGetway = require('./routes/Razorpay_Payment/RazorPayPayment')
+
 const mongoose = require('./db');
 
 dotenv.config();
@@ -95,16 +98,6 @@ app.use(session({
   }
 }));
 
-// app.use(session({
-//   secret: 'your-secret',
-//   resave: false,
-//   saveUninitialized: true,
-//   store: store,
-//   cookie: {
-//     secure: false, // Change to true if using HTTPS
-//     sameSite: 'strict',
-//   }
-// }));
 
 app.use((req, res, next) => {
   // console.log('Session:', req.session);
@@ -144,6 +137,19 @@ app.use('/api', CupponRoute)
 //BillingDetailsRoute
 app.use('/api', UserBillingDetailsRoute)
 
+//RazorPayment
+app.use('/api', RazorPayPaymentGetway);
+
+function isAuthenticated(req, res, next) {
+  if (req.session.user) {
+    next(); // User is authenticated, continue
+  } else {
+    res.status(401).json({ message: 'Unauthorized, please login' }); // No session, send unauthorized response
+  }
+}
+
+// Use this middleware on protected routes
+app.use('/protected-route', isAuthenticated);
 
 // const authenticateToken = (req, res, next) => {
 //   const token = req.cookies.token;

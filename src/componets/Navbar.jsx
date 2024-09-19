@@ -72,10 +72,10 @@ import { CgProfile } from "react-icons/cg";
 import { BsBagCheck } from "react-icons/bs";
 import { MdOutlineCancel } from "react-icons/md";
 import { CiStar } from "react-icons/ci";
-import { BiLogOut } from "react-icons/bi";
+import { BiCookie, BiLogOut } from "react-icons/bi";
 import SearchComponent from './Search';
 
-const Navbar = ({ user, setUser  }) => {
+const Navbar = ({ user, setUser }) => {
   console.log('Navbar user:', user);
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const dropdownRef = useRef(null);
@@ -115,6 +115,7 @@ const Navbar = ({ user, setUser  }) => {
       await fetch('/api/auth/signout');
       setUser(null);
       localStorage.removeItem('user');
+      localStorage.removeItem('hasSpunWheel')
       // localStorage.removeItem('token');
       navigate('/login');
     } catch (error) {
@@ -138,8 +139,6 @@ const Navbar = ({ user, setUser  }) => {
     <>
       <nav className='flex justify-around items-center pt-5 '>
         <div className="logo font-bold text-xl tracking-wider">Exclusive</div>
-        {/* <img width={70} className='rounded-full' src="../logo.jpg" alt="" /> */}
-        {/* <img width={70} className='rounded-md w-28 h-16 object-cover transform scale-110' src="../Exclusive1.png" alt="" /> */}
         <ul className="flex gap-14">
           <Link to={"/home"} className="hover:border-b-2 border-transparent hover:border-slate-500 cursor-pointer">Home</Link>
           <Link className="hover:border-b-2 border-transparent hover:border-slate-500 cursor-pointer">Contact</Link>
@@ -151,24 +150,24 @@ const Navbar = ({ user, setUser  }) => {
 
         <div className='flex justify-center items-center gap-7'>
           <div className="input">
-            <SearchComponent/>
+            <SearchComponent />
             {/* <input className='relative flex rounded-sm w-[240px] px-3 bg-slate-100 cursor-pointer' type="text" placeholder='What are you looking for?' /> */}
           </div>
           {/* <CiSearch size={25} className='cursor-pointer' /> */}
-          <CiHeart size={25} className='cursor-pointer' onClick={redirectToWishList}  />
+          <CiHeart size={25} className='cursor-pointer' onClick={redirectToWishList} />
           <IoCartOutline size={25} className='cursor-pointer' onClick={redirectToCart} />
           {user ? (
             <div className="relative flex items-center " ref={dropdownRef}>
-              <button onClick={() => handleButtonbgchange()}  className={` w-10 ${dropdownVisible ? 'bg-[#DB4444]':""}  h-10 flex items-center  justify-center  rounded-full `}>
-                {/* <CgProfile size={25} /> */} <img  width={25} className={` ${dropdownVisible ? 'invert':""}`} src="Profile.png" alt="" />
+              <button onClick={() => handleButtonbgchange()} className={` w-10 ${dropdownVisible ? 'bg-[#DB4444]' : ""}  h-10 flex items-center  justify-center  rounded-full `}>
+                <img width={25} className={` ${dropdownVisible ? 'invert' : ""}`} src="Profile.png" alt="" />
               </button>
               {dropdownVisible && (
                 <div className="absolute right-0 top-8 mt-2 w-56 bg-gradient-to-r opacity-[90%] from-gray-900 via-gray-800 to-gray-600  bg-opacity-[20%] text-opacity-[80%] backdrop-filter: blur(16px); bg-clip-content text-white border rounded shadow-lg ">
-                  <Link to="/Profile" className="block px-4 py-2 text-[#FFFFFF flex items-center gap-3 hover:bg-gray-700"> <span><CgProfile size={25} /></span>Manage My Account</Link>
-                  <Link to="/Profile" className="block px-4 py-2 text-[#FFFFFF flex items-center gap-3 hover:bg-gray-700"> <span><BsBagCheck size={25} /></span>My Orders</Link>
-                  <Link to="/Profile" className="block px-4 py-2 text-[#FFFFFF flex items-center gap-3 hover:bg-gray-700"> <span><MdOutlineCancel size={25} /></span>My cancellations</Link>
-                  <Link to="/Profile" className="block px-4 py-2 text-[#FFFFFF flex items-center gap-3 hover:bg-gray-700"> <span><CiStar size={25} /></span>My Reviews</Link>
-                  <button onClick={handleLogout} className="block px-4 py-2 text-[#FFFFFF flex items-center gap-3 hover:bg-gray-700"><span><BiLogOut size={25} /></span>Logout</button>
+                  <Link to="/Profile" className="block px-4 py-2 text-[#FFFFFF flex items-center gap-3 hover:bg-gray-700 hover:rounded"> <span><CgProfile size={25} /></span>Manage My Account</Link>
+                  <Link to="/Profile" className="block px-4 py-2 text-[#FFFFFF flex items-center gap-3 hover:bg-gray-700 hover:rounded"> <span><BsBagCheck size={25} /></span>My Orders</Link>
+                  <Link to="/Profile" className="block px-4 py-2 text-[#FFFFFF flex items-center gap-3 hover:bg-gray-700 hover:rounded"> <span><MdOutlineCancel size={25} /></span>My cancellations</Link>
+                  <Link to="/Profile" className="block px-4 py-2 text-[#FFFFFF flex items-center gap-3 hover:bg-gray-700 hover:rounded"> <span><CiStar size={25} /></span>My Reviews</Link>
+                  <button onClick={handleLogout} className="block px-4 w-full py-2 text-[#FFFFFF flex items-center gap-3 hover:bg-gray-700 hover:rounded"><span><BiLogOut size={25} /></span>Logout</button>
                 </div>
               )}
             </div>

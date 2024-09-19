@@ -4,7 +4,7 @@ import Login from "./assets/Auth/Login";
 import Signup from "./assets/Auth/Signup";
 import Navbar from './componets/Navbar';
 import Profile from './Profile';
-import OtpVerification from '../OtpVerification';
+import OtpVerification from './assets/Auth/OtpVerification';
 import { AuthProvider } from './componets/authContext';
 import axios from 'axios';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
@@ -22,58 +22,31 @@ import WishList from './WishList/WishList';
 import ProductsPage from './componets/SearchProducts';
 import ElectronicsproductsList from './CategoriesPages/Electronics';
 import Checkout from './Checkout/Checkout';
-// import Wheel from './componets/Wheel';
-// import WheelComponet from './componets/Wheel';
+import ProtectedComponent from './assets/Auth/ProctedComponet';
 
+
+// import TestHome from './TestWEb/Homepage';
+// import StatesPage from './TestWEb/Interactivemap';
 
 function App() {
 
   const [user, setUser] = useState(null);
-  
-
-  // useEffect(() => {
-  //   const checkAuth = async () => {
-  //     try {
-  //       const response = await axios.get('/api/auth/session', { withCredentials: true });
-  //       console.log('Response Headers:', response.headers);
-  //       console.log('Response Data:', response.data);
-
-  //       const storedUser = localStorage.getItem('user');
-  //       if (storedUser) {
-  //         setUser(JSON.parse(storedUser));
-  //       }
-
-  //       const contentType = response.headers['content-type'];
-
-  //       if (contentType && contentType.includes('application/json')) {
-  //         setUser(response.data.user);
-  //       } else {
-  //         throw new Error('Unexpected response type');
-  //       }
-  //     } catch (error) {
-  //       console.error('Authentication check failed:', error);
-  //       setUser(null);
-  //     }
-  //   };
-  //   checkAuth();
-  // }, []);
 
   useEffect(() => {
     const checkAuth = async () => {
       try {
         const storedUser = localStorage.getItem('user');
         if (storedUser) {
-          setUser(JSON.parse(storedUser));
-        }
-
-        const response = await axios.get('/api/auth/session', { withCredentials: true });
-
-        const contentType = response.headers['content-type'];
-        if (contentType && contentType.includes('application/json')) {
-          setUser(response.data.user);
-          localStorage.setItem('user', JSON.stringify(response.data.user)); // Update localStorage with the latest user data
+          setUser(JSON.parse(storedUser));  // Set user from localStorage
         } else {
-          throw new Error('Unexpected response type');
+          const response = await axios.get('/api/auth/session', { withCredentials: true });
+          const contentType = response.headers['content-type'];
+          if (contentType && contentType.includes('application/json')) {
+            setUser(response.data.user);
+            localStorage.setItem('user', JSON.stringify(response.data.user)); // Update localStorage
+          } else {
+            throw new Error('Unexpected response type');
+          }
         }
       } catch (error) {
         console.error('Authentication check failed:', error);
@@ -81,8 +54,36 @@ function App() {
         localStorage.removeItem('user'); // Clear localStorage if the user is not authenticated
       }
     };
+  
     checkAuth();
   }, []);
+  
+
+  // useEffect(() => {
+  //   const checkAuth = async () => {
+  //     try {
+  //       const storedUser = localStorage.getItem('user');
+  //       if (storedUser) {
+  //         setUser(JSON.parse(storedUser));
+  //       }
+
+  //       const response = await axios.get('/api/auth/session', { withCredentials: true });
+
+  //       const contentType = response.headers['content-type'];
+  //       if (contentType && contentType.includes('application/json')) {
+  //         setUser(response.data.user);
+  //         localStorage.setItem('user', JSON.stringify(response.data.user)); // Update localStorage with the latest user data
+  //       } else {
+  //         throw new Error('Unexpected response type');
+  //       }
+  //     } catch (error) {
+  //       console.error('Authentication check failed:', error);
+  //       setUser(null);
+  //       localStorage.removeItem('user'); // Clear localStorage if the user is not authenticated
+  //     }
+  //   };
+  //   checkAuth();
+  // }, []);
 
   return (
     <>
@@ -114,7 +115,10 @@ function App() {
                   <Route path="/Checkout" element={<Checkout user={user} setUser={setUser} />} />
                   <Route path="/WishList" element={<WishList user={user} setUser={setUser} />} />
                   <Route path="/searchproducts" element={<ProductsPage />} />
+                  <Route path="/ProctedComponet" element={<ProtectedComponent user={user} setUser={setUser} />} />
                   {/* <Route path="/RollingWheeler" element={<Wheel />} /> */}
+                  {/* <Route path="/TestHome" element={<TestHome />} />
+                  <Route path="/State" element={<StatesPage />} /> */}
                   
 
                   <Route path="/home" element={user ? <Home user={user} /> : <Navigate to="/login" />} />

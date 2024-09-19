@@ -1,4 +1,5 @@
 import React from 'react'
+import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 import { FaIndianRupeeSign } from 'react-icons/fa6';
 import { useEffect } from 'react';
@@ -15,7 +16,8 @@ const Checkout = () => {
     const [selectedValue, setSelectedValue] = useState("");
     const [CheckoutItems, setCheckoutItems] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+    const [error, setErrors] = useState(null);
+    const [errors, setError] = useState({});
     const [discount, setDiscount] = useState(0);  // Discount percentage
     const [totalAfterDiscount, setTotalAfterDiscount] = useState(0);
     // Billing details state
@@ -33,6 +35,83 @@ const Checkout = () => {
     const [wheelIconVisible, setWheelIconVisible] = useState(true);
     const [isMsgVisible, setIsMsgVisible] = useState(true);
 
+    //Razorpay_PaymentGetWay
+    const [amount, setAmount] = useState(0);
+    const [orderId, setOrderId] = useState('');
+
+    // Call Razorpay API to create an order on button click
+    const createRazorpayOrder = async () => {
+        try {
+            const response = await axios.post('http://localhost:3000/api/createOrder', {
+                amount: totalAfterDiscount,
+                currency: 'INR',
+            });
+            setOrderId(response.data.id); // Store the order_id returned from Razorpay API
+            handleRazorpayPayment(response.data.id);
+        } catch (error) {
+            console.error('Error creating Razorpay order:', error);
+        }
+    };
+
+    // Function to load Razorpay script dynamically
+    const loadRazorpayScript = () => {
+        return new Promise((resolve) => {
+            const script = document.createElement('script');
+            script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+            script.onload = () => {
+                resolve(true);
+            };
+            script.onerror = () => {
+                resolve(false);
+            };
+            document.body.appendChild(script);
+        });
+    };
+
+    // Function to trigger the Razorpay payment UI
+    const handleRazorpayPayment = async (orderId) => {
+        const isScriptLoaded = await loadRazorpayScript();
+
+        if (!isScriptLoaded) {
+            alert('Failed to load Razorpay SDK. Please try again later.');
+            return;
+        }
+
+        const options = {
+            key: 'rzp_test_ngyG4h8LCdDkCg', // Replace with your Razorpay Key ID
+            amount: totalAfterDiscount * 100, // in paise
+            currency: 'INR',
+            name: 'EXCLUSIVE',
+            description: 'Test Transaction',
+            image: 'https://yourcompany.com/logo.png',
+            order_id: orderId, // This is the order_id returned by the backend
+            handler: (response) => {
+                alert('Payment successful! Payment ID: ' + response.razorpay_payment_id);
+                // Handle success (e.g., save payment details in your DB)
+            },
+            prefill: {
+                name: billingDetails.firstName,
+                email: billingDetails.emailAddress,
+                contact: billingDetails.phoneNumber,
+            },
+            theme: {
+                // color: '#3399cc',
+                color: '#ef5b36'
+            },
+        };
+
+        const rzp = new window.Razorpay(options);
+        rzp.open();
+    };
+
+    // Check if the user has already spun the wheel
+    useEffect(() => {
+        const hasSpun = localStorage.getItem('hasSpunWheel');
+        if (hasSpun === 'true') {
+            setWheelSpun(true);
+            setWheelIconVisible(false); // Hide the wheel icon if the user has already spun
+        }
+    }, []);
 
     const handleBillingChange = (e) => {
         setBillingDetails({
@@ -41,35 +120,73 @@ const Checkout = () => {
         });
     };
 
+
+
+    const validate = () => {
+        const errors = {};
+
+        if (billingDetails.firstName.length <= 0) {
+            errors.firstName = 'First Name is required';
+        }
+
+        if (billingDetails.streetAddress.length <= 0 && billingDetails.streetAddress.length >= 80) {
+            errors.streetAddress = 'Street Address is required and max length is 80 ';
+        }
+
+        if (billingDetails.city.length <= 0) {
+            errors.city = 'Town/City is required';
+        }
+
+        if (billingDetails.phoneNumber.length !== 10) {
+            errors.phoneNumber = 'Please enter 10 Digits and Not String';
+        } else if (!/^\d+$/.test(billingDetails.phoneNumber)) {
+            errors.phoneNumber = 'Phone Number must be digits only';
+        }
+
+        if (billingDetails.emailAddress.length <= 0) {
+            errors.emailAddress = 'Email Address is required';
+        } else if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/.test(billingDetails.emailAddress)) {
+            errors.emailAddress = 'Email Address is invalid';
+        }
+
+        return errors;
+    };
+
     const handleSubmitBillingDetails = async () => {
-        try {
-            const userEmail = JSON.parse(localStorage.getItem('user'))?.email;
-            await axios.post('http://localhost:3000/api/saveUsersBillingDetails', {
-                email: userEmail,
-                ...billingDetails,
-            });
-            alert('Billing details saved successfully');
-        } catch (error) {
-            console.error('Error saving billing details:', error);
-            alert('Failed to save billing details');
+        const formErrors = validate();
+        if (Object.keys(formErrors).length === 0) {
+            try {
+                const userEmail = JSON.parse(localStorage.getItem('user'))?.email;
+                await axios.post('http://localhost:3000/api/saveUsersBillingDetails', {
+                    email: userEmail,
+                    ...billingDetails,
+                });
+                alert('Billing details saved successfully');
+            } catch (error) {
+                console.error('Error saving billing details:', error);
+                alert('Failed to save billing details');
+            }
+        }
+        else {
+            setError(formErrors);
         }
     };
+
     useEffect(() => {
-        const fetchCheckoutData = async () => {
+        const FetchUserBillingDetails = async () => {
             try {
                 const userEmail = JSON.parse(localStorage.getItem('user'))?.email;
                 const response = await axios.get(`http://localhost:3000/api/getUsersBillingDetails/${userEmail}`);
                 setBillingDetails(response.data);
             } catch (err) {
-                // console.error('Error fetching billing details:', err);
-                // setError(err.message);
+                console.error('Error fetching billing details:', err);
+                setError(err.message);
             } finally {
                 setLoading(false);
             }
         };
-        fetchCheckoutData();
+        FetchUserBillingDetails();
     }, []);
-
 
     const handleChange = (event) => {
         setSelectedValue(event.target.value);
@@ -83,7 +200,7 @@ const Checkout = () => {
                 const response = await axios.get(`http://localhost:3000/api/getAllProductsCheckoutData/${userEmail}`);
                 setCheckoutItems(response.data);
             } catch (err) {
-                // setError(err.message);
+                // setErrors(err.message);
             } finally {
                 setLoading(false);
             }
@@ -99,7 +216,7 @@ const Checkout = () => {
                 const response = await axios.get(`http://localhost:3000/api/getFlashProductsCheckoutData/${userEmail}`);
                 setCheckoutItems(response.data);
             } catch (err) {
-                // setError(err.message);
+                // setErrors(err.message);
             } finally {
                 setLoading(false);
             }
@@ -114,7 +231,7 @@ const Checkout = () => {
                 const response = await axios.get(`http://localhost:3000/api/getThisMonthBestProductsCheckoutData/${userEmail}`);
                 setCheckoutItems(response.data);
             } catch (err) {
-                // setError(err.message);
+                // setErrors(err.message);
             } finally {
                 setLoading(false);
             }
@@ -170,9 +287,9 @@ const Checkout = () => {
     const handleWheelSpin = () => {
         if (!wheelSpun) {
             setWheelSpun(true); // Ensure it spins only once
-            //   setWheelVisible(true); // Show the wheel
             setWheelIconVisible(false); // Hide the wheel icon
-            //   setWheelVisible(false);
+            localStorage.setItem('hasSpunWheel', 'true');
+
             setTimeout(() => {
                 setWheelVisible(false); // Hide the wheel after 10 seconds
             }, 6000);
@@ -243,36 +360,43 @@ const Checkout = () => {
                         <div className='flex flex-col gap-1'>
                             <label className='text-gray-400' htmlFor="FirstName ">First Name<span className='text-red-300 text-lg'>*</span></label>
                             <input className='bg-gray-100 h-10 rounded-md px-3' type="text" name="firstName" value={billingDetails.firstName} onChange={handleBillingChange} />
+                            {errors.firstName && <p className='text-red-500'>{errors.firstName}</p>}
                         </div>
 
                         <div className='flex flex-col gap-1'>
                             <label className='text-gray-400' htmlFor="FirstName">Company Name</label>
                             <input className='bg-gray-100 h-10 rounded-md px-3' type="text" name="companyName" value={billingDetails.companyName} onChange={handleBillingChange} />
+                            {errors.companyName && <p className='text-red-500'>{errors.companyName}</p>}
                         </div>
 
                         <div className='flex flex-col gap-1'>
                             <label className='text-gray-400' htmlFor="FirstName">Street Address<span className='text-red-300 text-lg'>*</span></label>
                             <input className='bg-gray-100 h-10 rounded-md px-3' type="text" name="streetAddress" value={billingDetails.streetAddress} onChange={handleBillingChange} />
+                            {errors.streetAddress && <p className='text-red-500'>{errors.streetAddress}</p>}
                         </div>
 
                         <div className='flex flex-col gap-1'>
                             <label className='text-gray-400' htmlFor="FirstName">Aparment,floor,etc.(optional)</label>
                             <input className='bg-gray-100 h-10 rounded-md px-3' type="text" name="apartment" value={billingDetails.apartment} onChange={handleBillingChange} />
+                            {/* {error.apartment && <p className='text-red-500'>{error.apartment}</p>} */}
                         </div>
 
                         <div className='flex flex-col gap-1'>
                             <label className='text-gray-400' htmlFor="FirstName">Town/City<span className='text-red-300 text-lg'>*</span></label>
                             <input className='bg-gray-100 h-10 rounded-md px-3' type="text" name="city" value={billingDetails.city} onChange={handleBillingChange} />
+                            {errors.city && <p className='text-red-500'>{errors.city}</p>}
                         </div>
 
                         <div className='flex flex-col gap-1'>
                             <label className='text-gray-400' htmlFor="FirstName">Phone Number<span className='text-red-300 text-lg'>*</span></label>
                             <input className='bg-gray-100 h-10 rounded-md px-3' type="text" name="phoneNumber" value={billingDetails.phoneNumber} onChange={handleBillingChange} />
+                            {errors.phoneNumber && <p className='text-red-500'>{errors.phoneNumber}</p>}
                         </div>
 
                         <div className='flex flex-col gap-1'>
                             <label className='text-gray-400' htmlFor="FirstName">Email Addres<span className='text-red-300 text-lg'>*</span></label>
                             <input className='bg-gray-100 h-10 rounded-md px-3' type="text" name="emailAddress" value={billingDetails.emailAddress} onChange={handleBillingChange} />
+                            {errors.emailAddress && <p className='text-red-500'>{errors.emailAddress}</p>}
                         </div>
                         <div className="Guidelines text-green-400 flex items-center gap">
                             <span className='text-2xl'>*</span>Add the details once, then edit if needed. <span className='text-2xl'>*</span>
@@ -283,6 +407,7 @@ const Checkout = () => {
                         <button className='p-3 pr-8 pl-8 border bg-[#DB4444] text-white rounded-sm' onClick={handleSubmitBillingDetails}>Submit</button>
                     </div>
                 </section>
+
 
                 <section className='ProductsData flex flex-col gap-7 mt-36'>
                     <div className="products flex flex-col gap-7 overflow-auto scrollbar-hidden w-[40vw] max-h-[30vh]">
@@ -357,7 +482,7 @@ const Checkout = () => {
                     <CouponComponent onApplyCoupon={setDiscount} />
 
                     <div className="Placeorder">
-                        <button className='p-3 pr-8 pl-8 border bg-[#DB4444] text-white rounded-sm'>Place Order</button>
+                        <button className='p-3 pr-8 pl-8 border bg-[#DB4444] text-white rounded-sm' onClick={createRazorpayOrder}>Place Order</button>
                     </div>
 
                 </section>

@@ -34,83 +34,11 @@ const Login = ({user,setUser}) => {
         console.error('Error validating session:', err);
       });
   }, [setUser, login]);
-
-
   
-
-
-// useEffect(() => {
-//   const token = localStorage.getItem('token');
-//   if (token) {
-//     fetch("http://localhost:3000/api/auth/session", {
-//       method: "GET",
-//       headers: { "Authorization": `Bearer ${token}` }
-//     })
-//     .then(response => response.json())
-//     .then(data => {
-//       if (data.user) {
-//         setUser(data.user);
-//         login(data.user);
-//       } else {
-//         localStorage.removeItem('token');
-//       }
-//     })
-//     .catch(err => {
-//       console.error('Error validating token:', err);
-//       localStorage.removeItem('token');
-//     });
-//   }
-// }, [setUser, login]);
-
-
 const submit = async (e) => {
   e.preventDefault();
 
-  // try {
-  //   const response = await fetch("http://localhost:3000/Login", {
-  //     method: "POST",
-  //     headers: { "Content-Type": "application/json" },
-  //     body: JSON.stringify({ email, password }),
-  //     credentials: "include"
-  //   });
-
-  //   const data = await response.json();
-  //   console.log('Server response:', data);
-
-
-  //   if (!response.ok) {
-  //     throw new Error(data.message || 'Failed to submit form');
-  //   }
-
-
-  //   if (data.success) {
-  //     const user = data.user;
-  //     // const token = data.token; 
-
-  //     // if (!token) {
-  //     //   throw new Error('Token is undefined');
-  //     // }
-
-  //     setUser(user);
-  //     login(user);
-  //     // localStorage.setItem('token', token);
-  //     localStorage.setItem('user', JSON.stringify(user));
-  //     localStorage.setItem('emailForOtp', email);
-
-  //     navigate('/verify-otp'); // Redirect to OTP verification page
-  //   } else {
-  //     throw new Error('User data is undefined');
-  //   }
-
-
-  //   // // setUser(data.user);
-  //   // // localStorage.setItem('user', JSON.stringify(data.user));
-  //   // localStorage.setItem('emailForOtp', email);
-  //   // navigate('/verify-otp'); // Redirect to OTP verification page
-  // } catch (error) {
-  //   console.error('Error submitting form:', error.message);
-  //   setError(error.message);
-  // }
+ 
 
   try {
     const response = await axios.post("http://localhost:3000/Login", 

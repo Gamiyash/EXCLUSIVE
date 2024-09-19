@@ -31,7 +31,7 @@ router.post('/saveUsersBillingDetails', async (req, res) => {
 
         // Use updateOne with upsert to update or insert if not existing
         const result = await billingCollection.updateOne(
-            { emailAddress }, // Match by the user's email address
+            { email }, // Match by the user's email address
             { $set: billingDetails }, // Update the fields
             { upsert: true } // Insert a new document if no match is found
         );

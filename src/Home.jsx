@@ -218,7 +218,7 @@ const Home = ({user}) => {
           <div
             ref={flashSalesRef}
             className="cards flex items-center gap-5 overflow-x-auto"
-            style={{ scrollbarWidth: 'none', '-ms-overflow-style': 'none' }}
+            style={{ scrollbarWidth: 'none', 'msOverflowStyle': 'none' }}
           >
             <div>
               {/* <Flashlist /> */}
@@ -258,7 +258,7 @@ const Home = ({user}) => {
           <div
             ref={categoriesRef}
             className="cards flex items-center gap-5 overflow-x-auto"
-            style={{ scrollbarWidth: 'none', '-ms-overflow-style': 'none' }}
+            style={{ scrollbarWidth: 'none', 'msOverflowStyle': 'none' }}
           >
             {categories.map((category, index) => (
               <Categories key={index} category={category} />
@@ -282,7 +282,7 @@ const Home = ({user}) => {
           <div
             ref={ThismonthRef}
             className="cards flex items-center gap-5 overflow-x-auto"
-            style={{ scrollbarWidth: 'none', '-ms-overflow-style': 'none' }}
+            style={{ scrollbarWidth: 'none', 'msOverflowStyle': 'none' }}
           >
             <div>
               <div className="product-list flex gap-3 ">
@@ -319,7 +319,7 @@ const Home = ({user}) => {
           <div
             ref={Allproductref}
             className="cards flex items-center gap-5 overflow-x-auto"
-            style={{ scrollbarWidth: 'none', '-ms-overflow-style': 'none' }} >
+            style={{ scrollbarWidth: 'none', 'msOverflowStyle': 'none' }} >
             <div>
               <div className="product-list flex gap-3 ">
                 {products.map(product => (
