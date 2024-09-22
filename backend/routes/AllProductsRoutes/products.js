@@ -100,7 +100,7 @@ router.get('/search', async (req, res) => {
     // Calculate relevance score for each product
     products = products.map(product => {
       const relevance = calculateRelevanceScore(query, product);
-      console.log(`Product: ${product.name}, Score: ${relevance.score}, Matched Keyword: ${relevance.matchedKeyword}`);
+      // console.log(`Product: ${product.name}, Score: ${relevance.score}, Matched Keyword: ${relevance.matchedKeyword}`);
       return {
         ...product.toObject(),
         relevanceScore: relevance.score,
@@ -132,11 +132,11 @@ router.post('/products', async (req, res) => {
     sideimg2,
     sideimg3,
     sideimg4,
-    offerPrice,
+    offng,
+    discerPrice,
     actualPrice,
     discount,
-    rating,
-    discription,
+    ratiription,
     size,
     type
   });

@@ -3,7 +3,9 @@ import Home from "./Home"
 import Login from "./assets/Auth/Login";
 import Signup from "./assets/Auth/Signup";
 import Navbar from './componets/Navbar';
-import Profile from './Profile';
+import Profile from './UserProfile/Profile';
+import HistoryPage from './UserProfile/HistoryPage';
+import OrderHistoryDetails from './UserProfile/OrderHistoryDetails';
 import OtpVerification from './assets/Auth/OtpVerification';
 import { AuthProvider } from './componets/authContext';
 import axios from 'axios';
@@ -116,6 +118,8 @@ function App() {
                   <Route path="/WishList" element={<WishList user={user} setUser={setUser} />} />
                   <Route path="/searchproducts" element={<ProductsPage />} />
                   <Route path="/ProctedComponet" element={<ProtectedComponent user={user} setUser={setUser} />} />
+                  <Route path="/orderHistory" element={<HistoryPage />} />
+                  <Route path="/orderHistoryDetails/:orderId" element={<OrderHistoryDetails/>} />
                   {/* <Route path="/RollingWheeler" element={<Wheel />} /> */}
                   {/* <Route path="/TestHome" element={<TestHome />} />
                   <Route path="/State" element={<StatesPage />} /> */}
@@ -129,6 +133,7 @@ function App() {
                   <Route path="/Login" element={<Navigate to="/home" />} />
                   <Route path="/Home" element={<Navigate to="/Cart" />} />
                   <Route path="/Cart" element={<Navigate to="/Checkout" />} />
+                  
                 </Routes>
               </div>
             </div>

@@ -14,8 +14,8 @@ const { sendOtpEmail, sendLoginSuccessEmail } = require('./mailer');
 const productRoutes = require('./routes/AllProductsRoutes/products');
 const FlashProductRoutes = require('./routes/FlashProductsRoutes/FlashProducts')
 const ThismonthRoutes = require('./routes/ThisMonthBestProductsRoutes/Thismonth')
-const WomenFashionRoutes = require("./routes/WomenFashionProductsRoutes/WomenFashionRoute")
-const MensFashionRoutes = require('./routes/MensFashionProductsRoutes/MensFashionProducts')
+// const WomenFashionRoutes = require("./routes/WomenFashionProductsRoutes/WomenFashionRoute")
+// const MensFashionRoutes = require('./routes/MensFashionProductsRoutes/MensFashionProducts')
 const FlashcartRoutes = require('./routes/FlashProductsRoutes/Flashsalecart')
 const DeleteProductRoutes = require("./routes/CartRoutes/DeleteperticularProduct")
 const DeleteWishListProducts = require("./routes/WishlistDeleteroute/WishlistDeleteRoutr")
@@ -23,16 +23,16 @@ const ClearAllProductRoutes = require('./routes/CartRoutes/CleareAllProduct')
 const UpdateCartRoutes = require('./routes/CartRoutes/UpdateCartRoute')
 const productcartRoutes = require("./routes/AllProductsRoutes/Productcart")
 const ThismonthscartRoutes = require("./routes/ThisMonthBestProductsRoutes/Thismonthcart")
-const WomenFashionCartRoutes = require('./routes/WomenFashionProductsRoutes/WomenFashionCart')
+// const WomenFashionCartRoutes = require('./routes/WomenFashionProductsRoutes/WomenFashionCart')
 const WomenFashionWishListRoutes = require('./routes/AllProductsRoutes/WishList')
 const FlashWishlistRoutes = require("./routes/FlashProductsRoutes/FlashWishlist")
 const ThismonthWishlistRoutes = require('./routes/ThisMonthBestProductsRoutes/ThisMonthWishlist')
-const MensFashionCartRoutes = require('./routes/MensFashionProductsRoutes/MensFashionCart')
+// const MensFashionCartRoutes = require('./routes/MensFashionProductsRoutes/MensFashionCart')
 const flashproductcommentRoutes = require("./routes/FlashProductsRoutes/flashproductcomment")
 const ProductcemmentsRoutes = require("./routes/AllProductsRoutes/Productcomment")
 const ThismonthcommentsRoutes = require("./routes/ThisMonthBestProductsRoutes/Thismonthcomment")
-const WomenFashionCommentRoutes = require('./routes/WomenFashionProductsRoutes/WomenFashionComment')
-const MensFashionCommentsRoutes = require('./routes/MensFashionProductsRoutes/MensFashionComments')
+// const WomenFashionCommentRoutes = require('./routes/WomenFashionProductsRoutes/WomenFashionComment')
+// const MensFashionCommentsRoutes = require('./routes/MensFashionProductsRoutes/MensFashionComments')
 
 //Cuppon Route
 const CupponRoute = require('./routes/Cuppon/Cuppon')
@@ -111,8 +111,8 @@ app.use(cookieParser());
 app.use('/api', productRoutes);
 app.use('/api', FlashProductRoutes);
 app.use('/api', ThismonthRoutes);
-app.use('/api', WomenFashionRoutes);
-app.use('/api', MensFashionRoutes)
+// app.use('/api', WomenFashionRoutes);
+// app.use('/api', MensFashionRoutes)
 app.use('/api', FlashcartRoutes);
 app.use("/api", DeleteProductRoutes);
 app.use('/api', DeleteWishListProducts);
@@ -120,13 +120,13 @@ app.use('/api', ClearAllProductRoutes);
 app.use('/api', UpdateCartRoutes);
 app.use('/api', productcartRoutes);
 app.use('/api', ThismonthscartRoutes);
-app.use('/api', WomenFashionCartRoutes);
-app.use('/api', MensFashionCartRoutes);
+// app.use('/api', WomenFashionCartRoutes);
+// app.use('/api', MensFashionCartRoutes);
 app.use('/api/Flashproducts', flashproductcommentRoutes);
 app.use('/api/products', ProductcemmentsRoutes);
 app.use('/api/Thismonth', ThismonthcommentsRoutes);
-app.use('/api/WomenFashion', WomenFashionCommentRoutes);
-app.use('/api/MensFashion', MensFashionCommentsRoutes)
+// app.use('/api/WomenFashion', WomenFashionCommentRoutes);
+// app.use('/api/MensFashion', MensFashionCommentsRoutes)
 app.use('/api', WomenFashionWishListRoutes);
 app.use('/api', FlashWishlistRoutes)
 app.use('/api', ThismonthWishlistRoutes)

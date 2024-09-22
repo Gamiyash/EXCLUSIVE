@@ -92,22 +92,6 @@ const Navbar = ({ user, setUser }) => {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  // useEffect(() => {
-  //   // Fetch user data from localStorage
-  //   const storedUser = localStorage.getItem('user');
-  //   if (storedUser) {
-  //     setUser(JSON.parse(storedUser));
-  //   }
-
-  //   const handleClickOutside = (event) => {
-  //     if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-  //       setDropdownVisible(false);
-  //     }
-  //   };
-
-  //   document.addEventListener('mousedown', handleClickOutside);
-  //   return () => document.removeEventListener('mousedown', handleClickOutside);
-  // }, [setUser]);
   const navigate = useNavigate();
 
   const handleLogout = async () => {
@@ -164,7 +148,7 @@ const Navbar = ({ user, setUser }) => {
               {dropdownVisible && (
                 <div className="absolute right-0 top-8 mt-2 w-56 bg-gradient-to-r opacity-[90%] from-gray-900 via-gray-800 to-gray-600  bg-opacity-[20%] text-opacity-[80%] backdrop-filter: blur(16px); bg-clip-content text-white border rounded shadow-lg ">
                   <Link to="/Profile" className="block px-4 py-2 text-[#FFFFFF flex items-center gap-3 hover:bg-gray-700 hover:rounded"> <span><CgProfile size={25} /></span>Manage My Account</Link>
-                  <Link to="/Profile" className="block px-4 py-2 text-[#FFFFFF flex items-center gap-3 hover:bg-gray-700 hover:rounded"> <span><BsBagCheck size={25} /></span>My Orders</Link>
+                  <Link to="/orderHistory" className="block px-4 py-2 text-[#FFFFFF flex items-center gap-3 hover:bg-gray-700 hover:rounded"> <span><BsBagCheck size={25} /></span>My Orders</Link>
                   <Link to="/Profile" className="block px-4 py-2 text-[#FFFFFF flex items-center gap-3 hover:bg-gray-700 hover:rounded"> <span><MdOutlineCancel size={25} /></span>My cancellations</Link>
                   <Link to="/Profile" className="block px-4 py-2 text-[#FFFFFF flex items-center gap-3 hover:bg-gray-700 hover:rounded"> <span><CiStar size={25} /></span>My Reviews</Link>
                   <button onClick={handleLogout} className="block px-4 w-full py-2 text-[#FFFFFF flex items-center gap-3 hover:bg-gray-700 hover:rounded"><span><BiLogOut size={25} /></span>Logout</button>

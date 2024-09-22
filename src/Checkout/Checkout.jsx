@@ -8,6 +8,7 @@ import CouponComponent from '../componets/CupponComponet';
 import Wheel from '../componets/RollingWheeler';
 import { RxCross2 } from "react-icons/rx";
 import { IoMdHappy } from "react-icons/io";
+import { useNavigate } from 'react-router';
 // import { FaTrash } from 'react-icons/fa';
 // import { MdOutlineKeyboardArrowUp, MdOutlineKeyboardArrowDown } from 'react-icons/md';
 // import { useNavigate } from 'react-router-dom';
@@ -34,6 +35,8 @@ const Checkout = () => {
     const [wheelSpun, setWheelSpun] = useState(false);
     const [wheelIconVisible, setWheelIconVisible] = useState(true);
     const [isMsgVisible, setIsMsgVisible] = useState(true);
+
+    const navigate = useNavigate();
 
     //Razorpay_PaymentGetWay
     const [amount, setAmount] = useState(0);
@@ -71,7 +74,6 @@ const Checkout = () => {
     // Function to trigger the Razorpay payment UI
     const handleRazorpayPayment = async (orderId) => {
         const isScriptLoaded = await loadRazorpayScript();
-
         if (!isScriptLoaded) {
             alert('Failed to load Razorpay SDK. Please try again later.');
             return;
@@ -83,11 +85,28 @@ const Checkout = () => {
             currency: 'INR',
             name: 'EXCLUSIVE',
             description: 'Test Transaction',
-            image: 'https://yourcompany.com/logo.png',
+            image: '../Exclusive.png',
             order_id: orderId, // This is the order_id returned by the backend
-            handler: (response) => {
-                alert('Payment successful! Payment ID: ' + response.razorpay_payment_id);
+            handler: async (response) => {
+                const { razorpay_payment_id, razorpay_order_id, razorpay_signature } = response;
+                alert('Payment successful! Payment ID: ' + razorpay_payment_id);
                 // Handle success (e.g., save payment details in your DB)
+
+                try {
+                    const userEmail = JSON.parse(localStorage.getItem('user'))?.email;
+                    const verificationResponse = await axios.post('http://localhost:3000/api/verifyPayment', {
+                        order_id: razorpay_order_id,
+                        payment_id: razorpay_payment_id,
+                        signature: razorpay_signature,
+                        email: userEmail
+                    });
+
+                    alert('Payment verification status: ' + verificationResponse.data); 
+                    navigate('/orderHistory')
+                } catch (error) {
+                    console.error('Error verifying payment:', error);
+                    alert('Payment verification failed');
+                }
             },
             prefill: {
                 name: billingDetails.firstName,

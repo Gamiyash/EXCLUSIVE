@@ -102,7 +102,7 @@ const Allproducts = ({ product ,user}) => {
 
     return (
         <div
-            className="card mb-7 p-2 w-[300px] flex flex-col items-start justify-start relative hover:bg-[#ffff] hover:scale-105 transition-transform hover:shadow-md "
+            className="card mb-7 p-2 w-[300px] flex flex-col items-start justify-start relative hover:bg-[#ffff] hover:scale-105 transition-transform hover:shadow-md"
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
         >
