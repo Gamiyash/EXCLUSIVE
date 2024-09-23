@@ -6,6 +6,7 @@ import { FaIndianRupeeSign, FaPlus, FaMinus } from 'react-icons/fa6';
 import { CiHeart } from 'react-icons/ci';
 import { FaArrowCircleRight, FaArrowCircleLeft } from 'react-icons/fa';
 import Allproducts from '../AllProducts/Allproducts';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -22,6 +23,7 @@ const ThisMonthBestProductsDetails = ({ user, productId }) => {
     const [commentError, setCommentError] = useState('');
     const [products, setProducts] = useState([]);
 
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchProducts = async () => {
@@ -91,7 +93,7 @@ const ThisMonthBestProductsDetails = ({ user, productId }) => {
             console.log('User object:', user);
             // const username = user.email;
             const payload = {
-           
+
                 email: userEmail,  // Ensure user is defined and has an email
                 productId: product._id,      // Ensure _id is defined
                 offerPrice: product.offerPrice,  // Ensure offerPrice is a valid number
@@ -176,7 +178,7 @@ const ThisMonthBestProductsDetails = ({ user, productId }) => {
         }
     };
 
-    
+
     function numberWithCommas(num) {
         // Convert number to string and handle decimal places
         let [integerPart, decimalPart] = num.toString().split('.');
@@ -326,6 +328,9 @@ const ThisMonthBestProductsDetails = ({ user, productId }) => {
             <div className="comments-section mt-10 px-10">
                 <h3 className="font-bold text-xl mb-4">Comments</h3>
                 <div className="comments-list mb-4">
+                    {!user && (
+                        navigate('/login')
+                    )}
                     {comments.length > 0 ? (
                         comments.map((comment, index) => (
                             <div key={index} className="comment bg-gray-100 p-3 rounded-md mb-2">

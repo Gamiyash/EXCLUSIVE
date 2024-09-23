@@ -32,7 +32,7 @@ const Signup = () => {
       if (!response.ok) {
         throw new Error(result.message || 'Failed to submit form');
       }
-      
+
 
       console.log(result);
       setUser(result.user)
@@ -52,7 +52,7 @@ const Signup = () => {
         {/* <SignupNavbar /> */}
         {errors.submitError && <p className="text-red-500 text-lg text-center mb-4">{errors.submitError.message}</p>}
         <div className="flex items-center flex-col sm:flex-row 2xl:gap-44 xl:gap-44 lg:gap-32 lg:pb-20 md:gap-16 md:pb-20 sm:gap-10 sm:pb-16">
-          <div className="img flex justify-center pt-12 sm:justify-start items-center my-14 sm:my-0">
+          <div className="img flex justify-center  sm:justify-start items-center pb-10 sm:my-0">
             <img className="w-full sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl 2xl:max-w-[1000px]" src="../SignupBg.jpg" alt="Signup Background" />
           </div>
 
@@ -101,10 +101,12 @@ const Signup = () => {
 
             <div className="buttons flex flex-col w-full pt-5">
               <div className="btn flex justify-center sm:justify-start items-center pb-5 lg:pb-4 md:pb-3">
-                <button disabled={isSubmitting} type='submit' className="bg-[#DB4444] hover:bg-red-600 px-24 py-3 text-white">Create Account</button>
+                <button disabled={isSubmitting} type='submit' className="bg-[#DB4444] hover:bg-red-600 w-full px-24 py-3 text-white">Create Account</button>
               </div>
               <div className="btn flex justify-center sm:justify-start items-center pb-5 lg:pb-4 md:pb-3">
-                <button type="button" className="bg-[#DB4444] px-24 py-3 text-white"  onClick={() => window.location.href = 'http://localhost:3000/api/auth/google'}>Continue with Google</button>
+                <button type="button" className="bg-white w-full text-gray-500 font-bold flex gap-3 text-lg items-center px-16 py-3 shadow-md  " onClick={() => window.location.href = 'http://localhost:3000/api/auth/google'}>
+                  <span><img width={25} src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0iMTgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48cGF0aCBkPSJNMTcuNiA5LjJsLS4xLTEuOEg5djMuNGg0LjhDMTMuNiAxMiAxMyAxMyAxMiAxMy42djIuMmgzYTguOCA4LjggMCAwIDAgMi42LTYuNnoiIGZpbGw9IiM0Mjg1RjQiIGZpbGwtcnVsZT0ibm9uemVybyIvPjxwYXRoIGQ9Ik05IDE4YzIuNCAwIDQuNS0uOCA2LTIuMmwtMy0yLjJhNS40IDUuNCAwIDAgMS04LTIuOUgxVjEzYTkgOSAwIDAgMCA4IDV6IiBmaWxsPSIjMzRBODUzIiBmaWxsLXJ1bGU9Im5vbnplcm8iLz48cGF0aCBkPSJNNCAxMC43YTUuNCA1LjQgMCAwIDEgMC0zLjRWNUgxYTkgOSAwIDAgMCAwIDhsMy0yLjN6IiBmaWxsPSIjRkJCQzA1IiBmaWxsLXJ1bGU9Im5vbnplcm8iLz48cGF0aCBkPSJNOSAzLjZjMS4zIDAgMi41LjQgMy40IDEuM0wxNSAyLjNBOSA5IDAgMCAwIDEgNWwzIDIuNGE1LjQgNS40IDAgMCAxIDUtMy43eiIgZmlsbD0iI0VBNDMzNSIgZmlsbC1ydWxlPSJub256ZXJvIi8+PHBhdGggZD0iTTAgMGgxOHYxOEgweiIvPjwvZz48L3N2Zz4=" alt="" /></span><span>Continue with Google</span>
+                </button>
               </div>
             </div>
           </form>

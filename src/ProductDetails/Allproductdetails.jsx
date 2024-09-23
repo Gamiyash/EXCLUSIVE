@@ -9,6 +9,7 @@ import { FaIndianRupeeSign, FaPlus, FaMinus } from 'react-icons/fa6';
 import { CiHeart } from 'react-icons/ci';
 import { FaArrowCircleRight, FaArrowCircleLeft } from 'react-icons/fa';
 import Allproducts from '../AllProducts/Allproducts';
+import { useNavigate } from 'react-router-dom';
 
 
 const AllProductDetails = ({ user, productId }) => {
@@ -24,6 +25,8 @@ const AllProductDetails = ({ user, productId }) => {
     const [commentError, setCommentError] = useState('');
 
     const [products, setProducts] = useState([]);
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchProducts = async () => {
@@ -88,33 +91,37 @@ const AllProductDetails = ({ user, productId }) => {
             return;
         }
         // const userEmail = JSON.parse(localStorage.getItem('user'))?.email
+        if (user) {
+            try {
+                const userEmail = JSON.parse(localStorage.getItem('user'))?.email;
+                console.log('User object:', user);
+                // const username = user.email;
+                const payload = {
+                    email: userEmail,  // Ensure user is defined and has an email
+                    productId: product._id,      // Ensure _id is defined
+                    offerPrice: product.offerPrice,  // Ensure offerPrice is a valid number
+                    discription: product.discription,  // Ensure discription is not empty
+                    quantity,         // Ensure quantity is a valid number
+                    size: selectedSize       // Ensure size is a valid string
+                };
 
-        try {
-            const userEmail = JSON.parse(localStorage.getItem('user'))?.email;
-            console.log('User object:', user);
-            // const username = user.email;
-            const payload = {
-                email: userEmail,  // Ensure user is defined and has an email
-                productId: product._id,      // Ensure _id is defined
-                offerPrice: product.offerPrice,  // Ensure offerPrice is a valid number
-                discription: product.discription,  // Ensure discription is not empty
-                quantity,         // Ensure quantity is a valid number
-                size: selectedSize       // Ensure size is a valid string
-            };
+                // console.log('Payload:', payload);
 
-            // console.log('Payload:', payload);
+                await axios.post('http://localhost:3000/api/addToCartallproduct', payload, {
+                    withCredentials: true
+                });
 
-            await axios.post('http://localhost:3000/api/addToCartallproduct', payload, {
-                withCredentials: true
-            });
+                // await axios.post('http://localhost:3000/api/Checkout', payload, {
+                //     withCredentials: true
+                // });
 
-            // await axios.post('http://localhost:3000/api/Checkout', payload, {
-            //     withCredentials: true
-            // });
-
-            alert('Product added to cart!');
-        } catch (error) {
-            console.error('Error adding product to cart:', error.response?.data || error.message);
+                alert('Product added to cart!');
+            } catch (error) {
+                console.error('Error adding product to cart:', error.response?.data || error.message);
+            }
+        } else {
+            alert("Please Login")
+            navigate('/login')
         }
     };
 
@@ -200,24 +207,29 @@ const AllProductDetails = ({ user, productId }) => {
 
 
     const AddtoWishList = async () => {
-        try {
-            const userEmail = JSON.parse(localStorage.getItem('user'))?.email;
-            const payload1 = {
-                email: userEmail,  // Ensure user is defined and has an email
-                productId: product._id,      // Ensure _id is defined
-                offerPrice: product.offerPrice,  // Ensure offerPrice is a valid number
-                discription: product.discription,  // Ensure discription is not empty
-                quantity: 1,           // Ensure quantity is a valid number
-                size: 'M'       // Ensure size is a valid string 
-            };
+        if (user) {
+            try {
+                const userEmail = JSON.parse(localStorage.getItem('user'))?.email;
+                const payload1 = {
+                    email: userEmail,  // Ensure user is defined and has an email
+                    productId: product._id,      // Ensure _id is defined
+                    offerPrice: product.offerPrice,  // Ensure offerPrice is a valid number
+                    discription: product.discription,  // Ensure discription is not empty
+                    quantity: 1,           // Ensure quantity is a valid number
+                    size: 'M'       // Ensure size is a valid string 
+                };
 
-            await axios.post('http://localhost:3000/api/addToWishList', payload1, {
-                withCredentials: true
-            });
+                await axios.post('http://localhost:3000/api/addToWishList', payload1, {
+                    withCredentials: true
+                });
 
-            alert('Product added to Wishlist!');
-        } catch (error) {
-            console.error('Error adding product to wishlist:', error.response?.data || error.message);
+                alert('Product added to Wishlist!');
+            } catch (error) {
+                console.error('Error adding product to wishlist:', error.response?.data || error.message);
+            }
+        } else {
+            alert("Please Login")
+            navigate('/login')
         }
     };
 
@@ -337,6 +349,10 @@ const AllProductDetails = ({ user, productId }) => {
             <div className="comments-section mt-10 px-10">
                 <h3 className="font-bold text-xl mb-4">Comments</h3>
                 <div className="comments-list mb-4">
+                    {!user && (
+                        navigate('/login')
+                    )}
+
                     {comments.length > 0 ? (
                         comments.map((comment, index) => (
                             <div key={index} className="comment bg-gray-100 p-3 rounded-md mb-2">
@@ -353,6 +369,7 @@ const AllProductDetails = ({ user, productId }) => {
                         ))
                     ) : (
                         <p>No comments yet.</p>
+                        // navigate('/login')
                     )}
                 </div>
 

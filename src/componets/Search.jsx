@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import debounce from 'lodash.debounce';
 
 const SearchComponent = () => {
   const [query, setQuery] = useState('');
@@ -20,49 +21,75 @@ const SearchComponent = () => {
   }, []);
 
   useEffect(() => {
-    if (query.trim()) {
-      const fetchSuggestions = async () => {
+    const fetchSuggestions = debounce(async () => {
+      if (query.trim()) {
         try {
           const response = await axios.get('/api/search', { params: { q: query } });
-          // const products = Array.isArray(response.data) ? response.data : [];
           const products = response.data;
-          // Sort the products based on relevance score
-          const sortedSuggestions = products.sort((a, b) =>b.relevanceScore - a.relevanceScore);
-
-          sortedSuggestions.forEach(product => {
-            console.log(`Product: ${product.name}, Relevance Score: ${product.relevanceScore}`);
-          });
+          const sortedSuggestions = products.sort((a, b) => b.relevanceScore - a.relevanceScore);
           setSuggestions(sortedSuggestions);
-
-          // Process suggestions to include only matched keywords
-          const filteredSuggestions = products.flatMap(product =>
-            (product.keyword || []).filter(keyword =>
-              keyword.toLowerCase().includes(query.toLowerCase())
-            ).map(keyword => ({
-              ...product,
-              keyword,
-            }))
-          );
-
-          // setSuggestions(filteredSuggestions);
-          // console.log("API response data:", products);
-
         } catch (error) {
           console.error('Error fetching search suggestions:', error);
         }
-      };
-      fetchSuggestions();
-    } else {
-      setSuggestions([]);
-    }
+      } else {
+        setSuggestions([]);
+      }
+    }, 300); // Adjust the delay as needed
+
+    fetchSuggestions();
+
+    return () => {
+      fetchSuggestions.cancel(); // Clean up on unmount
+    };
   }, [query]);
+
+
+  // useEffect(() => {
+  //   if (query.trim()) {
+  //     const fetchSuggestions = async () => {
+  //       try {
+  //         const response = await axios.get('/api/search', { params: { q: query } });
+  //         // const products = Array.isArray(response.data) ? response.data : [];
+  //         const products = response.data;
+  //         // Sort the products based on relevance score
+  //         const sortedSuggestions = products.sort((a, b) =>b.relevanceScore - a.relevanceScore);
+
+  //         sortedSuggestions.forEach(product => {
+  //           console.log(`Product: ${product.name}, Relevance Score: ${product.relevanceScore}`);
+  //         });
+  //         setSuggestions(sortedSuggestions);
+
+  //         // const filteredSuggestions = products.flatMap(product =>
+  //         //   (product.keyword || []).filter(keyword =>
+  //         //     keyword.toLowerCase().includes(query.toLowerCase())
+  //         //   ).map(keyword => ({
+  //         //     ...product,
+  //         //     keyword,
+  //         //   }))
+  //         // );// Process suggestions to include only matched keywords
+
+
+  //         // setSuggestions(filteredSuggestions);
+  //         // console.log("API response data:", products);
+
+  //       } catch (error) {
+  //         console.error('Error fetching search suggestions:', error);
+  //       }
+  //     };
+  //     fetchSuggestions();
+  //   } else {
+  //     setSuggestions([]);
+  //   }
+  // }, [query]);
 
   const handleSearch = async () => {
     try {
       const response = await axios.get('/api/search', { params: { q: query } });
       const products = response.data;
+
+      onFilter(products);
       navigate('/searchproducts', { state: { products } });
-      
+
     } catch (error) {
       console.error('Error fetching search results:', error);
     }
@@ -76,16 +103,17 @@ const SearchComponent = () => {
     try {
       const response = await axios.get('/api/search', { params: { q: query } });
       const products = response.data;
-      // navigate('/searchproducts',{ state: { products, triggerFilterRerender: true } });
-      navigate('/searchproducts',{ state: { products} });
       // window.location.reload();
+      navigate('/searchproducts', { state: { products } });
+       window.location.reload();
+
     } catch (error) {
       console.error('Error fetching search results:', error);
     }
   };
 
   return (
-    <div className="relative w-[30vw]">
+    <div className="relative xl:w-[30vw] w-[45vw]">
       <div className='flex gap-2 items-center'>
         <input
           type="text"
@@ -94,10 +122,10 @@ const SearchComponent = () => {
           placeholder="Search for products..."
           className="w-full p-2 border border-gray-300 rounded"
         />
-        <button className='absolute right-5' onClick={handleSearch}>Search</button>
+        <button className='absolute right-5 xl:block hidden' onClick={handleSearch}>Search</button>
       </div>
 
-      {suggestions.length > 0 && (
+      {suggestions.length > 0 ? (
         <ul className="absolute left-0 w-full max-h-[40vh] bg-white border border-gray-300 rounded mt-1 overflow-y-auto z-50"
           style={{ scrollbarWidth: 'none', '-ms-overflow-style': 'none' }}
           ref={suggestionsRef}>
@@ -113,10 +141,15 @@ const SearchComponent = () => {
                 className="w-8 h-8 object-cover mr-2 rounded"
               />
               {product.name}
-              {/* {product.matchedKeyword} */}
             </li>
           ))}
         </ul>
+      ) : (
+        query.trim() && (
+            <div className="absolute left-0 w-full bg-white border border-gray-300 rounded mt-1 z-50 p-2 text-center">
+              <p>No suggestions found for "{query}".</p>
+            </div>
+        )
       )}
     </div>
   );
