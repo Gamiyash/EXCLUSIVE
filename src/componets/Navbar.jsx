@@ -15,9 +15,10 @@ import { MdOutlineCancel } from "react-icons/md";
 import { CiStar } from "react-icons/ci";
 import { BiCookie, BiLogOut } from "react-icons/bi";
 import SearchComponent from './Search';
+import Cart from '../cart/Cart';
 
 const Navbar = ({ user, setUser }) => {
-  console.log('Navbar user:', user);
+  // console.log('Navbar user:', user);
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const [Menu, setMenu] = useState(false)
   const menueRef = useRef(null)
@@ -101,7 +102,7 @@ const Navbar = ({ user, setUser }) => {
             {/* <input className='relative flex rounded-sm w-[240px] px-3 bg-slate-100 cursor-pointer' type="text" placeholder='What are you looking for?' /> */}
           </div>
           {/* <CiSearch size={25} className='cursor-pointer' /> */}
-          <CiHeart size={25} className='cursor-pointer hidden xl:block' onClick={redirectToWishList} />
+            <CiHeart size={25} className='cursor-pointer hidden xl:block' onClick={redirectToWishList} />
           <IoCartOutline size={25} className='cursor-pointer hidden xl:block' onClick={redirectToCart} />
           {user ? (
             <div className="relative flex items-center " ref={dropdownRef}>

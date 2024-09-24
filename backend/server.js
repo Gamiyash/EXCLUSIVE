@@ -47,18 +47,22 @@ const mongoose = require('./db');
 
 dotenv.config();
 
-const MongoDBStore = require('connect-mongodb-session')(session);
-const store = new MongoDBStore({
-  uri: 'mongodb://localhost:27017/sessions',
-  collection: 'sessions'
-});
-
 const url = 'mongodb://localhost:27017';
 const client = new MongoClient(url);
 const dbName = 'EcommorceSignup';
 const app = express();
 const port = 3000;
 
+const MongoDBStore = require('connect-mongodb-session')(session);
+const store = new MongoDBStore({
+  uri: 'mongodb://localhost:27017/sessions',
+  collection: 'sessions'
+});
+
+
+store.on('error', function (error) {
+  console.log(error); // Handle error in case MongoDB connection fails
+});
 
 const cors = require('cors');
 
@@ -75,44 +79,49 @@ app.use(bodyParser.json());
 app.use(passport.initialize());
 
 // app.use(session({
-//   secret: '8f8cf9d5b54eb1e3f8a3d637f0b2d9f1',
-//   resave: false,
-//   saveUninitialized: true,
+//   secret: process.env.SESSION_SECRET,
+//   resave: true,
+//   saveUninitialized: false,
+//   store: store,
 //   cookie: {
-//     secure: false,
-//     sameSite: 'strict', // Set to true if using HTTPS
+//     secure: false, // Set to true only if using HTTPS
+//     sameSite: 'strict',
 //     maxAge: 24 * 60 * 60 * 1000 // 24 hours
-//   },
-//   store: store
+//   }
 // }));
 
 app.use(session({
-  secret: process.env.SESSION_SECRET,
-  resave: true,
+  secret: process.env.SESSION_SECRET, // Replace with your own secret
+  resave: false,
   saveUninitialized: false,
-  store: store,
+  store: new MongoDBStore({
+    uri: 'mongodb://localhost:27017/EcommorceSignup', // MongoDB URI
+    collection: 'sessions'
+  }),
   cookie: {
-    secure: false, // Set to true only if using HTTPS
-    sameSite: 'strict',
-    maxAge: 24 * 60 * 60 * 1000 // 24 hours
+    maxAge: 1000 * 60 * 60 * 24, // 1 day
+    httpOnly: true, // Helps prevent XSS attacks
+    secure: false // Set to true if using HTTPS
   }
 }));
 
+
+app.use(passport.initialize());//new
+app.use(passport.session());
+app.use(express.json());
+app.use(cookieParser());
 
 app.use((req, res, next) => {
   // console.log('Session:', req.session);
   next();
 });
-app.use(passport.session());
-app.use(express.json());
-app.use(cookieParser());
+
+
 
 
 app.use('/api', productRoutes);
 app.use('/api', FlashProductRoutes);
 app.use('/api', ThismonthRoutes);
-// app.use('/api', WomenFashionRoutes);
-// app.use('/api', MensFashionRoutes)
 app.use('/api', FlashcartRoutes);
 app.use("/api", DeleteProductRoutes);
 app.use('/api', DeleteWishListProducts);
@@ -120,13 +129,9 @@ app.use('/api', ClearAllProductRoutes);
 app.use('/api', UpdateCartRoutes);
 app.use('/api', productcartRoutes);
 app.use('/api', ThismonthscartRoutes);
-// app.use('/api', WomenFashionCartRoutes);
-// app.use('/api', MensFashionCartRoutes);
 app.use('/api/Flashproducts', flashproductcommentRoutes);
 app.use('/api/products', ProductcemmentsRoutes);
 app.use('/api/Thismonth', ThismonthcommentsRoutes);
-// app.use('/api/WomenFashion', WomenFashionCommentRoutes);
-// app.use('/api/MensFashion', MensFashionCommentsRoutes)
 app.use('/api', WomenFashionWishListRoutes);
 app.use('/api', FlashWishlistRoutes)
 app.use('/api', ThismonthWishlistRoutes)
@@ -374,24 +379,6 @@ app.get('/api/auth/session', (req, res) => {
   }
 });
 
-// app.get('/api/auth/session', (req, res) => {
-//   if (req.session.user && req.session.user.otpVerified ) {
-//     res.json({ user: req.session.user });
-//   } else {
-//     res.status(401).json({ message: 'Not authenticated' });
-//   }
-// });
-
-// app.get('/api/auth/session', verifyToken, (req, res) => {
-//   if (req.user) {
-//     res.json({ user: req.user });
-//   } else {
-//     res.status(401).json({ message: 'Not authenticated' });
-//   }
-// });
-
-
-
 
 app.get('/api/auth/signout', (req, res) => {
   req.logout((err) => {
@@ -399,7 +386,13 @@ app.get('/api/auth/signout', (req, res) => {
       console.error('Logout error:', err);
       return res.status(500).json({ message: 'Logout error' });
     }
-    res.redirect('/signup');
+    req.session.destroy(function (err) { // Destroy session in store
+      if (err) {
+        return res.status(500).send("Error during logout");
+      }
+      res.clearCookie('connect.sid'); // Clear the session cookie
+      res.redirect('/login'); // Redirect to login after logout
+    });
   });
 });
 
