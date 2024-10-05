@@ -118,12 +118,12 @@ const ThisMonth = ({ ThismonthBestProduct, user }) => {
     return (
 
         <div
-            className="card p-2 rounded-md w-[260px] flex flex-col items-start justify-start relative  hover:bg-[#ffff] hover:scale-105 transition-transform hover:shadow-md "
+            className="card p-2 rounded-md w-[250px] flex flex-col items-start justify-start relative  hover:bg-[#ffff] hover:scale-105 transition-transform hover:shadow-md "
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
         >
-            <div className="w-[260px] h-[300px] bg-white shadow-md rounded-md border-gray-300 relative flex justify-center items-center overflow-hidden">
-                <img className="object-contain w-3/4 h-3/4" src={image} alt={name} onClick={handleClick} />
+            <div className="w-[250px] h-[280px] bg-white shadow-md rounded-md border-gray-300 relative flex justify-center items-center overflow-hidden">
+                <img className="object-contain w-full h-full" src={image} alt={name} onClick={handleClick} />
                 {isHovered && (
                     <button className="absolute bottom-0 left-0 right-0 bg-black text-white py-2" onClick={AddtoCart}>
                         Add to Cart

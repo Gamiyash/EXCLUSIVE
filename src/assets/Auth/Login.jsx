@@ -69,19 +69,21 @@ const Login = ({ user, setUser }) => {
         throw new Error('User data is undefined');
       }
     } catch (error) {
-      console.error('Error:', error.message || 'Failed to submit form');
+      // console.error('Error:', error.message || 'Failed to submit form');
+      setError(error.response.data.message);
     }
   };
+  // if (error) return <p className='text-red-500 pt-20'>{error}</p>
 
   return (
     <>
       <div className="flex flex-col min-h-screen">
-        {error && <p className="text-red-500 text-lg text-center mb-4">{error}</p>}
         <div className="flex items-center flex-col sm:flex-row 2xl:gap-44 xl:gap-44 lg:gap-32 lg:pb-20 md:gap-16 md:pb-20 sm:gap-10 sm:pb-16">
-          <div className="img flex justify-center  sm:justify-start items-center pb-10 sm:my-0">
+          <div className="img  flex justify-center  sm:justify-start items-center pb-10 pt-4 sm:my-0">
             <img className='w-full sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl 2xl:max-w-[1000px]' src="../SignupBg.jpg" alt="Signup Background" />
           </div>
-          <form onSubmit={submit} className="SignU flex space-y-3 flex-col items-center sm:items-start 2xl:mt-28 xl:mt-20 lg:mt-16 lg:gap-5 md:gap-5 md:mt-16 sm:mt-10">
+          <form onSubmit={submit} className="SignU flex space-y-3 flex-col items-center sm:items-start 2xl:mt-24 xl:mt-20 lg:mt-16 lg:gap-5 md:gap-5 md:mt-16 sm:mt-10">
+          {error && <p className="text-red-500 text-lg text-center justify-center items-center ">{error}</p>}
             <div className='flex flex-col items-center sm:items-start gap-5'>
               <h1 className='font-medium text-2xl sm:text-3xl tracking-wider md:tracking-normal'>Login</h1>
               <p className='font-medium text-gray-700 sm:text-gray-950'>Enter your details below</p>

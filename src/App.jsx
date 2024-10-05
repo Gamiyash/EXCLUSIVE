@@ -56,37 +56,9 @@ function App() {
         localStorage.removeItem('user'); // Clear localStorage if the user is not authenticated
       }
     };
-  
     checkAuth();
   }, []);
   
-
-  // useEffect(() => {
-  //   const checkAuth = async () => {
-  //     try {
-  //       const storedUser = localStorage.getItem('user');
-  //       if (storedUser) {
-  //         setUser(JSON.parse(storedUser));
-  //       }
-
-  //       const response = await axios.get('/api/auth/session', { withCredentials: true });
-
-  //       const contentType = response.headers['content-type'];
-  //       if (contentType && contentType.includes('application/json')) {
-  //         setUser(response.data.user);
-  //         localStorage.setItem('user', JSON.stringify(response.data.user)); // Update localStorage with the latest user data
-  //       } else {
-  //         throw new Error('Unexpected response type');
-  //       }
-  //     } catch (error) {
-  //       console.error('Authentication check failed:', error);
-  //       setUser(null);
-  //       localStorage.removeItem('user'); // Clear localStorage if the user is not authenticated
-  //     }
-  //   };
-  //   checkAuth();
-  // }, []);
-
   return (
     <>
       <AuthProvider>

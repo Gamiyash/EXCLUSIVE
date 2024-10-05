@@ -37,9 +37,9 @@ const Flashlist = ({user}) => {
     return (
         <div className="product-list flex w-[100vw] gap-5">
             <div className='fixed left-0 w-[21vw] h-screen '><Sidebar /></div>
-            <div className="ml-[21vw] flex-1 overflow-auto p-4 ">
+            <div className="ml-[14vw] flex-1 overflow-auto p-4 ">
                 <FilterComponent  products={Flashproducts} onFilter={handleFilter}/>
-                <div className="flex flex-wrap justify-around items-start gap-4 mt-5">
+                <div className="flex flex-wrap justify-around items-start mt-5">
                     {/* {filteredProducts.map(Flashproduct => (
                         <Flashslaes key={Flashproduct._id} FlashProduct={Flashproduct} user={user} />
                     ))} */}

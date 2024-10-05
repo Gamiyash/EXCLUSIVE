@@ -41,7 +41,7 @@ const sendLoginSuccessEmail = async (to, username) => {
     from: process.env.EMAIL_USER,
     to: to,
     subject: 'Login Successful',
-    text: `Hello ${username},\n\nYou have successfully logged into your account.\n\nBest regards,\nYour Team`,
+    text: `Hello ${username},\n\nYou have successfully logged into your account.\n\nBest regards,\nExclusive`,
   };
 
   try {

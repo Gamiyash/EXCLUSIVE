@@ -38,9 +38,9 @@ const ThismonthList = ({ user }) => {
     return (
         <div className="product-list flex w-full gap-5">
             <div className='fixed left-0 w-[21vw] h-screen '><Sidebar /></div>
-            <div className="ml-[21vw] flex-1 overflow-auto p-3 ">
+            <div className="ml-[14vw] flex-1 overflow-auto p-3 ">
                 <FilterComponent products={Bestproducts} onFilter={handleFilter} />
-                <div className="flex flex-wrap justify-around items-start gap-4 mt-5">
+                <div className="flex flex-wrap justify-around items-start  mt-5">
                     {/* {Bestproducts.map(ThismonthBestProduct => (
                         <ThisMonth key={ThismonthBestProduct._id} ThismonthBestProduct={ThismonthBestProduct} user={user} />
                     ))} */}

@@ -15,7 +15,6 @@ import { MdOutlineCancel } from "react-icons/md";
 import { CiStar } from "react-icons/ci";
 import { BiCookie, BiLogOut } from "react-icons/bi";
 import SearchComponent from './Search';
-import Cart from '../cart/Cart';
 
 const Navbar = ({ user, setUser }) => {
   // console.log('Navbar user:', user);

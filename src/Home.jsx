@@ -15,7 +15,7 @@ import Allproducts from './AllProducts/Allproducts';
 import { useNavigate, Link, redirect } from 'react-router-dom';
 
 
-const Home = ({user}) => {
+const Home = ({ user }) => {
 
   const [Flashproducts, setFlashProducts] = useState([]);
   const [Bestproducts, setBestProducts] = useState([]);
@@ -83,7 +83,7 @@ const Home = ({user}) => {
   const categories = [
     // Your categories array
     {
-      pic: <GiSmartphone size={65} style={{ strokeWidth: 0.1 }} />,
+      pic: <GiSmartphone size={65}  style={{ strokeWidth: 0.1 }} />,
       title: 'Phones',
     },
     {
@@ -169,7 +169,7 @@ const Home = ({user}) => {
     navigate("/products")
   }
 
-  
+
 
   if (loading) return <p className='flex justify-center items-center text-2xl'>Loading...</p>;
   if (error) return <p>{error}</p>;
@@ -180,13 +180,13 @@ const Home = ({user}) => {
       <div className="main bg-white">
         <div className="main">
           {/* <Navbar  /> */}
-          <div className="Sidebar flex items-center gap-44">
+          <div className="Sidebar flex justify-between">
             <Sidebar />
-            <img width={900} className="mt-8" src="../Add.svg" alt="" />
+            <img  className="mt-[3%] mr-[10%] w-[80%] xl:w-[60%]" src="../Add.svg" alt="" />
           </div>
         </div>
 
-        <div className="flex flex-col ml-[145px] mt-24 gap-9">
+        <div className="flex flex-col ml-[5%] xl:ml-[10%] mt-24 gap-9">
           {/* Flash sales */}
           {/* Flash Sales content */}
 
@@ -196,7 +196,7 @@ const Home = ({user}) => {
           </div>
 
           <div className="sale-timer flex justify-between items-center">
-            <div className="font-bold text-3xl flex gap-16 tracking-wider">
+            <div className="font-bold text-xl xl:text-3xl flex gap-16 tracking-wider">
               <span>Flash Sales</span>
               <div>
                 {timeLeft.days}d <span className="text-[#DB4444]">:</span> {timeLeft.hours}h{' '}
@@ -270,12 +270,12 @@ const Home = ({user}) => {
             <div className="today text-[#DB4444] font-bold">This Month</div>
           </div>
 
-          <div className="sale-timer flex justify-between items-center">
-            <div className="font-bold text-3xl flex gap-16 tracking-wider">
+          <div className="sale-timer flex justify-between px-3 items-center">
+            <div className="font-bold text-xl xl:text-3xl flex gap-16 tracking-wider">
               <span>Best Selling Products</span>
             </div>
-            <div className="btn flex justify-center items-center  pr-24">
-              <button onClick={RedirectToThisMonthBestproductsPage} className="bg-[#DB4444] px-5 py-3 text-white">View All Products</button>
+            <div className="btn flex justify-center items-center">
+              <button onClick={RedirectToThisMonthBestproductsPage} className="bg-[#DB4444] px-3 xl:px-5 py-2 xl:py-3 text-white">View All Products</button>
             </div>
           </div>
 

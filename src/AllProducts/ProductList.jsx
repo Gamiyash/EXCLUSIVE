@@ -36,13 +36,11 @@ const ProductList = ({ user }) => {
 
     return (
         <>
-            <div className="product-list flex w-full gap-5">
+            <div className="product-list flex w-full ">
                 <div className='fixed left-0 w-[21vw] h-screen '><Sidebar /></div>
-
-
-                <div className="ml-[21vw] flex-1 overflow-auto p-3 ">
+                <div className="ml-[14vw] flex-1 overflow-auto p-3 ">
                     <FilterComponent products={products} onFilter={handleFilter} />
-                    <div className="flex flex-wrap justify-around items-start gap-2 mt-5">
+                    <div className="flex flex-wrap justify-around items-start mt-5">
                         {/* {products.map(product => (
                             <Allproducts key={product._id} product={product} user={user} />
                         ))} */}

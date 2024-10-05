@@ -368,7 +368,6 @@ const Checkout = () => {
                 )}
             </div>
 
-
             <main className={`main ml-32 flex gap-52 ${wheelVisible ? 'blur-sm' : ''}`}>  {/*overflow-auto scrollbar-hidden */}
 
                 <section className="BillDetails w-[30vw] mt-10 flex flex-col gap-10 mb-10">
@@ -383,7 +382,7 @@ const Checkout = () => {
                         </div>
 
                         <div className='flex flex-col gap-1'>
-                            <label className='text-gray-400' htmlFor="FirstName">Company Name</label>
+                            <label className='text-gray-400' htmlFor="FirstName">Last Name</label>
                             <input className='bg-gray-100 h-10 rounded-md px-3' type="text" name="companyName" value={billingDetails.companyName} onChange={handleBillingChange} />
                             {errors.companyName && <p className='text-red-500'>{errors.companyName}</p>}
                         </div>

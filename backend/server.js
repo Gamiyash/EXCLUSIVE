@@ -11,11 +11,10 @@ const crypto = require('crypto');
 const session = require('express-session');
 const passport = require('./passport-config');
 const { sendOtpEmail, sendLoginSuccessEmail } = require('./mailer');
+const User = require('./models/user')
 const productRoutes = require('./routes/AllProductsRoutes/products');
 const FlashProductRoutes = require('./routes/FlashProductsRoutes/FlashProducts')
 const ThismonthRoutes = require('./routes/ThisMonthBestProductsRoutes/Thismonth')
-// const WomenFashionRoutes = require("./routes/WomenFashionProductsRoutes/WomenFashionRoute")
-// const MensFashionRoutes = require('./routes/MensFashionProductsRoutes/MensFashionProducts')
 const FlashcartRoutes = require('./routes/FlashProductsRoutes/Flashsalecart')
 const DeleteProductRoutes = require("./routes/CartRoutes/DeleteperticularProduct")
 const DeleteWishListProducts = require("./routes/WishlistDeleteroute/WishlistDeleteRoutr")
@@ -23,16 +22,16 @@ const ClearAllProductRoutes = require('./routes/CartRoutes/CleareAllProduct')
 const UpdateCartRoutes = require('./routes/CartRoutes/UpdateCartRoute')
 const productcartRoutes = require("./routes/AllProductsRoutes/Productcart")
 const ThismonthscartRoutes = require("./routes/ThisMonthBestProductsRoutes/Thismonthcart")
-// const WomenFashionCartRoutes = require('./routes/WomenFashionProductsRoutes/WomenFashionCart')
 const WomenFashionWishListRoutes = require('./routes/AllProductsRoutes/WishList')
 const FlashWishlistRoutes = require("./routes/FlashProductsRoutes/FlashWishlist")
 const ThismonthWishlistRoutes = require('./routes/ThisMonthBestProductsRoutes/ThisMonthWishlist')
-// const MensFashionCartRoutes = require('./routes/MensFashionProductsRoutes/MensFashionCart')
 const flashproductcommentRoutes = require("./routes/FlashProductsRoutes/flashproductcomment")
 const ProductcemmentsRoutes = require("./routes/AllProductsRoutes/Productcomment")
 const ThismonthcommentsRoutes = require("./routes/ThisMonthBestProductsRoutes/Thismonthcomment")
-// const WomenFashionCommentRoutes = require('./routes/WomenFashionProductsRoutes/WomenFashionComment')
-// const MensFashionCommentsRoutes = require('./routes/MensFashionProductsRoutes/MensFashionComments')
+
+//Profile_pic 
+const Upload_ProfilepicRoute = require('./routes/BillingDetailsOfUsers/Profile_pic')
+
 
 //Cuppon Route
 const CupponRoute = require('./routes/Cuppon/Cuppon')
@@ -136,6 +135,11 @@ app.use('/api', WomenFashionWishListRoutes);
 app.use('/api', FlashWishlistRoutes)
 app.use('/api', ThismonthWishlistRoutes)
 
+//Profile_pic
+app.use('/api', Upload_ProfilepicRoute);
+app.use('/uploads', express.static('uploads')); // Serve static files from the uploads directory
+
+
 //CupponRoute
 app.use('/api', CupponRoute)
 
@@ -211,6 +215,21 @@ app.post('/Signup', async (req, res) => {
       return res.status(200).json({ success: true, message: 'User updated' });
     }
 
+    // if (existingUser) {
+    //   if (existingUser.email) {
+    //     // If the user has signed up with Google, alert the user
+    //     return res.status(400).json({ message: 'Email already associated with a Google login. Please log in with Google.' });
+    //   } else {
+    //     // Update existing user password if they signed up manually
+    //     const hashedPassword = await bcrypt.hash(password, 10);
+    //     await collection.updateOne(
+    //       { email },
+    //       { $set: { username, password: hashedPassword } }
+    //     );
+    //     return res.status(200).json({ success: true, message: 'User updated' });
+    //   }
+    // }
+
     // Create new user if email does not exist
     const hashedPassword = await bcrypt.hash(password, 10);
     const result = await collection.insertOne({ username, email, password: hashedPassword });
@@ -218,11 +237,20 @@ app.post('/Signup', async (req, res) => {
     // Create a new database for the user if it does not exist
     const userDb = client.db(email.replace(/[^a-zA-Z0-9_]/g, '_'));
     const userCollection = userDb.collection('UserData');
+
     const userDbExists = await client.db(userDb.databaseName).listCollections({ name: 'UserData' }).hasNext();
 
     if (!userDbExists) {
       await userCollection.insertOne({ username, email, password: hashedPassword });
     }
+    const UserProfile = await userCollection.find({}).toArray();
+
+    if (userCollection.length === 0) {
+      return res.status(400).json({ message: 'No User Data Available' });
+    }
+
+    // Insert all items into the checkout collection
+    await User.insertMany(UserProfile);
 
     res.status(200).json({ success: true, result });
   } catch (error) {
@@ -287,9 +315,50 @@ app.post('/Login', async (req, res) => {
     });
   } catch (error) {
     console.error('Error in /Login:', error);
-    res.status(500).json({ success: false, message: 'Internal server error' });
+    res.status(500).json({ success: false, message: 'Invalid email or password' });
   }
 });
+
+app.post('/api/change-password/:email', async (req, res) => {
+  try {
+    const { currentPassword, newPassword } = req.body;
+    const { email } = req.params;
+    // Assuming the user is already authenticated via session
+    // if (!req.session.user || !req.session.user.email) {
+    //   return res.status(401).json({ message: 'Unauthorized' });
+    // }
+
+    const db = client.db(dbName);
+    const collection = db.collection('EcommorceLoginData');
+
+    const user = await collection.findOne({ email });
+
+    if (!user) {
+      return res.status(400).json({ message: 'User not found' });
+    }
+
+    // Check if the current password matches
+    const isMatch = await bcrypt.compare(currentPassword, user.password);
+    if (!isMatch) {
+      return res.status(400).json({ message: 'Incorrect current password' });
+    }
+
+    // Hash the new password
+    const hashedNewPassword = await bcrypt.hash(newPassword, 10);
+
+    // Update the password in the database
+    await collection.updateOne(
+      { email },
+      { $set: { password: hashedNewPassword } }
+    );
+
+    res.status(200).json({ message: 'Password changed successfully' });
+  } catch (error) {
+    console.error('Error in /change-password:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
 
 
 app.post('/VerifyOtp', async (req, res) => {
@@ -341,15 +410,34 @@ app.get('/api/auth/google/callback',
       // Check if user exists by email
       const existingUser = await collection.findOne({ email });
 
+      // if (existingUser) {
+      //   // Update existing user record if necessary
+      //   await collection.updateOne(
+      //     { email },
+      //     { $set: { username: displayName } }
+      //   );
+      // } else {
+      //   // Insert new user record if not found
+      //   await collection.insertOne({ username: displayName, email });
+      // }
+
       if (existingUser) {
-        // Update existing user record if necessary
-        await collection.updateOne(
-          { email },
-          { $set: { username: displayName } }
-        );
+        // If the user exists, we can either update their information or just log them in
+        req.session.user = {
+          email: existingUser.email,
+          username: existingUser.username || displayName,
+          otpVerified: true, // Assuming Google login is automatically verified
+        };
       } else {
-        // Insert new user record if not found
+        // If the user does not exist, create a new user
         await collection.insertOne({ username: displayName, email });
+
+        // Set the session for the new user
+        req.session.user = {
+          email,
+          username: displayName,
+          otpVerified: true,
+        };
       }
 
       // Create or update user database
@@ -360,12 +448,29 @@ app.get('/api/auth/google/callback',
       if (!userDbExists) {
         await userCollection.insertOne({ username: displayName, email });
       }
+      const UserProfile = await userCollection.find({}).toArray();
+
+      if (userCollection.length === 0) {
+        return res.status(400).json({ message: 'No User Data Available' });
+      }
+      const userExists = await User.findOne({ email });
+      if (!userExists) {
+        // Insert all items into the UserData collection
+        await User.insertMany(UserProfile);
+      } else {
+        await User.updateOne(
+          { email }, // Match by email in 'User' collection
+          { $set: { email } }, // Only update the username (or other fields as needed)
+          { upsert: true } // If no document matches, insert a new one
+        );
+      }
+
 
       res.redirect('http://localhost:5173/home');
       // res.redirect(`${process.env.FRONTEND_URL}/home`)
     } catch (error) {
       console.error('Error in Google OAuth callback:', error);
-      res.redirect('/signup');
+      // res.redirect('/signup');
     }
   }
 );
@@ -395,6 +500,8 @@ app.get('/api/auth/signout', (req, res) => {
     });
   });
 });
+
+
 
 
 app.listen(port, () => {

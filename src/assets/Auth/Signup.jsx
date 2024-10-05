@@ -6,7 +6,7 @@ import { useForm } from 'react-hook-form';
 import { useAuth } from '../../componets/authContext';
 import { useNavigate } from 'react-router';
 
-const Signup = () => {
+const Signup = ({user,setUser}) => {
   const { register, handleSubmit, formState: { errors, isSubmitting }, setError } = useForm();
   const { login } = useAuth();
 
@@ -20,7 +20,7 @@ const Signup = () => {
   const navigate = useNavigate();
 
   const submit = async (data) => {
-    await delay(2); // simulating network delay
+    await delay(1); // simulating network delay
     try {
       const response = await fetch('http://localhost:3000/Signup', {
         method: 'POST',
@@ -34,13 +34,13 @@ const Signup = () => {
       }
 
 
-      console.log(result);
-      setUser(result.user)
+      // console.log(result);
+      // setUser(result.user)
       // navigate to login page or handle successful signup
       navigate('/Login');
 
     } catch (error) {
-      console.error('Error submitting form:', error.message);
+      // console.error('Error submitting form:', error.message);
       setError('submitError', { type: 'manual', message: error.message });
     }
   };
@@ -50,7 +50,7 @@ const Signup = () => {
       {isSubmitting && <div>Loading...</div>}
       <div className="flex flex-col min-h-screen">
         {/* <SignupNavbar /> */}
-        {errors.submitError && <p className="text-red-500 text-lg text-center mb-4">{errors.submitError.message}</p>}
+        {errors.submitError && <p className="text-red-500 text-lg text-center mb-4 mt-10">{errors.submitError.message}</p>}
         <div className="flex items-center flex-col sm:flex-row 2xl:gap-44 xl:gap-44 lg:gap-32 lg:pb-20 md:gap-16 md:pb-20 sm:gap-10 sm:pb-16">
           <div className="img flex justify-center  sm:justify-start items-center pb-10 sm:my-0">
             <img className="w-full sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl 2xl:max-w-[1000px]" src="../SignupBg.jpg" alt="Signup Background" />

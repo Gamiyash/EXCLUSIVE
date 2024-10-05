@@ -55,31 +55,31 @@ const Flashslaes = ({ FlashProduct, user }) => {
 
     const AddtoWishList = async () => {
         if (user) {
-        try {
-            const userEmail = JSON.parse(localStorage.getItem('user'))?.email;
-            const payload1 = {
-                email: userEmail,  // Ensure user is defined and has an email
-                productId: _id,      // Ensure _id is defined
-                offerPrice: offerPrice,  // Ensure offerPrice is a valid number
-                discription: discription,  // Ensure discription is not empty
-                quantity: 1,         // Ensure quantity is a valid number
-                size: "M"            // Ensure size is a valid string
-            };
+            try {
+                const userEmail = JSON.parse(localStorage.getItem('user'))?.email;
+                const payload1 = {
+                    email: userEmail,  // Ensure user is defined and has an email
+                    productId: _id,      // Ensure _id is defined
+                    offerPrice: offerPrice,  // Ensure offerPrice is a valid number
+                    discription: discription,  // Ensure discription is not empty
+                    quantity: 1,         // Ensure quantity is a valid number
+                    size: "M"            // Ensure size is a valid string
+                };
 
-            console.log('Payload1:', payload1);
+                console.log('Payload1:', payload1);
 
-            await axios.post('http://localhost:3000/api/addToFlashWishList', payload1, {
-                withCredentials: true
-            });
+                await axios.post('http://localhost:3000/api/addToFlashWishList', payload1, {
+                    withCredentials: true
+                });
 
-            alert('Product added to Wishlist!');
-        } catch (error) {
-            console.error('Error adding product to cart:', error.response?.data || error.message);
+                alert('Product added to Wishlist!');
+            } catch (error) {
+                console.error('Error adding product to cart:', error.response?.data || error.message);
+            }
+        } else {
+            alert("Please Login")
+            navigate('/login')
         }
-    }else{
-        alert("Please Login")
-        navigate('/login')
-    }
     };
 
 
@@ -115,13 +115,13 @@ const Flashslaes = ({ FlashProduct, user }) => {
 
 
     return (
-
-        <div className="card p-2 w-[260px] flex flex-col items-start justify-start relative hover:bg-[#ffff] hover:scale-105 transition-transform hover:shadow-md "
+        //w-[260px] h-[300px] w-[16vw] h-[37vh]
+        <div className="card p-2 w-[250px] flex flex-col items-start justify-start relative hover:bg-[#ffff] hover:scale-105 transition-transform hover:shadow-md "
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
         >
-            <div className="w-[260px] h-[300px]  bg-white shadow-md rounded-md border-gray-300 relative flex justify-center items-center overflow-hidden ">
-                <img className="object-contain w-3/4 h-3/4" src={image} alt={name} onClick={handleClick} />
+            <div className="w-[250px] h-[280px] bg-white shadow-md rounded-md border-gray-300 relative flex justify-center items-center overflow-hidden ">
+                <img className="object-contain w-full h-full" src={image} alt={name} onClick={handleClick} />
                 {isHovered && (
                     <button className="absolute bottom-0 left-0 right-0 bg-black text-white py-2" onClick={AddtoCart}>
                         Add to Cart
@@ -131,8 +131,8 @@ const Flashslaes = ({ FlashProduct, user }) => {
                     <AiFillHeart size={30} color='gray' />
                 </button>
             </div>
-            <div className="title font-medium max-w-50 text-lg mt-2">{name}</div>
-            <div className="price flex items-center gap-2 mt-2">
+            <div className="title font-medium max-w-56  text-lg mt-2">{name}</div>
+            <div className="price  flex  items-center gap-2 mt-2">
                 <div className="Offer-price font-medium text-xl text-[#DB4444] flex items-center">
                     <FaIndianRupeeSign size={17} /> {numberWithCommas(offerPrice)}
                 </div>
