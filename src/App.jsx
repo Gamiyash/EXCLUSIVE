@@ -24,8 +24,6 @@ import WishList from './WishList/WishList';
 import ProductsPage from './componets/SearchProducts';
 import ElectronicsproductsList from './CategoriesPages/Electronics';
 import Checkout from './Checkout/Checkout';
-import ProtectedComponent from './assets/Auth/ProctedComponet';
-
 
 // import TestHome from './TestWEb/Homepage';
 // import StatesPage from './TestWEb/Interactivemap';
@@ -58,7 +56,8 @@ function App() {
     };
     checkAuth();
   }, []);
-  
+
+
   return (
     <>
       <AuthProvider>
@@ -83,19 +82,20 @@ function App() {
                   <Route path="/Flashproductdetails/:id" element={<FlashProductDetails user={user} setUser={setUser} />} />
                   <Route path="/Allproductdetails/:id" element={<AllProductDetails user={user} setUser={setUser} />} />
                   <Route path="/ThismonthBestProductDetails/:id" element={<ThisMonthBestProductsDetails user={user} setUser={setUser} />} />
-                  <Route path="/Login" element={<Login user={user} setUser={setUser}  />} />
+                  <Route path="/Login" element={<Login user={user} setUser={setUser} />} />
                   <Route path="/verify-otp" element={<OtpVerification setUser={setUser} />} />
                   <Route path="/Cart" element={<Cart user={user} setUser={setUser} />} />
                   <Route path="/Checkout" element={<Checkout user={user} setUser={setUser} />} />
                   <Route path="/WishList" element={<WishList user={user} setUser={setUser} />} />
                   <Route path="/searchproducts" element={<ProductsPage />} />
-                  <Route path="/ProctedComponet" element={<ProtectedComponent user={user} setUser={setUser} />} />
+                  {/* <Route path="/ProctedComponet" element={<ProtectedComponent user={user} setUser={setUser} />} /> */}
                   <Route path="/orderHistory" element={<HistoryPage />} />
-                  <Route path="/orderHistoryDetails/:orderId" element={<OrderHistoryDetails/>} />
+                  <Route path="/orderHistoryDetails/:orderId" element={<OrderHistoryDetails />} />
+
                   {/* <Route path="/RollingWheeler" element={<Wheel />} /> */}
                   {/* <Route path="/TestHome" element={<TestHome />} />
                   <Route path="/State" element={<StatesPage />} /> */}
-                  
+
 
                   <Route path="/home" element={user ? <Home user={user} /> : <Navigate to="/login" />} />
                   <Route path="/home" element={<Navigate to="/Signup" />} />
@@ -105,7 +105,7 @@ function App() {
                   <Route path="/Login" element={<Navigate to="/home" />} />
                   <Route path="/Home" element={<Navigate to="/Cart" />} />
                   <Route path="/Cart" element={<Navigate to="/Checkout" />} />
-                  
+
                 </Routes>
               </div>
             </div>

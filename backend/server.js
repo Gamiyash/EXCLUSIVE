@@ -98,7 +98,8 @@ app.use(session({
     collection: 'sessions'
   }),
   cookie: {
-    maxAge: 1000 * 60 * 60 * 24, // 1 day
+    maxAge:null,
+    // maxAge: 1000 * 60 * 60 * 24, // 1 day
     httpOnly: true, // Helps prevent XSS attacks
     secure: false // Set to true if using HTTPS
   }
@@ -114,9 +115,6 @@ app.use((req, res, next) => {
   // console.log('Session:', req.session);
   next();
 });
-
-
-
 
 app.use('/api', productRoutes);
 app.use('/api', FlashProductRoutes);
@@ -158,7 +156,13 @@ function isAuthenticated(req, res, next) {
 }
 
 // Use this middleware on protected routes
-app.use('/protected-route', isAuthenticated);
+app.use('/protected-route', isAuthenticated, (req, res) => {
+  res.json({ message: 'Welcome to the protected route!' });
+});
+
+
+
+
 
 // const authenticateToken = (req, res, next) => {
 //   const token = req.cookies.token;
@@ -500,8 +504,6 @@ app.get('/api/auth/signout', (req, res) => {
     });
   });
 });
-
-
 
 
 app.listen(port, () => {
