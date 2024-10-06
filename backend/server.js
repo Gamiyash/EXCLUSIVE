@@ -160,10 +160,6 @@ app.use('/protected-route', isAuthenticated, (req, res) => {
   res.json({ message: 'Welcome to the protected route!' });
 });
 
-
-
-
-
 // const authenticateToken = (req, res, next) => {
 //   const token = req.cookies.token;
 //   if (!token) return res.status(401).json({ message: 'Not authenticated' });

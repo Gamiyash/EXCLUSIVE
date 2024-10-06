@@ -24,6 +24,7 @@ import WishList from './WishList/WishList';
 import ProductsPage from './componets/SearchProducts';
 import ElectronicsproductsList from './CategoriesPages/Electronics';
 import Checkout from './Checkout/Checkout';
+import EcommerceAdminDashboard from './Admin/Dashboard';
 
 // import TestHome from './TestWEb/Homepage';
 // import StatesPage from './TestWEb/Interactivemap';
@@ -91,9 +92,12 @@ function App() {
                   {/* <Route path="/ProctedComponet" element={<ProtectedComponent user={user} setUser={setUser} />} /> */}
                   <Route path="/orderHistory" element={<HistoryPage />} />
                   <Route path="/orderHistoryDetails/:orderId" element={<OrderHistoryDetails />} />
+                  {/* <Route path="/Dashboard" element={<EcommerceAdminDashboard />} /> */}
+                  {/* Other routes */}
+                  <Route path="/admin-dashboard" element={<EcommerceAdminDashboard />} />
 
                   {/* <Route path="/RollingWheeler" element={<Wheel />} /> */}
-                  {/* <Route path="/TestHome" element={<TestHome />} />
+                    {/* <Route path="/TestHome" element={<TestHome />} />
                   <Route path="/State" element={<StatesPage />} /> */}
 
 
