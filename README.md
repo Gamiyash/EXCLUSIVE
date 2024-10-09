@@ -34,4 +34,4 @@ To get a local copy up and running, follow these steps:
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/your-username/ecommerce-website.git
+   git clone https://github.comhttps:/Gamiyash/EXCLUSIVE.git
