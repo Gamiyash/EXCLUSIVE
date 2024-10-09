@@ -11,6 +11,9 @@ const ThismonthBestProductSchema = new mongoose.Schema({
   actualPrice: Number,
   discount: String,
   rating: Number,
+  type:String,
+  keyword: { type: [String]},
+  suggetion:String,
   discription:String,
   size: { type: [String], required: true },
   comments: [{

@@ -25,6 +25,7 @@ import ProductsPage from './componets/SearchProducts';
 import ElectronicsproductsList from './CategoriesPages/Electronics';
 import Checkout from './Checkout/Checkout';
 import EcommerceAdminDashboard from './Admin/Dashboard';
+import Orders from './Admin/Orders';
 
 // import TestHome from './TestWEb/Homepage';
 // import StatesPage from './TestWEb/Interactivemap';
@@ -94,7 +95,8 @@ function App() {
                   <Route path="/orderHistoryDetails/:orderId" element={<OrderHistoryDetails />} />
                   {/* <Route path="/Dashboard" element={<EcommerceAdminDashboard />} /> */}
                   {/* Other routes */}
-                  <Route path="/admin-dashboard" element={<EcommerceAdminDashboard />} />
+                  <Route path="/admin-dashboard" element={<EcommerceAdminDashboard  />} />
+                  <Route path="/orders" element={<Orders />} />
 
                   {/* <Route path="/RollingWheeler" element={<Wheel />} /> */}
                     {/* <Route path="/TestHome" element={<TestHome />} />

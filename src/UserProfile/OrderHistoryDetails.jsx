@@ -9,7 +9,7 @@ import { FaIndianRupeeSign } from "react-icons/fa6";
 
 
 const OrderHistoryDetails = () => {
-    const [orders, setOrders] = useState([]);
+    const [orders, setOrders] = useState(null);
     const userEmail = JSON.parse(localStorage.getItem('user'))?.email;
     const { orderId } = useParams(); // Get the orderId from the URL
     const navigate = useNavigate(); // Initialize navigate function
@@ -27,7 +27,23 @@ const OrderHistoryDetails = () => {
         fetchOrders();
 
     }, [orderId, userEmail])
-    console.log("order", orders.products)
+    // console.log("order", orders.products)
+
+    // Function to get background color based on order status
+    const getStatusClass = (status) => {
+        switch (status) {
+            case 'Delivered':
+                return 'bg-green-500'; // Green for delivered
+            case 'Pending':
+                return 'bg-yellow-500'; // Yellow for pending
+            case 'Processing':
+                return 'bg-orange-500'; // Orange for processing
+            case 'Shipped':
+                return 'bg-blue-500'; // Blue for shipped
+            default:
+                return 'bg-gray-500'; // Default gray
+        }
+    };
 
     const handleBack = () => {
         navigate('/orderHistory'); // Go back to the previous page (order history)
@@ -45,7 +61,8 @@ const OrderHistoryDetails = () => {
                 </div>
             </div>
 
-            {orders.map((order) => (
+            {/* {orders.map((order) => ( */}
+            {orders ? (
                 <main key={orderId} className='flex flex-col xl:flex-row'>
                     <section className='sec-1 border border-gray-300 rounded-md p-8 xl:ml-8 xl:my-8 w-[100vw] xl:w-[70vw]'>
 
@@ -54,17 +71,17 @@ const OrderHistoryDetails = () => {
                             <div className="orderDetails flex justify-between gap-1">
                                 <div className="date flex flex-col">
                                     <span className='text-gray-500 text-lg'>Order Date</span>
-                                    <span className='font-medium text-xl'>{new Date(order.createdAt).toLocaleDateString()}</span>
+                                    <span className='font-medium text-xl'>{new Date(orders.createdAt).toLocaleDateString()}</span>
                                 </div>
 
                                 <div className="orderStatus flex flex-col gap-1">
                                     <span className='text-gray-500 text-lg'>Order Status</span>
-                                    <span className='text-white flex justify-center items-center font-medium border rounded-full px-3 py-1 bg-green-500'>{order.status}</span>
+                                    <span className={`text-white flex justify-center items-center font-medium border rounded-full px-3 py-1 ${getStatusClass(orders.status)}`}>{orders.status}</span>
                                 </div>
 
                                 <div className="TotalAmount flex flex-col gap-1">
                                     <span className='text-gray-500 text-lg'>Total Amount</span>
-                                    <span className='font-medium text-2xl flex justify-center items-center'><span><FaIndianRupeeSign /></span><span>{order.amount}</span></span>
+                                    <span className='font-medium text-2xl flex justify-center items-center'><span><FaIndianRupeeSign /></span><span>{orders.amount}</span></span>
                                 </div>
                             </div>
                         </div>
@@ -76,12 +93,12 @@ const OrderHistoryDetails = () => {
                             <div className="title text-2xl font-medium">Items in Your Order</div>
 
                             <div className="Products flex flex-col gap-4 max-h-[60vh] overflow-auto scrollbar-hidden">
-                                {orders[0].products.map((product, index) => (
+                                {orders.products.map((product, index) => (
                                     <div key={index} className="Product flex flex-col ">
                                         <div className='flex justify-between items-center'>
                                             <div className="group1 flex items-center justify-center gap-4">
                                                 <div className="img w-24 h-24 bg-gray-200">
-                                                    <img src={product.image} alt="" />
+                                                    <img className='w-24 h-24' src={product.image} alt="" />
                                                 </div>
 
                                                 <div className="ProductDetails flex flex-col gap-2">
@@ -110,7 +127,7 @@ const OrderHistoryDetails = () => {
                                 <span className="address text-xl font-medium">
                                     Shipping Address:
                                 </span>
-                                <span className='text-lg'>{order.customerDetails.address}</span>
+                                <span className='text-lg'>{orders.customerDetails.address}</span>
 
                                 <div className="line my-3 h-[1px] bg-gray-300"></div>
 
@@ -130,7 +147,7 @@ const OrderHistoryDetails = () => {
                                     <span className="address text-xl ">
                                         Subtotal:
                                     </span>
-                                    <span className='text-xl font-medium flex justify-center items-center'><span><FaIndianRupeeSign /></span><span>{order.amount}</span></span>
+                                    <span className='text-xl font-medium flex justify-center items-center'><span><FaIndianRupeeSign /></span><span>{orders.amount}</span></span>
                                 </div>
 
 
@@ -147,7 +164,7 @@ const OrderHistoryDetails = () => {
                                     <span className="address text-2xl font-medium">
                                         Total:
                                     </span>
-                                    <span className='text-2xl font-medium flex justify-center items-center'><span><FaIndianRupeeSign /></span><span>{order.amount}</span></span>
+                                    <span className='text-2xl font-medium flex justify-center items-center'><span><FaIndianRupeeSign /></span><span>{orders.amount}</span></span>
                                 </div>
                             </div>
                         </div>
@@ -160,7 +177,10 @@ const OrderHistoryDetails = () => {
                     </section>
 
                 </main>
-            ))}
+
+            ) : (
+                <div>Loading...</div> // Show loading state while fetching data
+            )}
 
         </>
     )

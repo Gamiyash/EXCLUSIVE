@@ -34,6 +34,21 @@ const HistoryPage = () => {
         navigate(`/orderHistoryDetails/${orderId}`);
     }
 
+    const getStatusClass = (status) => {
+        switch (status) {
+            case 'Delivered':
+                return 'bg-green-500'; // Green for delivered
+            case 'Pending':
+                return 'bg-yellow-500'; // Yellow for pending
+            case 'Processing':
+                return 'bg-orange-500'; // Orange for processing
+            case 'Shipped':
+                return 'bg-blue-500'; // Blue for shipped
+            default:
+                return 'bg-gray-500'; // Default gray
+        }
+    };
+
 
     return (
         <>
@@ -81,7 +96,7 @@ const HistoryPage = () => {
                             <section className='sec-2'>
 
                                 <div className="orderStatus flex flex-col justify-end items-end gap-16">
-                                    <div className={`Status text-xl text-white font-medium border rounded-full ${order.status === 'Delivered' ? 'bg-green-500' : 'bg-yellow-500'}  px-4 py-2`}>
+                                    <div className={`Status text-xl text-white font-medium border rounded-full ${getStatusClass(order.status)}  px-4 py-2`}>
                                         <span>{order.status}</span>
                                     </div>
 

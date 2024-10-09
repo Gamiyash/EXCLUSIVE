@@ -23,6 +23,10 @@ const productSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
+    type: {
+        type: String,
+        required: true
+    },
     total: {
         type: Number,
         required: true,
@@ -38,6 +42,10 @@ const orderSchema = new mongoose.Schema({
         type: String,
         required: true,
         unique: true
+    },
+    email: {
+        type: String,
+        required: true
     },
     products: [productSchema], // Embedding the product schema
     amount: {
@@ -73,10 +81,11 @@ const orderSchema = new mongoose.Schema({
     }
 });
 
-const getOrderModel = (userDb) => {
-    return userDb.model('Order', orderSchema);
+const getOrderModel = (dbConnection) => {
+    return dbConnection.model('Order', orderSchema);
 };
 // const Order = mongoose.model('Order', orderSchema);
 
-module.exports = getOrderModel;
 
+module.exports = getOrderModel;
+// module.exports = Order;

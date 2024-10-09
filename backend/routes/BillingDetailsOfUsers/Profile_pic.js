@@ -1,5 +1,6 @@
 const express = require('express');
 const multer = require('multer');
+const { MongoClient } = require('mongodb');
 const path = require('path');
 const router = express.Router();
 const User = require('../../models/user'); // Ensure the User model exists and is correct
@@ -45,6 +46,26 @@ router.post('/updateProfile', upload.single('profilePicture'), async (req, res) 
     res.status(200).json({ message: 'Profile updated successfully', profileImage: user.profilePicture });
   } catch (error) {
     console.error('Error updating profile:', error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+});
+
+// Route to fetch all users
+router.get('/getAllUsers', async (req, res) => {
+  try {
+    // const url = 'mongodb://localhost:27017';
+    // const client = new MongoClient(url);
+    // const dbName = 'EcommorceSignup'
+    // const db = client.db(dbName);
+    // const collection = db.collection('EcommorceLoginData');
+    const users = await User.find(); // Fetch all users from the User collection
+    console.log(users.length)
+    if (!users || users.length === 0) {
+      return res.status(404).json({ message: 'No users found' });
+    }
+    res.status(200).json(users); // Return all users
+  } catch (error) {
+    console.error('Error fetching users:', error);
     res.status(500).json({ message: 'Internal Server Error' });
   }
 });
