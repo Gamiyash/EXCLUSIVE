@@ -78,32 +78,42 @@ const Home = ({ user }) => {
     }
   };
 
+  const scrollLeftCategory = () => {
+    if (categoriesRef.current) {
+      categoriesRef.current.scrollBy({ left: -250, behavior: 'smooth' });
+    }
+  };
 
+  const scrollRightCategory = () => {
+    if (categoriesRef.current) {
+      categoriesRef.current.scrollBy({ left: 250, behavior: 'smooth' });
+    }
+  };
 
   const categories = [
     // Your categories array
     {
-      pic: <GiSmartphone size={65}  style={{ strokeWidth: 0.1 }} />,
+      pic: <GiSmartphone />,
       title: 'Phones',
     },
     {
-      pic: <HiOutlineDesktopComputer size={65} style={{ strokeWidth: 0.8 }} />,
+      pic: <HiOutlineDesktopComputer />,
       title: 'Computers',
     },
     {
-      pic: <BsSmartwatch size={65} style={{ strokeWidth: 0.1 }} />,
+      pic: <BsSmartwatch />,
       title: 'SmartWatch',
     },
     {
-      pic: <CiCamera size={65} style={{ strokeWidth: 0.1 }} />,
+      pic: <CiCamera />,
       title: 'Camera',
     },
     {
-      pic: <PiHeadphones size={65} style={{ strokeWidth: 0.1 }} />,
+      pic: <PiHeadphones />,
       title: 'Headphone',
     },
     {
-      pic: <IoGameController size={65} style={{ strokeWidth: 0.1 }} />,
+      pic: <IoGameController />,
       title: 'Phones',
     },
   ];
@@ -179,14 +189,17 @@ const Home = ({ user }) => {
 
       <div className="main bg-white">
         <div className="main">
-          {/* <Navbar  /> */}
-          <div className="Sidebar flex justify-between">
+          <div className="Sidebar flex flex-col items-center xl:flex-row xl:items-start xl:justify-between">
             <Sidebar />
-            <img  className="mt-[3%] mr-[10%] w-[80%] xl:w-[60%]" src="../Add.svg" alt="" />
+            <img
+              className="mt-4 xl:mt-[3%] xl:mr-[10%] w-[95%] xl:w-[60%]"
+              src="../Add.svg"
+              alt=""
+            />
           </div>
         </div>
 
-        <div className="flex flex-col ml-[5%] xl:ml-[10%] mt-24 gap-9">
+        <div className="flex flex-col ml-[5%] xl:ml-[10%] mt-24 gap-5 xl:gap-9">
           {/* Flash sales */}
           {/* Flash Sales content */}
 
@@ -195,8 +208,8 @@ const Home = ({ user }) => {
             <div className="today text-[#DB4444] font-bold">Today's</div>
           </div>
 
-          <div className="sale-timer flex justify-between items-center">
-            <div className="font-bold text-xl xl:text-3xl flex gap-16 tracking-wider">
+          <div className="sale-timer flex justify-between px-3 items-center">
+            <div className="font-bold text-xl xl:text-2xl flex xl:gap-16 gap-5 tracking-wider">
               <span>Flash Sales</span>
               <div>
                 {timeLeft.days}d <span className="text-[#DB4444]">:</span> {timeLeft.hours}h{' '}
@@ -204,7 +217,7 @@ const Home = ({ user }) => {
                 <span className="text-[#DB4444]">:</span> {timeLeft.seconds}s
               </div>
             </div>
-            <div className="two-arrow flex items-center gap-3 pr-24">
+            <div className="two-arrow flex items-center gap-3  xl:pr-24">
               <div className="left" onClick={() => scrollLeft(flashSalesRef)}>
                 <FaArrowCircleLeft className="text-gray-400 text-2xl cursor-pointer" />
               </div>
@@ -230,8 +243,8 @@ const Home = ({ user }) => {
             </div>
           </div>
 
-          <div className="btn flex justify-center items-center pt-10 pb-5">
-            <button onClick={RedirectToFlashsalePage} className="bg-[#DB4444] px-9 py-3 text-white">View All Products</button>
+          <div className="btn flex justify-center items-center xl:pt-10  xl:pb-5">
+            <button onClick={RedirectToFlashsalePage} className="bg-[#DB4444] px-3 xl:px-5 xl:text-[14px] text-[10px] py-2 xl:py-3 text-white">View All Products</button>
           </div>
 
           {/* Categories */}
@@ -241,14 +254,14 @@ const Home = ({ user }) => {
           </div>
 
           <div className="sale-timer flex justify-between items-center">
-            <div className="font-bold text-3xl flex gap-16 tracking-wider">
+            <div className="font-bold flex text-xl xl:text-2xl xl:gap-16 gap-5 tracking-wider">
               <span>Browse By Category</span>
             </div>
             <div className="two-arrow flex items-center gap-3 pr-24">
-              <div className="left" onClick={() => scrollLeft(categoriesRef)}>
+              <div className="left" onClick={() => scrollLeftCategory}>
                 <FaArrowCircleLeft className="text-gray-400 text-2xl cursor-pointer" />
               </div>
-              <div className="right" onClick={() => scrollRight(categoriesRef)}>
+              <div className="right" onClick={() => scrollRightCategory}>
                 <FaArrowCircleRight className="text-gray-400 text-2xl cursor-pointer" />
               </div>
             </div>
@@ -257,7 +270,7 @@ const Home = ({ user }) => {
           {/* Categories Cards Section */}
           <div
             ref={categoriesRef}
-            className="cards flex items-center gap-5 overflow-x-auto"
+            className="cards flex items-center xl:gap-5 overflow-x-auto"
             style={{ scrollbarWidth: 'none', 'msOverflowStyle': 'none' }}
           >
             {categories.map((category, index) => (
@@ -271,11 +284,11 @@ const Home = ({ user }) => {
           </div>
 
           <div className="sale-timer flex justify-between px-3 items-center">
-            <div className="font-bold text-xl xl:text-3xl flex gap-16 tracking-wider">
+            <div className="font-bold text-xl xl:text-2xl flex gap-16 tracking-wider">
               <span>Best Selling Products</span>
             </div>
             <div className="btn flex justify-center items-center">
-              <button onClick={RedirectToThisMonthBestproductsPage} className="bg-[#DB4444] px-3 xl:px-5 py-2 xl:py-3 text-white">View All Products</button>
+              <button onClick={RedirectToThisMonthBestproductsPage} className="bg-[#DB4444] px-3 xl:px-5 py-2 xl:py-3 xl:text-[14px] text-[10px] text-white">View All Products</button>
             </div>
           </div>
 
@@ -297,14 +310,14 @@ const Home = ({ user }) => {
           <img src="../Add2.svg" alt="" />
         </div>
         {/* All products */}
-        <div className="allproducts flex flex-col ml-[145px] gap-9">
+        <div className="allproducts flex flex-col ml-[5%] xl:ml-[10%] gap-5 xl:gap-9">
 
           <div className="category flex items-center gap-3">
             <div className="w-4 h-7 rounded-sm bg-[#DB4444]"></div>
             <div className="today text-[#DB4444] font-bold">Our Products</div>
           </div>
           <div className="sale-timer flex justify-between items-center">
-            <div className="font-bold text-3xl flex gap-16 tracking-wider">
+            <div className="font-bold  flex text-xl xl:text-2xl  xl:gap-16 gap-5 tracking-wider">
               <span>Explore Our Products</span>
             </div>
             <div className="two-arrow flex items-center gap-3 pr-24">
@@ -321,7 +334,7 @@ const Home = ({ user }) => {
             className="cards flex items-center gap-5 overflow-x-auto"
             style={{ scrollbarWidth: 'none', 'msOverflowStyle': 'none' }} >
             <div>
-              <div className="product-list flex gap-3 ">
+              <div className="product-list flex gap-3">
                 {products.map(product => (
                   <Allproducts key={product._id} product={product} user={user} />
                 ))}
@@ -331,8 +344,8 @@ const Home = ({ user }) => {
 
         </div>
 
-        <div className="btn flex justify-center items-center pt-10 pb-5">
-          <button onClick={RedirectToAlproductsPage} className="bg-[#DB4444] px-9 py-3 text-white">View All Products</button>
+        <div className="btn flex justify-center items-center xl:pt-10 xl:pb-5">
+          <button onClick={RedirectToAlproductsPage} className="bg-[#DB4444] px-3 xl:px-5 py-2 xl:py-3 xl:text-[14px] text-[10px] text-white">View All Products</button>
         </div>
 
         <div className="services flex justify-center items-center py-20">

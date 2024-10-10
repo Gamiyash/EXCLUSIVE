@@ -120,9 +120,9 @@ const SearchComponent = () => {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search for products..."
-          className="w-full p-2 border border-gray-300 rounded"
+          className="w-full text-sm p-2 border border-gray-300 rounded"
         />
-        <button className='absolute right-5 xl:block hidden' onClick={handleSearch}>Search</button>
+        <button className='absolute text-sm right-5 xl:block hidden' onClick={handleSearch}>Search</button>
       </div>
 
       {suggestions.length > 0 ? (

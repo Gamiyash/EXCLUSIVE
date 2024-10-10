@@ -5,12 +5,12 @@ import Allproducts from '../AllProducts/Allproducts';
 import Sidebar from '../componets/Sidebar';
 
 
-const MensFashionproductsList = ({user}) => {
+const MensFashionproductsList = ({ user }) => {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    console.log("The user is",user)
+    console.log("The user is", user)
 
     useEffect(() => {
         const fetchProducts = async () => {
@@ -32,17 +32,16 @@ const MensFashionproductsList = ({user}) => {
 
     return (
         <>
-        <div className="product-list flex w-[100vw] gap-6">
-            <div className='fixed left-0 w-[21vw] h-screen '><Sidebar /></div>
-            <div className="ml-[14vw] flex-1 overflow-auto p-3 ">
-                <div className="flex flex-wrap justify-around items-start mt-5 ">
-                    {products.filter((product)=>product.type=="ManFashion").map(product => (
-                        <Allproducts key={product._id} product={product} user={user} />
-                    ))}
+            <div className="product-list xl:flex-row flex flex-col justify-center items-center gap-0 xl:gap-6">
+                <div className='xl:fixed xl:left-0 xl:w-[21vw] xl:h-screen '><Sidebar /></div>
+                <div className="xl:ml-[14vw] flex-1 overflow-auto xl:p-3">
+                    <div className="flex flex-wrap justify-around items-start xl:mt-5 mt-2 xl:pl-5 ">
+                        {products.filter((product) => product.type == "ManFashion").map(product => (
+                            <Allproducts key={product._id} product={product} user={user} />
+                        ))}
+                    </div>
                 </div>
             </div>
-        </div>
-       
         </>
     );
 };

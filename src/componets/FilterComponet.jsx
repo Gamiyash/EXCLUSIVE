@@ -39,21 +39,17 @@ const FilterComponent = ({ products, onFilter }) => {
     };
 
     return (
-        <div className="filter-component flex justify-start items-center gap-6 mb-5 mt-3">
-            <h4 className='text-lg font-medium from-stone-900'>Sort By :-</h4>
-        <div className="filter-section flex gap-6">
-            {/* <h4 className="text-lg font-semibold mb-2">Filter by Rating</h4> */}
-            <button className={`border-[#DB4444] ${getButtonStyle(selectedRating === 0)}`} onClick={() => handleRatingChange(0)}>All Products</button>
-            <button className={`border-[#DB4444] ${getButtonStyle(selectedRating === 0.5)}`} onClick={() => handleRatingChange(0.5)}>Popularity</button>
-            {/* <button className={`hover:border-b-2 hover:text-[#DB4444] hover:font-medium border-[#DB4444] ${getButtonStyle(selectedRating === 3)}`} onClick={() => handleRatingChange(3)}>3 Stars & Up</button>
-            <button className={`hover:border-b-2 hover:text-[#DB4444] hover:font-medium border-[#DB4444] ${getButtonStyle(selectedRating === 2)}`} onClick={() => handleRatingChange(2)}>2 Stars & Up</button> */}
-      
-       
-            {/* <h4 className="text-lg font-semibold mb-2">Sort by Price</h4> */}
-            <button className={`border-[#DB4444] ${getButtonStyle(selectedPriceOrder === 'low-to-high')}`} onClick={() => handlePriceOrderChange('low-to-high')}>Price--Low to High</button>
-            <button className={`border-[#DB4444] ${getButtonStyle(selectedPriceOrder === 'high-to-low')}`} onClick={() => handlePriceOrderChange('high-to-low')}>Price--High to Low</button>
+        <div className="filter-component flex justify-start items-center xl:gap-6 gap-2 mb-7  xl:ml-5">
+            <h4 className='text-sm xl:text-lg font-medium from-stone-900'>Sort By :-</h4>
+            <div className="filter-section flex items-center gap-3 xl:gap-6">
+
+                <button className={`border-[#DB4444] text-[10px] xl:text-lg ${getButtonStyle(selectedRating === 0)}`} onClick={() => handleRatingChange(0)}>All Products</button>
+                <button className={`border-[#DB4444] text-[10px] xl:text-lg ${getButtonStyle(selectedRating === 0.5)}`} onClick={() => handleRatingChange(0.5)}>Popularity</button>
+
+                <button className={`border-[#DB4444] text-[10px] xl:text-lg ${getButtonStyle(selectedPriceOrder === 'low-to-high')}`} onClick={() => handlePriceOrderChange('low-to-high')}>Price--Low to High</button>
+                <button className={`border-[#DB4444] text-[10px] xl:text-lg ${getButtonStyle(selectedPriceOrder === 'high-to-low')}`} onClick={() => handlePriceOrderChange('high-to-low')}>Price--High to Low</button>
             </div>
-    </div>
+        </div>
 
     );
 };

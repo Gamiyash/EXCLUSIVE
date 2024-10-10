@@ -137,19 +137,19 @@ const Profile = () => {
   return (
     <>
       <main>
-        <div className="heading flex justify-between items-center mt-10 lg:mx-8 sm:mx-10  md:mx-10 xl:mx-16">
-          <h1 className='text-2xl xl:text-4xl font-medium  text-[#DB4444]'>Your Profile</h1>
+        <div className="heading flex justify-between items-center mt-5 lg:mx-8 sm:mx-10 mx-2  md:mx-10 xl:mx-16">
+          <h1 className='text-2xl xl:text-2xl font-medium  text-[#DB4444]'>Your Profile</h1>
           <p className='text-lg xl:text-xl'>Welcome <span className='text-[#DB4444]'>{billingDetails.firstName}</span></p>
         </div>
         <div className="Container_of_Both_sectio flex flex-col xl:flex-row  justify-center items-center">
-          <section className="sec-1 shadow-xl border border-gray-300 rounded-xl w-[95vw] xl:w-[30vw] h-[60vh] xl:h-[70vh] my-10 mx-7 flex flex-col gap-10 justify-center items-center">
-            <div className="container1  flex flex-col items-center gap-6">
+          <section className="sec-1 shadow-xl border border-gray-300 rounded-xl w-[95vw] xl:w-[30vw] h-[45vh] xl:h-[85vh] my-10 mx-7 flex flex-col gap-10 justify-center items-center">
+            <div className="container1 flex flex-col items-center gap-3">
               <div className="profile-uploader flex flex-col gap-3 items-center justify-center">
                 {profileImage ? (
                   <img
                     src={`http://localhost:3000${profileImage}`}
                     alt=""
-                    className="w-44 h-44 rounded-full object-cover"
+                    className="xl:w-32 xl:h-32 w-44 h-44 rounded-full object-cover"
                   />
                 ) : (
                   <p>No profile image available</p>
@@ -165,87 +165,87 @@ const Profile = () => {
                 {/* Custom file upload button */}
                 <label
                   htmlFor="file-input"
-                  className="cursor-pointer bg-[#DB4444] text-white px-4 py-2 rounded-full hover:bg-red-500 transition duration-300"
+                  className="cursor-pointer text-[14px] bg-[#DB4444] text-white px-4 py-2 xl:px-2 xl:py-2 rounded-full hover:bg-red-500 transition duration-300"
                 >
                   Upload Image
                 </label>
 
                 {/* Submit Button */}
                 <button
-                  className="bg-green-500 text-white px-4 py-2 rounded-full  hover:bg-green-600 transition duration-300"
+                  className="bg-green-500 text-[14px] text-white px-4 py-2 xl:px-2 xl:py-2 rounded-full  hover:bg-green-600 transition duration-300"
                   onClick={updateProfileImage}
                 >
                   Update Profile Image
                 </button>
               </div>
-              <div className="Details flex flex-col items-center gap-2">
-                <p className='text-3xl font-medium'>{billingDetails.firstName}</p>
+              <div className="Details flex flex-col items-center gap-1">
+                <p className='text-2xl font-medium'>{billingDetails.firstName}</p>
                 <p className='text-gray-500 '>{billingDetails.emailAddress}</p>
               </div>
             </div>
 
-            <div className="All-btn flex items-center gap-7 xl:gap-10 bg-gray-200 px-5 xl:px-10 py-3 rounded-full">
+            <div className="All-btn flex items-center gap-10 xl:gap-7 bg-gray-200 px-2 xl:px-10 py-2 rounded-full">
               <div className="profile hover:bg-[#DB4444] hover:text-white rounded-full p-1">
-                <CgProfile size={25} />
+                <CgProfile size={23} />
               </div>
               <div className="profile hover:bg-[#DB4444] hover:text-white rounded-full p-1" onClick={() => alert("Feture is Comming Soon")} >
-                < LuPackage size={25} />
+                < LuPackage size={23} />
               </div>
               <div className="profile hover:bg-[#DB4444] hover:text-white rounded-full p-1" onClick={() => alert("Feture is Comming Soon")}>
-                <BiMap size={25} />
+                <BiMap size={23} />
               </div>
               <div className="profile hover:bg-[#DB4444] hover:text-white rounded-full p-1" onClick={() => alert("Feture is Comming Soon")}>
-                <GoCreditCard size={25} />
+                <GoCreditCard size={23} />
               </div>
 
               <div className="profile hover:bg-[#DB4444] hover:text-white rounded-full p-1" onClick={() => alert("Feture is Comming Soon")}>
-                <IoSettingsOutline size={25} />
+                <IoSettingsOutline size={23} />
               </div>
             </div>
           </section>
 
-          <section className="sec-2 shadow-xl border border-gray-300 rounded-xl w-[98vw] xl:w-[60vw] h-[70vh] xl:h-[70vh] my-10 mx-4">
-            <div className="EditProfile flex flex-col px-10 py-5">
+          <section className="sec-2 shadow-xl border border-gray-300 rounded-xl w-[98vw] xl:w-[60vw] h-[45vh] xl:h-[85vh] my-10 mx-4">
+            <div className="EditProfile flex flex-col px-10 py-3">
               <h2 className='text-2xl font-medium  text-[#DB4444]'>Edit Your Profile</h2>
 
               <div className="input1 w-full flex gap-4 pt-5">
                 <div className='flex flex-col gap-1'>
-                  <label className='font-medium' htmlFor="FirstName ">First Name</label>
-                  <input className='bg-gray-100 h-10 rounded-md px-3 w-[40vw] xl:w-[27vw]' type="text" name="firstName" value={billingDetails.firstName} onChange={handleBillingChange} />
+                  <label className='font-medium text-sm' htmlFor="FirstName ">First Name</label>
+                  <input className='bg-gray-100 text-sm h-9 rounded-md px-3 w-[40vw] xl:w-[27vw]' type="text" name="firstName" value={billingDetails.firstName} onChange={handleBillingChange} />
                 </div>
 
                 <div className='flex flex-col gap-1'>
-                  <label className='font-medium' htmlFor="FirstName ">Last Name</label>
-                  <input className='bg-gray-100 h-10 rounded-md px-3 w-[40vw] xl:w-[27vw]' type="text" name="companyName" value={billingDetails.companyName} onChange={handleBillingChange} />
+                  <label className='font-medium text-sm' htmlFor="FirstName ">Last Name</label>
+                  <input className='bg-gray-100 text-sm h-9 rounded-md px-3 w-[40vw] xl:w-[27vw]' type="text" name="companyName" value={billingDetails.companyName} onChange={handleBillingChange} />
                 </div>
               </div>
               <div className="input2 w-full flex gap-4 pt-5">
                 <div className='flex flex-col gap-1'>
-                  <label className='font-medium' htmlFor="FirstName ">Email</label>
-                  <input className='bg-gray-100 h-10 rounded-md px-3 w-[40vw] xl:w-[27vw]' name="emailAddress" value={billingDetails.emailAddress} onChange={handleBillingChange} />
+                  <label className='font-medium text-sm' htmlFor="FirstName ">Email</label>
+                  <input className='bg-gray-100 text-sm h-9 rounded-md px-3 w-[40vw] xl:w-[27vw]' name="emailAddress" value={billingDetails.emailAddress} onChange={handleBillingChange} />
                 </div>
 
                 <div className='flex flex-col gap-1'>
-                  <label className='font-medium' htmlFor="FirstName ">Address</label>
-                  <input className='bg-gray-100 h-10 rounded-md px-3 w-[40vw] xl:w-[27vw]' type="text" name="streetAddress" value={`${billingDetails.streetAddress}, ${billingDetails.apartment || ''}, ${billingDetails.city}`} onChange={handleBillingChange} />
+                  <label className='font-medium text-sm' htmlFor="FirstName ">Address</label>
+                  <input className='bg-gray-100 text-sm h-9 rounded-md px-3 w-[40vw] xl:w-[27vw]' type="text" name="streetAddress" value={`${billingDetails.streetAddress}, ${billingDetails.apartment || ''}, ${billingDetails.city}`} onChange={handleBillingChange} />
                 </div>
               </div>
 
 
-              <div className="PasswordChanges flex flex-col gap-4 pt-5">
-                <h2 className='text-xl font-medium'>Password Changes</h2>
+              <div className="PasswordChanges flex flex-col gap-2 pt-5">
+                <h2 className='text-lg font-medium '>Password Changes</h2>
 
-                <div className="inputs w-full flex flex-col gap-4 pt-5">
+                <div className="inputs w-full flex flex-col gap-2 ">
                   <div className='flex flex-col gap-1'>
-                    <input className='bg-gray-100 h-10 rounded-md px-3 w-full' placeholder='Current Password' type="password" value={currentPassword} onChange={(e) => setCurrentPassword(e.target.value)} name="firstName" />
+                    <input className='bg-gray-100 text-sm h-9 rounded-md px-3 w-full' placeholder='Current Password' type="password" value={currentPassword} onChange={(e) => setCurrentPassword(e.target.value)} name="firstName" />
                   </div>
 
                   <div className='flex flex-col gap-1'>
-                    <input className='bg-gray-100 h-10 rounded-md px-3 w-full' placeholder='New Password' type="password" name="firstName"  value={newPassword} onChange={(e) => setNewPassword(e.target.value)} />
+                    <input className='bg-gray-100 text-sm h-9 rounded-md px-3 w-full' placeholder='New Password' type="password" name="firstName"  value={newPassword} onChange={(e) => setNewPassword(e.target.value)} />
                   </div>
 
                   <div className='flex flex-col gap-1'>
-                    <input className='bg-gray-100 h-10 rounded-md px-3 w-full' placeholder=' Confirm New Password' type="password" name="firstName" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
+                    <input className='bg-gray-100 text-sm h-9 rounded-md px-3 w-full' placeholder=' Confirm New Password' type="password" name="firstName" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
                   </div>
                   <div className="btn">
                   <button onClick={handleChangepss}>Change Password</button>
@@ -253,7 +253,7 @@ const Profile = () => {
                 </div>
 
                 <div className="btn pt-3">
-                  <button className='p-3 pr-8 pl-8 border bg-[#DB4444] text-white rounded-sm' onClick={handleSubmitBillingDetails}>Save Changes</button>
+                  <button className='p-2 text-sm px-4 border bg-[#DB4444] text-white rounded-sm' onClick={handleSubmitBillingDetails}>Save Changes</button>
                 </div>
               </div>
             </div>

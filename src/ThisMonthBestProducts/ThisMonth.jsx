@@ -118,14 +118,14 @@ const ThisMonth = ({ ThismonthBestProduct, user }) => {
     return (
 
         <div
-            className="card p-2 rounded-md w-[250px] flex flex-col items-start justify-start relative  hover:bg-[#ffff] hover:scale-105 transition-transform hover:shadow-md "
+            className="card p-2 rounded-md xl:w-[180px] w-[140px] h-full flex flex-col items-start justify-start relative  hover:bg-[#ffff] hover:scale-105 transition-transform hover:shadow-md "
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
         >
-            <div className="w-[250px] h-[280px] bg-white shadow-md rounded-md border-gray-300 relative flex justify-center items-center overflow-hidden">
+            <div className="xl:w-[180px] xl:h-[220px] w-[140px] h-[180px] bg-white shadow-md rounded-md border-gray-300 relative flex justify-center items-center overflow-hidden">
                 <img className="object-contain w-full h-full" src={image} alt={name} onClick={handleClick} />
                 {isHovered && (
-                    <button className="absolute bottom-0 left-0 right-0 bg-black text-white py-2" onClick={AddtoCart}>
+                    <button className="absolute bottom-0 left-0 right-0 bg-black text-white py-1" onClick={AddtoCart}>
                         Add to Cart
                     </button>
                 )}
@@ -133,17 +133,17 @@ const ThisMonth = ({ ThismonthBestProduct, user }) => {
                     <AiFillHeart size={30} color='gray' />
                 </button>
             </div>
-            <div className="title font-medium text-lg mt-2">{name}</div>
-            <div className="price flex items-center gap-2 mt-2">
-                <div className="Offer-price font-medium text-xl text-[#DB4444] flex items-center">
+            <div className="title font-medium text-[10px] xl:text-[16px]  mt-2">{name}</div>
+            <div className="price flex flex-wrap items-center gap-2 mt-2">
+                <div className="Offer-price font-medium text-[10px] xl:text-lg text-[#DB4444] flex items-center">
                     <FaIndianRupeeSign size={17} /> {numberWithCommas(offerPrice)}
                 </div>
-                <div className="Actual-price font-medium text-xl line-through text-gray-400 flex items-center">
+                <div className="Actual-price font-medium text-[10px] xl:text-lg line-through text-gray-400 flex items-center">
                     <FaIndianRupeeSign size={17} /> {numberWithCommas(actualPrice)}
                 </div>
-                <div className="offer-per font-medium text-xl text-green-500">{discount}% off</div>
+                <div className="offer-per font-medium text-[10px] xl:text-lg text-green-500">{discount}% off</div>
             </div>
-            <div className="rating mt-2"><StarRating rating={rating} /></div>
+            <div className="rating xl:text-[16px] text-[10px] mt-2"><StarRating rating={rating} /></div>
 
         </div>
     );

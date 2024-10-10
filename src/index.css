@@ -48,7 +48,23 @@ body::-webkit-scrollbar {
   }
 
 
-  
+  .cards {
+    overflow-x: auto;
+    display: flex; /* Ensure it's a flex container */
+    scroll-behavior: smooth; /* Smooth scrolling */
+  }
   
 
+/* Example Tailwind CSS classes for basic styling */
+.categories-container {
+  @apply flex flex-wrap justify-center;
+}
+
+.category-card {
+  @apply m-4 p-5 border rounded-lg  text-center;
+}
+
+.category-title {
+  @apply mt-2 text-lg font-semibold;
+}
 
