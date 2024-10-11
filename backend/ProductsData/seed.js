@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Product = require('../models/product'); // Adjust the path as necessary
 
-mongoose.connect('mongodb://localhost:27017/EcommorceSignup', { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(`${process.env.MONGO_URI}/EcommorceSignup`, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
     console.log('MongoDB connected');
     return Product.deleteMany(); // Optional: Clear existing data

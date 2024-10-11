@@ -53,11 +53,7 @@ router.post('/updateProfile', upload.single('profilePicture'), async (req, res) 
 // Route to fetch all users
 router.get('/getAllUsers', async (req, res) => {
   try {
-    // const url = 'mongodb://localhost:27017';
-    // const client = new MongoClient(url);
-    // const dbName = 'EcommorceSignup'
-    // const db = client.db(dbName);
-    // const collection = db.collection('EcommorceLoginData');
+ 
     const users = await User.find(); // Fetch all users from the User collection
     console.log(users.length)
     if (!users || users.length === 0) {

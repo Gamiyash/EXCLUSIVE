@@ -18,8 +18,8 @@ const ProductsPage = () => {
     return (
         <div>
             {products.length > 0 ? (
-                <div className="product-list flex w-full gap-5">
-                    <div className='fixed left-0 xl:w-[21vw] h-screen '><Sidebar /></div>
+                <div className="product-list xl:flex-row xl:justify-normal xl:items-start flex flex-col justify-center items-center gap-0 xl:gap-6">
+                    <div className='xl:fixed xl:left-0 xl:w-[21vw] xl:h-screen '><Sidebar /></div>
                     <div className="xl:ml-[14vw] pl-5 flex-1 overflow-auto p-3 ">
                     <FilterComponent products={filteredProducts} onFilter={handleFilter} />
                         <div className="flex flex-wrap justify-around items-start gap-2 mt-5">

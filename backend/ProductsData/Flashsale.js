@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const FlashProduct = require('../models/Flashproduct');
 
-mongoose.connect('mongodb://localhost:27017/EcommorceSignup', { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(`${process.env.MONGO_URI}/EcommorceSignup`, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
     console.log('MongoDB connected');
     return FlashProduct.deleteMany(); // Clear existing data

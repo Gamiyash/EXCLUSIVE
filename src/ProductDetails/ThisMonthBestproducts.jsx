@@ -216,32 +216,32 @@ const ThisMonthBestProductsDetails = ({ user, productId }) => {
 
     return (
         <>
-            <div className='Main flex w-[100vw]'>
-                <div className="img pl-10 w-[60vw] gap-20 flex ">
-                    <div className="sideimages mt-20 flex gap-5 flex-col items-center ">
+            <div className='Main flex w-[100vw] xl:h-[80vh] h-[40vh] gap-10'>
+                <div className="img w-[50vw] gap-14 flex ">
+                    <div className="sideimages xl:pl-0 pl-5 pt-10 flex gap-5 flex-col items-center w-[20vw]">
                         <img
-                            width={90}
+                            width={70}
                             className='rounded-md cursor-pointer'
                             src={sideimg1}
                             alt=""
                             onClick={() => handleSideImageClick(sideimg1)}
                         />
                         <img
-                            width={90}
+                            width={70}
                             className='rounded-md cursor-pointer'
                             src={sideimg2}
                             alt=""
                             onClick={() => handleSideImageClick(sideimg2)}
                         />
                         <img
-                            width={90}
+                            width={70}
                             className='rounded-md cursor-pointer'
                             src={sideimg3}
                             alt=""
                             onClick={() => handleSideImageClick(sideimg3)}
                         />
                         <img
-                            width={90}
+                            width={70}
                             className='rounded-md cursor-pointer'
                             src={sideimg4}
                             alt=""
@@ -249,13 +249,14 @@ const ThisMonthBestProductsDetails = ({ user, productId }) => {
                         />
                     </div>
 
-                    <div className="bg mt-20 w-[500px] h-[500px] relative flex justify-center items-center overflow-hidden">
-                        <img width={450} className='absolute object-contain' src={mainImage} alt={name} style={{ maxWidth: '100%', maxHeight: '100%' }} />
+
+                    <div className="bg pt-10 h-[80vh] xl:w-[30vw] w-[60vw]">
+                        <img className='w-full' src={mainImage} alt={name} style={{ maxWidth: '100%', maxHeight: '100%' }} />
                     </div>
                 </div>
 
-                <div className="details mt-20 flex flex-col justify-start gap-3 w-[30vw]">
-                    <div className="title font-bold text-2xl">{name}</div>
+                <div className="details flex flex-col gap-3 w-[50vw]">
+                    <div className="title pt-10 font-bold xl:text-2xl text-lg">{name}</div>
 
                     <div className="rating">
                         <StarRating rating={rating} />
@@ -265,20 +266,20 @@ const ThisMonthBestProductsDetails = ({ user, productId }) => {
                         <FaIndianRupeeSign size={17} />{numberWithCommas(offerPrice)}
                     </div>
 
-                    <div className="description">
+                    <div className="description font-bold text-gray-400 xl:text-[16px] text-[10px] flex whitespace-pre-line">
                         {discription}
                     </div>
 
                     <div className="line h-px bg-gray-600"></div>
 
-                    <div className="size flex items-center gap-4">
+                    <div className="size flex items-center gap-2 xl:gap-4">
                         <span className='text-xl'>Size:</span>
                         <div className="sizebtn flex items-center gap-2 font-medium">
                             {size.map((sizeOption) => (
                                 <button
                                     key={sizeOption}
                                     onClick={() => handleSizeChange(sizeOption)}
-                                    className={`m-1 px-4 py-2 rounded border ${selectedSize === sizeOption ? 'bg-blue-500 text-white' : 'bg-white text-black'}`}
+                                    className={`m-1 xl:px-4 px-2 py-2 rounded border hover:bg-blue-500 hover:text-white ${selectedSize === sizeOption ? 'bg-blue-500 text-white' : 'bg-white text-black'}`}
                                 >
                                     {sizeOption}
                                 </button>
@@ -286,23 +287,23 @@ const ThisMonthBestProductsDetails = ({ user, productId }) => {
                         </div>
                     </div>
 
-                    <div className="btns flex gap-5 items-center">
+                    <div className="btns flex xl:gap-5 gap-1 items-center">
                         <div className="cart-btn flex items-center">
                             <div className="minus">
                                 <button
                                     onClick={handleDecrement}
-                                    className='border rounded-sm border-gray-600 w-9 h-9 flex justify-center items-center hover:bg-[#DB4444] hover:text-white'
+                                    className='border rounded-sm border-gray-600 px-3 py-2 flex justify-center items-center hover:bg-[#DB4444] hover:text-white'
                                 >
                                     <FaMinus />
                                 </button>
                             </div>
-                            <div className="container border rounded-sm border-gray-600 w-16 h-9 flex justify-center items-center">
+                            <div className="container border rounded-sm border-gray-600 xl:w-16 w-12 h-6 xl:h-9 flex justify-center items-center">
                                 {quantity}
                             </div>
                             <div className="plus">
                                 <button
                                     onClick={handleIncrement}
-                                    className='border rounded-sm border-gray-600 w-9 h-9 flex justify-center items-center hover:bg-[#DB4444] hover:text-white'
+                                    className='border rounded-sm border-gray-600 px-3 py-2 flex justify-center items-center hover:bg-[#DB4444] hover:text-white'
                                 >
                                     <FaPlus />
                                 </button>
@@ -311,16 +312,16 @@ const ThisMonthBestProductsDetails = ({ user, productId }) => {
                         <div className="Buy">
                             <button
                                 onClick={handleBuyNow}
-                                className='w-32 h-9 border rounded-sm bg-[#DB4444] text-white'
+                                className='xl:px-10 px-5 py-2 xl:text-[16px] text-[10px] border rounded-sm bg-[#DB4444] text-white'
                             >
                                 Buy Now
                             </button>
                         </div>
-                        <div className="like">
-                            <div className='border rounded-sm w-9 h-9 flex justify-center items-center'>
-                                <CiHeart size={25} />
+                        {/* <div className="like">
+                            <div className='border rounded-sm w-9 h-9 flex justify-center items-center cursor-pointer'>
+                                <CiHeart size={25} onClick={AddtoWishList} />
                             </div>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </div>

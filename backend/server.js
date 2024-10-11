@@ -46,7 +46,7 @@ const mongoose = require('./db');
 
 dotenv.config();
 
-const url = 'mongodb://localhost:27017';
+const url = process.env.MONGO_URI;
 const client = new MongoClient(url);
 const dbName = 'EcommorceSignup';
 const app = express();
@@ -54,7 +54,7 @@ const port = 3000;
 
 const MongoDBStore = require('connect-mongodb-session')(session);
 const store = new MongoDBStore({
-  uri: 'mongodb://localhost:27017/sessions',
+  uri: `${process.env.MONGO_URI}/sessions`,
   collection: 'sessions'
 });
 
@@ -70,9 +70,15 @@ store.on('error', function (error) {
 });
 
 app.use(cors({
-  origin: 'http://localhost:5173', // Your frontend URL
+  origin: `${process.env.FRONTEND_URL}`, // Your frontend URL
   credentials: true,
 }));
+
+// app.use(cors({
+//   origin:['http://localhost:5173', 'http://192.168.198.140:3000'], // Your frontend URL
+//   credentials: true,
+// }));
+
 app.use(bodyParser.json());
 // app.use(session({ secret: '8f8cf9d5b54eb1e3f8a3d637f0b2d9f1', resave: false, saveUninitialized: true ,cookie: { secure: true}}));
 app.use(passport.initialize());
@@ -94,11 +100,11 @@ app.use(session({
   resave: false,
   saveUninitialized: false,
   store: new MongoDBStore({
-    uri: 'mongodb://localhost:27017/EcommorceSignup', // MongoDB URI
+    uri: `${process.env.MONGO_URI}/EcommorceSignup`, // MongoDB URI
     collection: 'sessions'
   }),
   cookie: {
-    maxAge:null,
+    maxAge: null,
     // maxAge: 1000 * 60 * 60 * 24, // 1 day
     httpOnly: true, // Helps prevent XSS attacks
     secure: false // Set to true if using HTTPS
@@ -466,7 +472,7 @@ app.get('/api/auth/google/callback',
       }
 
 
-      res.redirect('http://localhost:5173/home');
+      res.redirect(`${process.env.FRONTEND_URL}/home`);
       // res.redirect(`${process.env.FRONTEND_URL}/home`)
     } catch (error) {
       console.error('Error in Google OAuth callback:', error);

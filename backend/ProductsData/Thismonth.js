@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 // const Thismonth = require('./models/Thismonth'); 
 const ThismonthBestProduct = require('../models/Thismonth');
 
-mongoose.connect('mongodb://localhost:27017/EcommorceSignup', { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(`${process.env.MONGO_URI}/EcommorceSignup`, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
     console.log('MongoDB connected');
     return ThismonthBestProduct.deleteMany(); // Optional: Clear existing data

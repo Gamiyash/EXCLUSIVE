@@ -6,7 +6,7 @@ import StarRating from '../componets/Starrating';
 // import Allproducts from '../AllProducts/Allproducts';
 import { MdOutlineDeleteOutline } from "react-icons/md";
 
-const WishList = ({ product,user }) => {
+const WishList = ({ product, user }) => {
     const [Wishlistitems, setWishlistitems] = useState([]);
     const [isHovered, setIsHovered] = useState(false);
     const [loading, setLoading] = useState(true);
@@ -116,7 +116,7 @@ const WishList = ({ product,user }) => {
                 ...AddDataOfAllProductsIntoCartRequests,
                 ...AddDataOfFlashsaleProductsIntoCartRequests,
                 ...AddDataOfThisMonthProductsIntoCartRequests
-              
+
             ]);
 
             alert('Product added to cart!');
@@ -143,7 +143,7 @@ const WishList = ({ product,user }) => {
     return (
         <>
             <main className='main overflow-auto scrollbar-hidden'>
-                <div className='flex justify-between m-12'>
+                <div className='flex justify-between items-center m-5 xl:m-12'>
                     <div className=' font-medium'>Wishlist ({Wishlistitems.length}) </div>
                     <div><button className='font-medium border bg-white pt-3 pb-3 pr-7 pl-7 hover:bg-[#DB4444] hover:text-white'>Move All To Bog</button></div>
                 </div>
@@ -152,7 +152,7 @@ const WishList = ({ product,user }) => {
                         <p className="text-lg font-semibold">No items are added to the cart</p>
                     </div>
                 ) : (
-                    <div className="Cart flex m-10 gap-10 overflow-auto scrollbar-hidden overflow-x-auto"
+                    <div className="Cart flex xl:justify-normal  justify-center items-center xl:m-10 gap-10 overflow-auto scrollbar-hidden overflow-x-auto"
                         ref={Allproductref}
                         style={{ scrollbarWidth: 'none', '-ms-overflow-style': 'none' }}>
 

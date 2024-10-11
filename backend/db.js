@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 // Replace this with your MongoDB connection string
-const mongoURI = 'mongodb://localhost:27017/EcommorceSignup';
+const mongoURI = `${process.env.MONGO_URI}/EcommorceSignup`;
 
 mongoose.connect(mongoURI, {
   useNewUrlParser: true,
