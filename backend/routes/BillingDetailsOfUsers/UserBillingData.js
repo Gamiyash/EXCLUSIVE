@@ -59,7 +59,7 @@ router.get('/getUsersBillingDetails/:email', async (req, res) => {
         const billingCollection = userDb.collection('billingDetails'); // Billing details collection
 
         // Fetch billing details from the user's database
-        const billingDetails = await billingCollection.findOne({ emailAddress: email });
+        const billingDetails = await billingCollection.findOne({ email });
 
         if (billingDetails) {
             res.status(200).json(billingDetails);

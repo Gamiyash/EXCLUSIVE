@@ -78,7 +78,7 @@ router.post('/verifyPayment', async (req, res) => {
 
             const orderData = {
                 orderId: order_id, // Use the Razorpay order ID as the order ID
-                email: billingDetails.emailAddress,
+                email: email,
                 products: checkoutItems.map(item => ({
                     productId: item.productId,
                     name: item.name,
