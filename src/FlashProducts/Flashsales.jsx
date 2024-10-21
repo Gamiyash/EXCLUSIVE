@@ -34,11 +34,11 @@ const Flashslaes = ({ FlashProduct, user }) => {
 
                 console.log('Payload:', payload);
 
-                await axios.post('http://localhost:3000/api/addToCart', payload, {
+                await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/addToCart`, payload, {
                     withCredentials: true
                 });
 
-                // await axios.post('http://localhost:3000/api/Checkout', payload, {
+                // await axios.post('${import.meta.env.VITE_BACKEND_URL}/api/Checkout', payload, {
                 //     withCredentials: true
                 // });
 
@@ -68,7 +68,7 @@ const Flashslaes = ({ FlashProduct, user }) => {
 
                 console.log('Payload1:', payload1);
 
-                await axios.post('http://localhost:3000/api/addToFlashWishList', payload1, {
+                await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/addToFlashWishList`, payload1, {
                     withCredentials: true
                 });
 

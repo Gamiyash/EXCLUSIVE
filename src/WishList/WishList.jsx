@@ -32,7 +32,7 @@ const WishList = ({ product, user }) => {
         const fetchWishlistData = async () => {
             try {
                 const userEmail = JSON.parse(localStorage.getItem('user'))?.email; // Replace with actual email logic or context
-                const response = await axios.get(`http://localhost:3000/api/getToWishList/${userEmail}`);
+                const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/getToWishList/${userEmail}`);
                 setWishlistitems(response.data);
                 // console.log("data is",Wishlistitems)
             } catch (err) {
@@ -48,7 +48,7 @@ const WishList = ({ product, user }) => {
         const fetchWishlistData = async () => {
             try {
                 const userEmail = JSON.parse(localStorage.getItem('user'))?.email; // Replace with actual email logic or context
-                const response = await axios.get(`http://localhost:3000/api/getToFlashWishList/${userEmail}`);
+                const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/getToFlashWishList/${userEmail}`);
                 setWishlistitems(response.data);
                 // console.log("data is",Wishlistitems)
             } catch (err) {
@@ -64,7 +64,7 @@ const WishList = ({ product, user }) => {
         const fetchWishlistData = async () => {
             try {
                 const userEmail = JSON.parse(localStorage.getItem('user'))?.email; // Replace with actual email logic or context
-                const response = await axios.get(`http://localhost:3000/api/getToThismonthWishList/${userEmail}`);
+                const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/getToThismonthWishList/${userEmail}`);
                 setWishlistitems(response.data);
                 // console.log("data is",Wishlistitems)
             } catch (err) {
@@ -81,7 +81,7 @@ const WishList = ({ product, user }) => {
         try {
             const usermail = JSON.parse(localStorage.getItem('user'))?.email;
             const AddDataOfFlashsaleProductsIntoCartRequests = Wishlistitems.map(item => {
-                return axios.post('http://localhost:3000/api/addToCart', {
+                return axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/addToCart`, {
                     email: usermail,
                     productId: item.productId,
                     quantity: item.quantity, // Send the updated quantity
@@ -91,7 +91,7 @@ const WishList = ({ product, user }) => {
             });
 
             const AddDataOfAllProductsIntoCartRequests = Wishlistitems.map(item => {
-                return axios.post('http://localhost:3000/api/addToCartallproduct', {
+                return axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/addToCartallproduct`, {
                     email: usermail,
                     productId: item.productId,
                     quantity: item.quantity, // Send the updated quantity
@@ -101,7 +101,7 @@ const WishList = ({ product, user }) => {
             });
 
             const AddDataOfThisMonthProductsIntoCartRequests = Wishlistitems.map(item => {
-                return axios.post('http://localhost:3000/api/addToCartThismonthBestProducts', {
+                return axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/addToCartThismonthBestProducts`, {
                     email: usermail,
                     productId: item.productId,
                     quantity: item.quantity, // Send the updated quantity
@@ -129,7 +129,7 @@ const WishList = ({ product, user }) => {
         try {
             const userEmail = JSON.parse(localStorage.getItem('user'))?.email;
             console.log(`Attempting to delete item: ${userEmail}, ${productId}`);
-            await axios.delete(`http://localhost:3000/api/deleteWishlistItem/${userEmail}/${productId}`);
+            await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/api/deleteWishlistItem/${userEmail}/${productId}`);
             setWishlistitems(prevItems => prevItems.filter(item => item.productId !== productId));
         } catch (err) {
             // setError(err.message);

@@ -123,8 +123,8 @@ const Home = ({ user }) => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        // const response = await axios.get('http://localhost:3000/api/Flashproducts');
-        const response = await axios.get('http://localhost:3000/api/Flashproducts');
+        // const response = await axios.get('${import.meta.env.VITE_BACKEND_URL}/api/Flashproducts');
+        const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/Flashproducts`);
         setFlashProducts(response.data);
         setLoading(false);
       } catch (error) {
@@ -140,8 +140,8 @@ const Home = ({ user }) => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        // const response = await axios.get('http://localhost:3000/api/products');
-        const response = await axios.get('http://localhost:3000/api/products');
+        // const response = await axios.get('${import.meta.env.VITE_BACKEND_URL}/api/products');
+        const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/products`);
         setProducts(response.data);
         setLoading(false);
       } catch (error) {
@@ -157,8 +157,8 @@ const Home = ({ user }) => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        // const response = await axios.get('http://localhost:3000/api/Thismonth');
-        const response = await axios.get('http://localhost:3000/api/Thismonth');
+        // const response = await axios.get('${import.meta.env.VITE_BACKEND_URL}/api/Thismonth');
+        const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/Thismonth`);
         setBestProducts(response.data);
         setLoading(false);
       } catch (error) {

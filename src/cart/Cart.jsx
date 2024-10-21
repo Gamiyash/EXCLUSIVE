@@ -19,7 +19,7 @@ const Cart = ({ user }) => {
             try {
                 // console.log("the user is",user,user.email)
                 const userEmail = JSON.parse(localStorage.getItem('user'))?.email; // Replace with actual email logic or context
-                const response = await axios.get(`http://localhost:3000/api/getCart/${userEmail}`);
+                const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/getCart/${userEmail}`);
                 setCartItems(response.data);
             } catch (err) {
                 // setError(err.message);
@@ -35,7 +35,7 @@ const Cart = ({ user }) => {
             try {
                 const userEmail = JSON.parse(localStorage.getItem('user'))?.email;
                 if (!userEmail) throw new Error('User email not found'); // Replace with actual email logic or context
-                const response = await axios.get(`http://localhost:3000/api/getAllProductsCartData/${userEmail}`);
+                const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/getAllProductsCartData/${userEmail}`);
                 setCartItems(response.data);
             } catch (err) {
                 // setError(err.message);
@@ -50,7 +50,7 @@ const Cart = ({ user }) => {
         const fetchCartData = async () => {
             try {
                 const userEmail = JSON.parse(localStorage.getItem('user'))?.email; // Replace with actual email logic or context
-                const response = await axios.get(`http://localhost:3000/api/getThisMonthBestProductsCartData/${userEmail}`);
+                const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/getThisMonthBestProductsCartData/${userEmail}`);
                 setCartItems(response.data);
             } catch (err) {
                 // setError(err.message);
@@ -75,7 +75,7 @@ const Cart = ({ user }) => {
         try {
             const userEmail = user.email;
             // window.location.reload();
-            await axios.delete(`http://localhost:3000/api/deleteflashCartItem/${userEmail}/${productId}`);
+            await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/api/deleteflashCartItem/${userEmail}/${productId}`);
      
             setCartItems(prevItems => prevItems.filter(item => item.productId !== productId));
         } catch (err) {
@@ -86,7 +86,7 @@ const Cart = ({ user }) => {
     const handleClearCart = async () => {
         try {
             const userEmail = user.email;
-            await axios.delete(`http://localhost:3000/api/clearCart/${userEmail}`);
+            await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/api/clearCart/${userEmail}`);
             setCartItems([]); // Clear the cart in the frontend
         } catch (err) {
             setError(err.message);
@@ -98,7 +98,7 @@ const Cart = ({ user }) => {
             const userEmail = JSON.parse(localStorage.getItem('user'))?.email;
 
             const updateRequests = cartItems.map(item => {
-                return axios.put('http://localhost:3000/api/updateCart', {
+                return axios.put(`${import.meta.env.VITE_BACKEND_URL}/api/updateCart`, {
                     email: userEmail,
                     productId: item.productId,
                     quantity: item.quantity || 1, // Send the updated quantity
@@ -120,7 +120,7 @@ const Cart = ({ user }) => {
             const userEmail = JSON.parse(localStorage.getItem('user'))?.email;
 
             const AddDataIntoCheckoutRequests = cartItems.map(item => {
-                return axios.post('http://localhost:3000/api/Checkout', {
+                return axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/Checkout`, {
                     email: userEmail,
                     productId: item.productId,
                     quantity: item.quantity || 1, // Send the updated quantity
@@ -173,7 +173,7 @@ const Cart = ({ user }) => {
             const userEmail = JSON.parse(localStorage.getItem('user'))?.email;
 
             const AddDataIntoCheckoutRequests = cartItems.map(item => {
-                return axios.post('http://localhost:3000/api/Checkout', {
+                return axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/Checkout`, {
                     email: userEmail,
                     productId: item.productId,
                     quantity: item.quantity || 1, // Send the updated quantity

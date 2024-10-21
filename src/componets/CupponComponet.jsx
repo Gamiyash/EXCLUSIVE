@@ -10,7 +10,7 @@ const CouponComponent = ({ onApplyCoupon }) => {
     useEffect(() => {
         const fetchCoupons = async () => {
             try {
-                const response = await axios.get('http://localhost:3000/api/getCoupons');
+                const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/getCoupons`);
                 setCoupons(response.data);  // Set available coupons
             } catch (err) {
                 console.error('Error fetching coupons:', err);

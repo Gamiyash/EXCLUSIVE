@@ -16,7 +16,7 @@ function ProductDetailPopup({ order, onClose, onUpdateStatus }) {
         setStatus(newStatus);
         try {
             // Update status in the backend
-            const response = await axios.put(`http://localhost:3000/api/orders/${order._id}/status`, { status: newStatus });
+            const response = await axios.put(`${import.meta.env.VITE_BACKEND_URL}/api/orders/${order._id}/status`, { status: newStatus });
             onUpdateStatus(order._id, response.data.status); // Update status in the parent component
         } catch (error) {
             console.error("Error updating status:", error);
@@ -71,7 +71,7 @@ function Orders() {
     useEffect(() => {
         const FetchOrders = async () => {
             try {
-                const responce = await axios.get('http://localhost:3000/api/getOrdersForAdmin');
+                const responce = await axios.get('${import.meta.env.VITE_BACKEND_URL}/api/getOrdersForAdmin');
                 setOrders(responce.data)
                 // console.log("Order Length is:",Orders.length)
             } catch (error) {

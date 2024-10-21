@@ -14,7 +14,7 @@ const ThismonthList = ({ user }) => {
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const response = await axios.get('http://localhost:3000/api/Thismonth');
+                const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/Thismonth`);
                 setBestProducts(response.data);
                 setFilteredProducts(response.data)
                 setLoading(false);

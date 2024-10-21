@@ -20,7 +20,7 @@ const HistoryPage = () => {
         const fetchOrders = async () => {
 
             try {
-                const response = await axios.get(`http://localhost:3000/api/getOrders/${userEmail}`);
+                const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/getOrders/${userEmail}`);
                 setOrders(response.data);
             } catch (error) {
                 console.error('Error fetching orders:', error);

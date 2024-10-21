@@ -45,7 +45,7 @@ const Checkout = () => {
     // Call Razorpay API to create an order on button click
     const createRazorpayOrder = async () => {
         try {
-            const response = await axios.post('http://localhost:3000/api/createOrder', {
+            const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/createOrder`, {
                 amount: totalAfterDiscount,
                 currency: 'INR',
             });
@@ -94,14 +94,14 @@ const Checkout = () => {
 
                 try {
                     const userEmail = JSON.parse(localStorage.getItem('user'))?.email;
-                    const verificationResponse = await axios.post('http://localhost:3000/api/verifyPayment', {
+                    const verificationResponse = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/verifyPayment`, {
                         order_id: razorpay_order_id,
                         payment_id: razorpay_payment_id,
                         signature: razorpay_signature,
                         email: userEmail
                     });
 
-                    alert('Payment verification status: ' + verificationResponse.data); 
+                    alert('Payment verification status: ' + verificationResponse.data);
                     navigate('/orderHistory')
                 } catch (error) {
                     console.error('Error verifying payment:', error);
@@ -176,7 +176,7 @@ const Checkout = () => {
         if (Object.keys(formErrors).length === 0) {
             try {
                 const userEmail = JSON.parse(localStorage.getItem('user'))?.email;
-                await axios.post('http://localhost:3000/api/saveUsersBillingDetails', {
+                await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/saveUsersBillingDetails`, {
                     email: userEmail,
                     ...billingDetails,
                 });
@@ -195,7 +195,7 @@ const Checkout = () => {
         const FetchUserBillingDetails = async () => {
             try {
                 const userEmail = JSON.parse(localStorage.getItem('user'))?.email;
-                const response = await axios.get(`http://localhost:3000/api/getUsersBillingDetails/${userEmail}`);
+                const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/getUsersBillingDetails/${userEmail}`);
                 setBillingDetails(response.data);
             } catch (err) {
                 console.error('Error fetching billing details:', err);
@@ -216,7 +216,7 @@ const Checkout = () => {
             try {
                 // console.log("the user is",user,user.email)
                 const userEmail = JSON.parse(localStorage.getItem('user'))?.email; // Replace with actual email logic or context
-                const response = await axios.get(`http://localhost:3000/api/getAllProductsCheckoutData/${userEmail}`);
+                const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/getAllProductsCheckoutData/${userEmail}`);
                 setCheckoutItems(response.data);
             } catch (err) {
                 // setErrors(err.message);
@@ -232,7 +232,7 @@ const Checkout = () => {
             try {
                 const userEmail = JSON.parse(localStorage.getItem('user'))?.email;
                 if (!userEmail) throw new Error('User email not found'); // Replace with actual email logic or context
-                const response = await axios.get(`http://localhost:3000/api/getFlashProductsCheckoutData/${userEmail}`);
+                const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/getFlashProductsCheckoutData/${userEmail}`);
                 setCheckoutItems(response.data);
             } catch (err) {
                 // setErrors(err.message);
@@ -247,7 +247,7 @@ const Checkout = () => {
         const fetchCartData = async () => {
             try {
                 const userEmail = JSON.parse(localStorage.getItem('user'))?.email; // Replace with actual email logic or context
-                const response = await axios.get(`http://localhost:3000/api/getThisMonthBestProductsCheckoutData/${userEmail}`);
+                const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/getThisMonthBestProductsCheckoutData/${userEmail}`);
                 setCheckoutItems(response.data);
             } catch (err) {
                 // setErrors(err.message);

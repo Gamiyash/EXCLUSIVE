@@ -35,7 +35,7 @@ const Profile = () => {
   // Fetch the user's profile image on load
   const fetchProfileImage = async () => {
     try {
-      const response = await axios.get(`http://localhost:3000/api/getProfile?email=${email}`);
+      const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/getProfile?email=${email}`);
       setProfileImage(response.data.profileImage);
     } catch (error) {
       console.error('Error fetching profile image:', error);
@@ -63,7 +63,7 @@ const Profile = () => {
     formData.append('profilePicture', selectedFile);
 
     try {
-      const response = await axios.post('http://localhost:3000/api/updateProfile', formData, {
+      const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/updateProfile`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -86,7 +86,7 @@ const Profile = () => {
   const handleSubmitBillingDetails = async () => {
     try {
       const userEmail = JSON.parse(localStorage.getItem('user'))?.email;
-      await axios.post('http://localhost:3000/api/saveUsersBillingDetails', {
+      await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/saveUsersBillingDetails`, {
         email: userEmail,
         ...billingDetails,
       });
@@ -101,7 +101,7 @@ const Profile = () => {
     const FetchUserBillingDetails = async () => {
       try {
         const userEmail = JSON.parse(localStorage.getItem('user'))?.email;
-        const response = await axios.get(`http://localhost:3000/api/getUsersBillingDetails/${userEmail}`);
+        const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/getUsersBillingDetails/${userEmail}`);
         setBillingDetails(response.data);
       } catch (err) {
         console.error('Error fetching billing details:', err);
@@ -121,7 +121,7 @@ const Profile = () => {
 
     try {
       const userEmail = JSON.parse(localStorage.getItem('user'))?.email;
-      const responce = await axios.post(`http://localhost:3000/api/change-password/${userEmail}`, {
+      const responce = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/change-password/${userEmail}`, {
         currentPassword,
         newPassword,
       })
@@ -148,7 +148,7 @@ const Profile = () => {
               <div className="profile-uploader flex flex-col gap-3 items-center justify-center">
                 {profileImage ? (
                   <img
-                    src={`http://localhost:3000${profileImage}`}
+                    src={`${import.meta.env.VITE_BACKEND_URL}${profileImage}`}
                     alt=""
                     className="xl:w-32 xl:h-32 w-44 h-44 rounded-full object-cover"
                   />

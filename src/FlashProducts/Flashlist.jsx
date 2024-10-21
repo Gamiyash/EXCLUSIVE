@@ -15,7 +15,7 @@ const Flashlist = ({ user }) => {
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const response = await axios.get('http://localhost:3000/api/Flashproducts');
+                const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/Flashproducts`);
                 setFlashProducts(response.data);
                 setFilteredProducts(response.data)
                 setLoading(false);

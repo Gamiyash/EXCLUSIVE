@@ -22,7 +22,7 @@ const Signup = ({user,setUser}) => {
   const submit = async (data) => {
     await delay(1); // simulating network delay
     try {
-      const response = await fetch('http://localhost:3000/Signup', {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/Signup`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
@@ -104,7 +104,7 @@ const Signup = ({user,setUser}) => {
                 <button disabled={isSubmitting} type='submit' className="bg-[#DB4444] hover:bg-red-600 w-full px-24 py-3 text-white">Create Account</button>
               </div>
               <div className="btn flex justify-center sm:justify-start items-center pb-5 lg:pb-4 md:pb-3">
-                <button type="button" className="bg-white w-full text-gray-500 font-bold flex gap-3 text-lg items-center px-16 py-3 shadow-md  " onClick={() => window.location.href = 'http://localhost:3000/api/auth/google'}>
+                <button type="button" className="bg-white w-full text-gray-500 font-bold flex gap-3 text-lg items-center px-16 py-3 shadow-md  " onClick={() => window.location.href = `${import.meta.env.VITE_BACKEND_URL}/api/auth/google`}>
                   <span><img width={25} src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0iMTgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48cGF0aCBkPSJNMTcuNiA5LjJsLS4xLTEuOEg5djMuNGg0LjhDMTMuNiAxMiAxMyAxMyAxMiAxMy42djIuMmgzYTguOCA4LjggMCAwIDAgMi42LTYuNnoiIGZpbGw9IiM0Mjg1RjQiIGZpbGwtcnVsZT0ibm9uemVybyIvPjxwYXRoIGQ9Ik05IDE4YzIuNCAwIDQuNS0uOCA2LTIuMmwtMy0yLjJhNS40IDUuNCAwIDAgMS04LTIuOUgxVjEzYTkgOSAwIDAgMCA4IDV6IiBmaWxsPSIjMzRBODUzIiBmaWxsLXJ1bGU9Im5vbnplcm8iLz48cGF0aCBkPSJNNCAxMC43YTUuNCA1LjQgMCAwIDEgMC0zLjRWNUgxYTkgOSAwIDAgMCAwIDhsMy0yLjN6IiBmaWxsPSIjRkJCQzA1IiBmaWxsLXJ1bGU9Im5vbnplcm8iLz48cGF0aCBkPSJNOSAzLjZjMS4zIDAgMi41LjQgMy40IDEuM0wxNSAyLjNBOSA5IDAgMCAwIDEgNWwzIDIuNGE1LjQgNS40IDAgMCAxIDUtMy43eiIgZmlsbD0iI0VBNDMzNSIgZmlsbC1ydWxlPSJub256ZXJvIi8+PHBhdGggZD0iTTAgMGgxOHYxOEgweiIvPjwvZz48L3N2Zz4=" alt="" /></span><span>Continue with Google</span>
                 </button>
               </div>

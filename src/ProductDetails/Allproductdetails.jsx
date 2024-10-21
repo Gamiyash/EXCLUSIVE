@@ -31,7 +31,7 @@ const AllProductDetails = ({ user, productId }) => {
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const response = await axios.get('http://localhost:3000/api/products');
+                const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/products`);
                 setProducts(response.data);
                 setLoading(false);
             } catch (error) {
@@ -65,11 +65,11 @@ const AllProductDetails = ({ user, productId }) => {
                     setLoading(false);
                     return;
                 }
-                const response = await axios.get(`http://localhost:3000/api/products/${id}`);
+                const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/products/${id}`);
                 setProduct(response.data);
                 setMainImage(response.data.image);
                 // Fetch comments
-                const commentsResponse = await axios.get(`http://localhost:3000/api/products/${id}/comments`);
+                const commentsResponse = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/products/${id}/comments`);
                 setComments(commentsResponse.data);
                 setLoading(false);
             } catch (error) {
@@ -107,11 +107,11 @@ const AllProductDetails = ({ user, productId }) => {
 
                 // console.log('Payload:', payload);
 
-                await axios.post('http://localhost:3000/api/addToCartallproduct', payload, {
+                await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/addToCartallproduct`, payload, {
                     withCredentials: true
                 });
 
-                // await axios.post('http://localhost:3000/api/Checkout', payload, {
+                // await axios.post('${import.meta.env.VITE_BACKEND_URL}/api/Checkout', payload, {
                 //     withCredentials: true
                 // });
 
@@ -136,7 +136,7 @@ const AllProductDetails = ({ user, productId }) => {
             return;
         }
         try {
-            await axios.post(`http://localhost:3000/api/products/${id}/comments`, {
+            await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/products/${id}/comments`, {
                 email: user.email,
                 comment: newComment
             }, {
@@ -145,7 +145,7 @@ const AllProductDetails = ({ user, productId }) => {
             setNewComment('');
             setCommentError('');
             // Fetch updated comments
-            const commentsResponse = await axios.get(`http://localhost:3000/api/products/${id}/comments`);
+            const commentsResponse = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/products/${id}/comments`);
             setComments(commentsResponse.data);
         } catch (error) {
             console.error('Error submitting comment:', error.message);
@@ -161,8 +161,8 @@ const AllProductDetails = ({ user, productId }) => {
             return;
         }
         try {
-            await axios.delete(`http://localhost:3000/api/products/${id}/comments/${commentId}`);
-            const response = await axios.get(`http://localhost:3000/api/products/${id}/comments`);
+            await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/api/products/${id}/comments/${commentId}`);
+            const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/products/${id}/comments`);
             setComments(response.data);
         } catch (err) {
             console.error('Failed to delete comment:', err.message);
@@ -206,32 +206,32 @@ const AllProductDetails = ({ user, productId }) => {
     const { name, image, offerPrice, rating, discription, size, _id, sideimg1, sideimg2, sideimg3, sideimg4 } = product;
 
 
-    const AddtoWishList = async () => {
-        if (user) {
-            try {
-                const userEmail = JSON.parse(localStorage.getItem('user'))?.email;
-                const payload1 = {
-                    email: userEmail,  // Ensure user is defined and has an email
-                    productId: product._id,      // Ensure _id is defined
-                    offerPrice: product.offerPrice,  // Ensure offerPrice is a valid number
-                    discription: product.discription,  // Ensure discription is not empty
-                    quantity: 1,           // Ensure quantity is a valid number
-                    size: 'M'       // Ensure size is a valid string 
-                };
+    // const AddtoWishList = async () => {
+    //     if (user) {
+    //         try {
+    //             const userEmail = JSON.parse(localStorage.getItem('user'))?.email;
+    //             const payload1 = {
+    //                 email: userEmail,  // Ensure user is defined and has an email
+    //                 productId: product._id,      // Ensure _id is defined
+    //                 offerPrice: product.offerPrice,  // Ensure offerPrice is a valid number
+    //                 discription: product.discription,  // Ensure discription is not empty
+    //                 quantity: 1,           // Ensure quantity is a valid number
+    //                 size: 'M'       // Ensure size is a valid string 
+    //             };
 
-                await axios.post('http://localhost:3000/api/addToWishList', payload1, {
-                    withCredentials: true
-                });
+    //             await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/addToWishList`, payload1, {
+    //                 withCredentials: true
+    //             });
 
-                alert('Product added to Wishlist!');
-            } catch (error) {
-                console.error('Error adding product to wishlist:', error.response?.data || error.message);
-            }
-        } else {
-            alert("Please Login")
-            navigate('/login')
-        }
-    };
+    //             alert('Product added to Wishlist!');
+    //         } catch (error) {
+    //             console.error('Error adding product to wishlist:', error.response?.data || error.message);
+    //         }
+    //     } else {
+    //         alert("Please Login")
+    //         navigate('/login')
+    //     }
+    // };
 
     const formattedDescription = discription
     const Discription = formattedDescription.replace(/, /g, '\n');

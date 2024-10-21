@@ -33,11 +33,11 @@ const Allproducts = ({ product, user }) => {
 
                 // console.log('Payload:', payload);
 
-                await axios.post('http://localhost:3000/api/addToCartallproduct', payload, {
+                await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/addToCartallproduct`, payload, {
                     withCredentials: true
                 });
 
-                // await axios.post('http://localhost:3000/api/Checkout', payload, {
+                // await axios.post('${import.meta.env.VITE_BACKEND_URL}/api/Checkout', payload, {
                 //     withCredentials: true
                 // });
 
@@ -66,7 +66,7 @@ const Allproducts = ({ product, user }) => {
 
                 console.log('Payload1:', payload1);
 
-                await axios.post('http://localhost:3000/api/addToWishList', payload1, {
+                await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/addToWishList`, payload1, {
                     withCredentials: true
                 });
 

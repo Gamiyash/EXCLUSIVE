@@ -17,7 +17,7 @@ const OtpVerification = ({ setUser }) => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:3000/VerifyOtp', { email, otp });
+      const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/VerifyOtp`, { email, otp });
 
       if (response.data.success) {
         setSuccess('Login successful');

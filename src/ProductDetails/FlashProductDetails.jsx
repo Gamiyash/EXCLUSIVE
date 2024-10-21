@@ -32,7 +32,7 @@ const FlashProductDetails = ({ user, productId }) => {
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const response = await axios.get('http://localhost:3000/api/products');
+                const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/products`);
                 setProducts(response.data);
                 setLoading(false);
             } catch (error) {
@@ -66,11 +66,11 @@ const FlashProductDetails = ({ user, productId }) => {
                     setLoading(false);
                     return;
                 }
-                const response = await axios.get(`http://localhost:3000/api/Flashproducts/${id}`);
+                const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/Flashproducts/${id}`);
                 setProduct(response.data);
                 setMainImage(response.data.image);
                 // Fetch comments
-                const commentsResponse = await axios.get(`http://localhost:3000/api/Flashproducts/${id}/comments`);
+                const commentsResponse = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/Flashproducts/${id}/comments`);
                 setComments(commentsResponse.data);
                 setLoading(false);
             } catch (error) {
@@ -93,7 +93,7 @@ const FlashProductDetails = ({ user, productId }) => {
         }
         // try {
         //     const username = user.email;
-        //     await axios.post('http://localhost:3000/api/addToCart', {
+        //     await axios.post('${import.meta.env.VITE_BACKEND_URL}/api/addToCart', {
         //         email: username,
         //         productId: product._id,
         //         offerPrice: product.offerPrice,
@@ -125,11 +125,11 @@ const FlashProductDetails = ({ user, productId }) => {
 
             console.log('Payload:', payload);
 
-            await axios.post('http://localhost:3000/api/addToCart', payload, {
+            await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/addToCart`, payload, {
                 withCredentials: true
             });
 
-            // await axios.post('http://localhost:3000/api/Checkout', payload, {
+            // await axios.post('${import.meta.env.VITE_BACKEND_URL}/api/Checkout', payload, {
             //     withCredentials: true
             // });
 
@@ -150,7 +150,7 @@ const FlashProductDetails = ({ user, productId }) => {
             return;
         }
         try {
-            await axios.post(`http://localhost:3000/api/Flashproducts/${id}/comments`, {
+            await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/Flashproducts/${id}/comments`, {
                 email: user.email,
                 comment: newComment
             }, {
@@ -159,7 +159,7 @@ const FlashProductDetails = ({ user, productId }) => {
             setNewComment('');
             setCommentError('');
             // Fetch updated comments
-            const commentsResponse = await axios.get(`http://localhost:3000/api/Flashproducts/${id}/comments`);
+            const commentsResponse = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/Flashproducts/${id}/comments`);
             setComments(commentsResponse.data);
         } catch (error) {
             console.error('Error submitting comment:', error.message);
@@ -174,8 +174,8 @@ const FlashProductDetails = ({ user, productId }) => {
             return;
         }
         try {
-            await axios.delete(`http://localhost:3000/api/Flashproducts/${id}/comments/${commentId}`);
-            const response = await axios.get(`http://localhost:3000/api/Flashproducts/${id}/comments`);
+            await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/api/Flashproducts/${id}/comments/${commentId}`);
+            const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/Flashproducts/${id}/comments`);
             setComments(response.data);
         } catch (err) {
             console.error('Failed to delete comment:', err.message);

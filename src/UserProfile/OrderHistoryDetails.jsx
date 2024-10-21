@@ -17,7 +17,7 @@ const OrderHistoryDetails = () => {
     useEffect(() => {
         const fetchOrders = async () => {
             try {
-                const responce = await axios.get(`http://localhost:3000/api/getOrders/${userEmail}/${orderId}`)
+                const responce = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/getOrders/${userEmail}/${orderId}`)
                 setOrders(responce.data);
                 // console.log("orders",responce.data)
             } catch (error) {

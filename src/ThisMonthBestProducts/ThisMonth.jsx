@@ -36,12 +36,12 @@ const ThisMonth = ({ ThismonthBestProduct, user }) => {
 
                 console.log('Payload:', payload);
 
-                await axios.post('http://localhost:3000/api/addToCartThismonthBestProducts', payload, {
+                await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/addToCartThismonthBestProducts`, payload, {
                     withCredentials: true
                 });
 
 
-                // await axios.post('http://localhost:3000/api/Checkout', payload, {
+                // await axios.post('${import.meta.env.VITE_BACKEND_URL}/api/Checkout', payload, {
                 //     withCredentials: true
                 // });
 
@@ -71,7 +71,7 @@ const ThisMonth = ({ ThismonthBestProduct, user }) => {
 
                 console.log('Payload1:', payload1);
 
-                await axios.post('http://localhost:3000/api/addToThismonthWishList', payload1, {
+                await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/addToThismonthWishList`, payload1, {
                     withCredentials: true
                 });
 

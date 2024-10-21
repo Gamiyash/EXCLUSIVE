@@ -20,7 +20,7 @@ function Dashboard() {
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const response = await axios.get('http://localhost:3000/api/products');
+                const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/products`);
                 setProducts(response.data);
 
             } catch (error) {
@@ -33,7 +33,7 @@ function Dashboard() {
     useEffect(() => {
         const FetchUsers = async () => {
             try {
-                const responce = await axios.get('http://localhost:3000/api/getAllUsers');
+                const responce = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/getAllUsers`);
                 setUsers(responce.data)
             } catch (error) {
                 console.error("Error fetching orders:", error);
@@ -45,7 +45,7 @@ function Dashboard() {
     useEffect(() => {
         const FetchOrders = async () => {
             try {
-                const responce = await axios.get('http://localhost:3000/api/getOrdersForAdmin');
+                const responce = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/getOrdersForAdmin`);
                 setOrders(responce.data)
                 // console.log("Order Length is:",Orders.length)
             } catch (error) {
@@ -59,7 +59,7 @@ function Dashboard() {
     useEffect(() => {
         const fetchSalesData = async () => {
             try {
-                const response = await axios.get('http://localhost:3000/api/salesData');
+                const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/salesData`);
                 setSalesData(response.data);
             } catch (error) {
                 console.error("Error fetching sales data:", error);
@@ -72,7 +72,7 @@ function Dashboard() {
     useEffect(() => {
         const fetchTotalRevenue = async () => {
             try {
-                const response = await axios.get('http://localhost:3000/api/totalRevenue');
+                const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/totalRevenue`);
                 setTotalRevenue(response.data.totalRevenue);
             } catch (error) {
                 console.error('Error fetching total revenue:', error);
@@ -84,7 +84,7 @@ function Dashboard() {
     useEffect(() => {
         const fetchMonthlyRevenue = async () => {
             try {
-                const response = await axios.get('http://localhost:3000/api/monthlyRevenue');
+                const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/monthlyRevenue`);
                 const formattedData = response.data.map((item) => ({
                     month: months[item._id - 1], // Convert month number to month name
                     revenue: item.totalRevenue
