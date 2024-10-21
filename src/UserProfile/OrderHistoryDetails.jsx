@@ -51,7 +51,7 @@ const OrderHistoryDetails = () => {
 
     return (
         <>
-            <div className='heading flex gap-10 m-10'>
+            <div className='heading flex gap-10 xl:m-10 mt-3 xl:ml-10 ml-2'>
                 <div className="backBtn flex justify-center items-center gap-3 text-lg font-medium cursor-pointer" onClick={handleBack}>
                     <span><FaArrowLeft /></span><span className=' hidden xl:block'>Back to Orders</span>
                 </div>
@@ -64,7 +64,7 @@ const OrderHistoryDetails = () => {
             {/* {orders.map((order) => ( */}
             {orders ? (
                 <main key={orderId} className='flex flex-col xl:flex-row'>
-                    <section className='sec-1 border border-gray-300 rounded-md p-8 xl:ml-8 xl:my-8 w-[100vw] xl:w-[70vw]'>
+                    <section className='sec-1 border border-gray-300 rounded-md p-8 xl:ml-8 xl:my-8 w-[100vw] xl:w-[60vw]'>
 
                         <div className="title flex flex-col gap-14">
                             <span className='text-4xl font-medium'>Order Summary</span>
@@ -102,7 +102,7 @@ const OrderHistoryDetails = () => {
                                                 </div>
 
                                                 <div className="ProductDetails flex flex-col gap-2">
-                                                    <div className="name text-2xl font-medium max-w-[30vw]">
+                                                    <div className="name xl:text-2xl text-lg font-medium max-w-[30vw]">
                                                         {product.name}
                                                     </div>
                                                     <div className="Quantity text-gray-400 text-xl">Quantity:{product.quantity}</div>
@@ -118,7 +118,7 @@ const OrderHistoryDetails = () => {
                         </div>
                     </section>
 
-                    <section className='sec-2 flex flex-col gap-8 p-8 w-[100vw] xl:w-[30vw]'>
+                    <section className='sec-2 flex flex-col gap-8 p-8 w-[100vw] xl:w-[40vw]'>
 
                         <div className="ShippingInformation p-7 border border-gray-400 rounded-md flex flex-col gap-14">
                             <div className="cardTitle text-3xl font-bold">Shipping Information</div>

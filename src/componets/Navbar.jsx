@@ -90,8 +90,8 @@ const Navbar = ({ user, setUser }) => {
           <div className="logo font-bold text-xl tracking-wider">Exclusive</div>
           <ul className="flex gap-14">
             <Link to={"/home"} className="hidden text-sm xl:block hover:border-b-2 border-transparent hover:border-slate-500 cursor-pointer">Home</Link>
-            <Link className="hidden xl:block text-sm hover:border-b-2 border-transparent hover:border-slate-500 cursor-pointer">Contact</Link>
-            <Link className="hidden xl:block text-sm hover:border-b-2 border-transparent hover:border-slate-500 cursor-pointer">About</Link>
+            <Link to={"/contact"} className="hidden xl:block text-sm hover:border-b-2 border-transparent hover:border-slate-500 cursor-pointer">Contact</Link>
+            <Link to={"/about"} className="hidden xl:block text-sm hover:border-b-2 border-transparent hover:border-slate-500 cursor-pointer">About</Link>
             {!user && (
               <li onClick={() => navigate('/Signup')} className="hover:border-b-2 border-transparent hover:border-slate-500 cursor-pointer">Sign Up</li>
             )}
@@ -131,10 +131,10 @@ const Navbar = ({ user, setUser }) => {
                 {Menu && (
                   <div className="absolute right-0 top-10 mt-2 w-56 bg-gradient-to-r opacity-[90%] from-gray-900 via-gray-800 to-gray-600  bg-opacity-[20%] text-opacity-[80%] backdrop-filter: blur(16px); bg-clip-content text-white border rounded shadow-lg ">
                     <Link to="/home" className="block px-4 py-2 text-[#FFFFFF flex items-center gap-3 hover:bg-gray-700 hover:rounded"> <span><IoHomeOutline size={25} /></span>Home</Link>
-                    <Link onClick={redirectToCart} className="block px-4 py-2 text-[#FFFFFF flex items-center gap-3 hover:bg-gray-700 hover:rounded"> <span><IoCartOutline size={20} /></span>Cart</Link>
-                    <Link onClick={redirectToWishList} className="block px-4 py-2 text-[#FFFFFF flex items-center gap-3 hover:bg-gray-700 hover:rounded"> <span><CiHeart size={25} /></span>Wishlist</Link>
-                    <Link to="/Contact" className="block px-4 py-2 text-[#FFFFFF flex items-center gap-3 hover:bg-gray-700 hover:rounded"> <span><MdContactSupport size={25} /></span>Contact Us</Link>
-                    <Link to="/About" className="block px-4 py-2 text-[#FFFFFF flex items-center gap-3 hover:bg-gray-700 hover:rounded"> <span><FcAbout size={25} /></span>About Us</Link>
+                    <Link to={"/Cart"} className="block px-4 py-2 text-[#FFFFFF flex items-center gap-3 hover:bg-gray-700 hover:rounded"> <span><IoCartOutline size={20} /></span>Cart</Link>
+                    <Link to={"/Wishlist"} className="block px-4 py-2 text-[#FFFFFF flex items-center gap-3 hover:bg-gray-700 hover:rounded"> <span><CiHeart size={25} /></span>Wishlist</Link>
+                    <Link to="/contact" className="block px-4 py-2 text-[#FFFFFF flex items-center gap-3 hover:bg-gray-700 hover:rounded"> <span><MdContactSupport size={25} /></span>Contact Us</Link>
+                    <Link to="/about" className="block px-4 py-2 text-[#FFFFFF flex items-center gap-3 hover:bg-gray-700 hover:rounded"> <span><FcAbout size={25} /></span>About Us</Link>
                     <Link to="/login" className="block px-4 py-2 text-[#FFFFFF flex items-center gap-3 hover:bg-gray-700 hover:rounded"> <span><MdOutlineLogin size={25} /></span>Login</Link>
                     <Link to="/signup" className="block px-4 py-2 text-[#FFFFFF flex items-center gap-3 hover:bg-gray-700 hover:rounded"> <span><FaUserPlus size={25} /></span>Sign Up</Link>
                     <button onClick={handleLogout} className="block px-4 w-full py-2 text-[#FFFFFF flex items-center gap-3 hover:bg-gray-700 hover:rounded"><span><BiLogOut size={25} /></span>Logout</button>

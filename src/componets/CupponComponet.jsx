@@ -39,14 +39,14 @@ const CouponComponent = ({ onApplyCoupon }) => {
                 <div className="Cupponcodes flex gap-3 items-center">
                 </div>
                 <input
-                    className='text-gray-600 border border-gray-700 p-3 w-[17vw] rounded-sm'
+                    className='text-gray-600 border border-gray-700 xl:p-3 p-2 xl:w-[17vw] w-[50vw] rounded-sm'
                     type="text"
                     placeholder='Coupon Code'
                     value={couponCode}
                     onChange={(e) => setCouponCode(e.target.value)}
                 />
                 <button
-                    className='p-3 pr-8 pl-8 border bg-[#DB4444] text-white rounded-sm'
+                    className='xl:py-3 py-2 px-8  border bg-[#DB4444] text-white rounded-sm'
                     onClick={applyCoupon}
                 >
                     Apply Coupon

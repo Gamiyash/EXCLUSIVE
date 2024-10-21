@@ -52,9 +52,9 @@ const HistoryPage = () => {
 
     return (
         <>
-            <main className='flex flex-col justify-center items-center gap-9 mt-10'>
-                <div className='flex flex-col border border-gray-300 rounded-b-xl'>
-                    <h1 className='px-10 py-7 text-4xl font-bold bg-black text-white w-[80vw] flex gap-2 items-center'>
+            <main className='flex flex-col justify-center items-center gap-9 xl:mt-10 mt-0 '>
+                <div className='flex flex-col justify-center items-center border border-gray-300 rounded-b-xl'>
+                    <h1 className='px-10 py-7 text-4xl font-bold bg-black text-white xl:w-[80vw] w-[100vw] flex gap-2 items-center'>
                         <span><IoCartOutline /></span>
                         <span>Order History</span></h1>
                     <p className='px-10 py-7 text-xl'>View and manage your past orders</p>
@@ -62,31 +62,31 @@ const HistoryPage = () => {
 
                 <div className="Containers flex flex-col justify-center items-center gap-5 mb-10">
                     {orders.length > 0 ? orders.map((order) => (
-                        <div key={order.orderId} className='Container flex justify-between items-center container w-[80vw] h-[27vh] border rounded-xl border-gray-300 p-10 transition-transform hover:shadow-xl'
+                        <div key={order.orderId} className='Container flex justify-between items-center container xl:w-[80vw] w-full xl:h-[27vh] h-[15vh] border rounded-xl border-gray-300 p-10 transition-transform hover:shadow-xl'
                             onClick={() => handleOrderclick(order.orderId)}>
                             <section className='sec-1 flex justify-center items-center gap-8'>
-                                <div className="img  rounded-sm bg-gray-200">
-                                    <img className='w-32 h-32' src={order.products[0]?.image} alt={order.products[0]?.name} />
+                                <div className="img w-24 h-24 xl:w-32 xl:h-32 rounded-sm bg-gray-200">
+                                    <img className='xl:w-32 xl:h-32 w-24 h-24' src={order.products[0]?.image} alt={order.products[0]?.name} />
                                 </div>
 
                                 <div className="orderDetails flex flex-col gap-3">
 
                                     <div className="Group1 flex flex-col items-start">
-                                        <div className="orderId text-2xl font-bold">
+                                        <div className="orderId xl:text-2xl text-sm font-bold">
                                             <span>Order #{order.orderId}</span>
                                         </div>
 
-                                        <div className="Date flex items-center gap-1 text-gray-500 text-[20px]">
+                                        <div className="Date flex items-center gap-1 text-gray-500 xl:text-[20px] text-sm">
                                             <span>< FaRegCalendarAlt /></span><span>{new Date(order.createdAt).toLocaleDateString()}</span>
                                         </div>
                                     </div>
 
                                     <div className="Group2 flex flex-col items-start">
-                                        <div className="totalItems flex items-center gap-1 text-gray-500 text-[20px]">
+                                        <div className="totalItems flex items-center gap-1 text-gray-500 xl:text-[20px] text-sm">
                                             <span><LuPackage /></span><span>{order.products.length} items</span>
                                         </div>
 
-                                        <div className="totalPrice flex items-center text-2xl font-bold text-green-500">
+                                        <div className="totalPrice flex items-center xl:text-2xl text-sm font-bold text-green-500">
                                             <span><FaIndianRupeeSign /></span><span>{order.amount}</span>
                                         </div>
                                     </div>
@@ -95,20 +95,20 @@ const HistoryPage = () => {
                             </section>
                             <section className='sec-2'>
 
-                                <div className="orderStatus flex flex-col justify-end items-end gap-16">
-                                    <div className={`Status text-xl text-white font-medium border rounded-full ${getStatusClass(order.status)}  px-4 py-2`}>
+                                <div className="orderStatus flex flex-col justify-center items-center gap-10 py-2">
+                                    <div className={`Status  text-white text-sm font-medium border rounded-full ${getStatusClass(order.status)}  px-4 py-2`}>
                                         <span>{order.status}</span>
                                     </div>
 
                                     <div className="btn flex items-center gap-3">
 
-                                        <div className='border border-gray-400 py-2 px-3 rounded-md text-xl font-medium'>
+                                        <div className='border border-gray-400 py-2 px-3 rounded-md xl:text-lg text-[10px] font-medium'>
                                             <button>View Details</button>
                                         </div>
 
-                                        <div className='border border-gray-400 py-2 px-3 rounded-md text-xl font-medium'>
+                                        {/* <div className='border border-gray-400 py-2 px-3 rounded-md xl:text-lg text-[10px] font-medium'>
                                             <button>View Details</button>
-                                        </div>
+                                        </div> */}
 
                                     </div>
                                 </div>

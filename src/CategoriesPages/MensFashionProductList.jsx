@@ -1,8 +1,8 @@
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Allproducts from '../AllProducts/Allproducts';
 import Sidebar from '../componets/Sidebar';
+import Footer from '../componets/Footer';
 
 
 const MensFashionproductsList = ({ user }) => {
@@ -42,6 +42,7 @@ const MensFashionproductsList = ({ user }) => {
                     </div>
                 </div>
             </div>
+            <Footer/>
         </>
     );
 };

@@ -331,7 +331,7 @@ const Checkout = () => {
                 )
             }
 
-            <div className="direction mt-10 flex justify-between px-32 items-center ">
+            <div className="direction xl:mt-10 mt-3 flex justify-between xl:px-32 px-3 items-center text-sm ">
                 <span>Home / <span className='font-medium'>Checkout</span></span>
 
                 {/* Wheel Icon */}
@@ -368,50 +368,50 @@ const Checkout = () => {
                 )}
             </div>
 
-            <main className={`main ml-32 flex gap-52 ${wheelVisible ? 'blur-sm' : ''}`}>  {/*overflow-auto scrollbar-hidden */}
+            <main className={`main xl:pt-0 pt-2 xl:ml-32 xl:flex-row flex flex-col gap-5 xl:gap-52 ${wheelVisible ? 'blur-sm' : ''}`}>  {/*overflow-auto scrollbar-hidden */}
 
-                <section className="BillDetails w-[30vw] mt-10 flex flex-col gap-10 mb-10">
+                <section className="BillDetails xl:w-[30vw] w-full xl:mt-10 flex flex-col gap-3 mb-10">
 
-                    <h1 className='font-medium text-3xl tracking-wider text-gray-950'>Billing Details</h1>
+                    <h1 className='font-medium text-2xl tracking-wider text-gray-950 xl:pl-0 pl-3'>Billing Details</h1>
 
                     <div className="details flex flex-col gap-3">
-                        <div className='flex flex-col gap-1'>
+                        <div className='flex flex-col gap-1 text-sm'>
                             <label className='text-gray-400' htmlFor="FirstName ">First Name<span className='text-red-300 text-lg'>*</span></label>
                             <input className='bg-gray-100 h-10 rounded-md px-3' type="text" name="firstName" value={billingDetails.firstName} onChange={handleBillingChange} />
                             {errors.firstName && <p className='text-red-500'>{errors.firstName}</p>}
                         </div>
 
-                        <div className='flex flex-col gap-1'>
+                        <div className='flex flex-col gap-1 text-sm'>
                             <label className='text-gray-400' htmlFor="FirstName">Last Name</label>
                             <input className='bg-gray-100 h-10 rounded-md px-3' type="text" name="companyName" value={billingDetails.companyName} onChange={handleBillingChange} />
                             {errors.companyName && <p className='text-red-500'>{errors.companyName}</p>}
                         </div>
 
-                        <div className='flex flex-col gap-1'>
+                        <div className='flex flex-col gap-1 text-sm'>
                             <label className='text-gray-400' htmlFor="FirstName">Street Address<span className='text-red-300 text-lg'>*</span></label>
                             <input className='bg-gray-100 h-10 rounded-md px-3' type="text" name="streetAddress" value={billingDetails.streetAddress} onChange={handleBillingChange} />
                             {errors.streetAddress && <p className='text-red-500'>{errors.streetAddress}</p>}
                         </div>
 
-                        <div className='flex flex-col gap-1'>
+                        <div className='flex flex-col gap-1 text-sm'>
                             <label className='text-gray-400' htmlFor="FirstName">Aparment,floor,etc.(optional)</label>
                             <input className='bg-gray-100 h-10 rounded-md px-3' type="text" name="apartment" value={billingDetails.apartment} onChange={handleBillingChange} />
                             {/* {error.apartment && <p className='text-red-500'>{error.apartment}</p>} */}
                         </div>
 
-                        <div className='flex flex-col gap-1'>
+                        <div className='flex flex-col gap-1 text-sm'>
                             <label className='text-gray-400' htmlFor="FirstName">Town/City<span className='text-red-300 text-lg'>*</span></label>
                             <input className='bg-gray-100 h-10 rounded-md px-3' type="text" name="city" value={billingDetails.city} onChange={handleBillingChange} />
                             {errors.city && <p className='text-red-500'>{errors.city}</p>}
                         </div>
 
-                        <div className='flex flex-col gap-1'>
+                        <div className='flex flex-col gap-1 text-sm'>
                             <label className='text-gray-400' htmlFor="FirstName">Phone Number<span className='text-red-300 text-lg'>*</span></label>
                             <input className='bg-gray-100 h-10 rounded-md px-3' type="text" name="phoneNumber" value={billingDetails.phoneNumber} onChange={handleBillingChange} />
                             {errors.phoneNumber && <p className='text-red-500'>{errors.phoneNumber}</p>}
                         </div>
 
-                        <div className='flex flex-col gap-1'>
+                        <div className='flex flex-col gap-1 text-sm'>
                             <label className='text-gray-400' htmlFor="FirstName">Email Addres<span className='text-red-300 text-lg'>*</span></label>
                             <input className='bg-gray-100 h-10 rounded-md px-3' type="text" name="emailAddress" value={billingDetails.emailAddress} onChange={handleBillingChange} />
                             {errors.emailAddress && <p className='text-red-500'>{errors.emailAddress}</p>}
@@ -422,21 +422,21 @@ const Checkout = () => {
                     </div>
 
                     <div className="SubmitBtn">
-                        <button className='p-3 pr-8 pl-8 border bg-[#DB4444] text-white rounded-sm' onClick={handleSubmitBillingDetails}>Submit</button>
+                        <button className='p-3 xl:pr-8 xl:pl-8 w-full border bg-[#DB4444] text-white rounded-sm' onClick={handleSubmitBillingDetails}>Submit</button>
                     </div>
                 </section>
 
 
-                <section className='ProductsData flex flex-col gap-7 mt-36'>
-                    <div className="products flex flex-col gap-7 overflow-auto scrollbar-hidden w-[40vw] max-h-[30vh]">
+                <section className='ProductsData flex flex-col gap-7 xl:mt-36'>
+                    <div className="products flex flex-col gap-7 overflow-auto scrollbar-hidden w-full xl:w-[40vw] max-h-[30vh]">
                         {CheckoutItems.map((item) => (
                             <div key={item.productId} className="Product">
                                 <div className="ProductData bg-white flex  items-center font-medium">
                                     <span className='w-1/2 flex items-center gap-3'>
                                         <img width={30} src={item.image} alt={item.name} />
-                                        <div className="title overflow-auto flex flex-col">{item.name} <span>Quantaty:({item.quantity})</span></div>
+                                        <div className="title overflow-auto flex flex-col xl:text-sm text-[10px]">{item.name} <span>Quantaty:({item.quantity})</span></div>
                                     </span>
-                                    <span className='w-1/2 flex items-center justify-end text-right'>
+                                    <span className='w-1/2 flex items-center justify-end text-right xl:text-[16px] text-sm'>
                                         <FaIndianRupeeSign />
                                         {numberWithCommas(item.offerPrice)}
                                     </span>
@@ -446,61 +446,34 @@ const Checkout = () => {
                         ))}
                     </div>
 
-                    <div className="CartTotal text-lg container w-full flex flex-col gap-3">
+                    <div className="CartTotal text-lg container w-full flex flex-col gap-3 xl:pl-0 pl-1">
                         <div className="subtotal flex justify-between">
-                            <div className='font-medium'>SubTotal:</div>
-                            <div className='font-medium flex items-center'>
+                            <div className='font-medium xl:text-[18px] text-sm'>SubTotal:</div>
+                            <div className='font-medium flex items-center xl:text-[18px] text-sm'>
                                 <FaIndianRupeeSign />{numberWithCommas(subtotal)}
                             </div>
                         </div>
                         <div className="line h-px bg-gray-600"></div>
 
                         <div className="subtotal flex justify-between">
-                            <div className='font-medium'>Shipping:</div>
-                            <div className='font-medium'>Free</div>
+                            <div className='font-medium xl:text-[18px] text-sm'>Shipping:</div>
+                            <div className='font-medium xl:text-[18px] text-sm'>Free</div>
                         </div>
                         <div className="line h-px bg-gray-600"></div>
 
                         <div className="subtotal flex justify-between">
-                            <div className='font-medium'>Total:</div>
-                            <div className='font-medium flex items-center'>
+                            <div className='font-medium xl:text-[18px] text-sm'>Total:</div>
+                            <div className='font-medium flex items-center xl:text-[18px] text-sm'>
                                 <FaIndianRupeeSign />  {numberWithCommas(totalAfterDiscount)}
                             </div>
                         </div>
                     </div>
 
-                    <div className="PaymentMethods flex flex-col gap-5">
-                        <div className="Online">
-                            <label className={`flex gap-2 items-center font-medium text-lg ${selectedValue === "Bank" ? 'text-black' : ''}`}>
-                                <input
-                                    className="scale-125 cursor-pointer"
-                                    type="radio"
-                                    value="Bank"
-                                    checked={selectedValue === "Bank"}
-                                    onChange={handleChange}
-                                />
-                                Bank
-                            </label>
-                        </div>
-
-                        <div className="Online">
-                            <label className={`flex gap-2 items-center font-medium text-lg ${selectedValue === "CashOnDelivery" ? 'fill-white' : ''}`}>
-                                <input
-                                    className="scale-125 cursor-pointer"
-                                    type="radio"
-                                    value="CashOnDelivery"
-                                    checked={selectedValue === "CashOnDelivery"}
-                                    onChange={handleChange}
-                                />
-                                Cash on Delivery
-                            </label>
-                        </div>
-                    </div>
                     {/* Coupon component */}
                     <CouponComponent onApplyCoupon={setDiscount} />
 
                     <div className="Placeorder">
-                        <button className='p-3 pr-8 pl-8 border bg-[#DB4444] text-white rounded-sm' onClick={createRazorpayOrder}>Place Order</button>
+                        <button className='xl:py-3 py-2 xl:px-6 w-full border bg-[#DB4444] text-white rounded-sm' onClick={createRazorpayOrder}>Place Order</button>
                     </div>
 
                 </section>

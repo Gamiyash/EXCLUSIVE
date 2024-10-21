@@ -13,7 +13,7 @@ import Flashslaes from './FlashProducts/Flashsales';
 import ThisMonth from './ThisMonthBestProducts/ThisMonth';
 import Allproducts from './AllProducts/Allproducts';
 import { useNavigate, Link, redirect } from 'react-router-dom';
-
+import Footer from './componets/Footer';
 
 const Home = ({ user }) => {
 
@@ -355,7 +355,7 @@ const Home = ({ user }) => {
           <img src="../Service.svg" alt="" />
         </div>
 
-
+        <Footer />
       </div>
     </>
   );

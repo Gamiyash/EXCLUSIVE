@@ -26,6 +26,8 @@ import ElectronicsproductsList from './CategoriesPages/Electronics';
 import Checkout from './Checkout/Checkout';
 import EcommerceAdminDashboard from './Admin/Dashboard';
 import Orders from './Admin/Orders';
+import ContactPage from './Pages/ContactUs';
+import AboutUsPage from './Pages/AboutUs';
 
 // import TestHome from './TestWEb/Homepage';
 // import StatesPage from './TestWEb/Interactivemap';
@@ -97,6 +99,8 @@ function App() {
                   {/* Other routes */}
                   <Route path="/admin-dashboard" element={<EcommerceAdminDashboard  />} />
                   <Route path="/orders" element={<Orders />} />
+                  <Route path="/contact" element={<ContactPage />} />
+                  <Route path="/about" element={<AboutUsPage />} />
 
                   {/* <Route path="/RollingWheeler" element={<Wheel />} /> */}
                     {/* <Route path="/TestHome" element={<TestHome />} />
@@ -115,7 +119,7 @@ function App() {
                 </Routes>
               </div>
             </div>
-            <Footer className="mt-auto" />
+            {/* <Footer className="mt-auto" /> */}
           </div>
         </Router>
       </AuthProvider>

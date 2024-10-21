@@ -5,6 +5,7 @@ import { LuPackage } from "react-icons/lu";
 import { BiMap } from "react-icons/bi";
 import { GoCreditCard } from "react-icons/go";
 import { IoSettingsOutline } from "react-icons/io5";
+import Footer from '../componets/Footer';
 
 import axios from 'axios';
 
@@ -259,6 +260,7 @@ const Profile = () => {
             </div>
           </section>
         </div >
+        <Footer/>
       </main >
     </>
   )

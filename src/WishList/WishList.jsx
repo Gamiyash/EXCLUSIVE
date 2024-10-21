@@ -142,7 +142,7 @@ const WishList = ({ product, user }) => {
 
     return (
         <>
-            <main className='main overflow-auto scrollbar-hidden'>
+            <main className='main '>
                 <div className='flex justify-between items-center m-5 xl:m-12'>
                     <div className=' font-medium'>Wishlist ({Wishlistitems.length}) </div>
                     <div><button className='font-medium border bg-white pt-3 pb-3 pr-7 pl-7 hover:bg-[#DB4444] hover:text-white'>Move All To Bog</button></div>
@@ -152,13 +152,13 @@ const WishList = ({ product, user }) => {
                         <p className="text-lg font-semibold">No items are added to the cart</p>
                     </div>
                 ) : (
-                    <div className="Cart flex xl:justify-normal  justify-center items-center xl:m-10 gap-10 overflow-auto scrollbar-hidden overflow-x-auto"
+                    <div className="Cards xl:flex xl:flex-nowrap flex flex-wrap xl:justify-normal justify-around items-center xl:m-10 xl:gap-10 xl:overflow-auto xl:scrollbar-hidden xl:overflow-x-auto"
                         ref={Allproductref}
                         style={{ scrollbarWidth: 'none', '-ms-overflow-style': 'none' }}>
 
                         {Wishlistitems.map((item) => (
                             <div key={item.productId}
-                                className="card w-[250px] p-2 flex flex-col items-start justify-start relative hover:bg-[#ffff] hover:scale-105 transition-transform hover:shadow-md mb-20">
+                                className="card w-[250px]  p-2 flex flex-col items-start justify-start relative hover:bg-[#ffff] hover:scale-105 transition-transform hover:shadow-md mb-20">
                                 <div className="w-[250px]  h-[200px] shadow-md  rounded-md  relative flex justify-center items-center overflow-hidden">
                                     <img className="object-contain  w-full h-full" src={item.image} alt={item.name} />
                                     <div className='absolute top-3 right-3 cursor-pointer' onClick={() => handleDelete(item.productId)} ><MdOutlineDeleteOutline size={25} /></div>
