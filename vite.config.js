@@ -25,7 +25,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://localhost:3000', // Proxy for backend
+        target: 'https://exclusive-4.onrender.com', // Proxy for backend
         changeOrigin: true,
         secure: false,
       },
@@ -36,4 +36,7 @@ export default defineConfig({
       usePolling: true, // This ensures better file watching, useful when using Docker or VMs
     }
   },
+  build: {
+    outDir: 'dist', // Make sure the output directory matches where you want to publish the site
+  }
 });
