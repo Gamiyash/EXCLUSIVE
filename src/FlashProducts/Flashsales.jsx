@@ -139,7 +139,7 @@ const Flashslaes = ({ FlashProduct, user }) => {
             onMouseLeave={() => setIsHovered(false)}
         >
             <div className="xl:w-[180px] xl:h-[220px] w-full h-[150px] bg-white shadow-md rounded-md border-gray-300 relative flex justify-center items-center overflow-hidden ">
-                <img className="object-contain w-full h-[150px]" src={image} alt={name} onClick={handleClick} />
+                <img className="object-contain w-full h-full" src={image} alt={name} onClick={handleClick} />
                 {isHovered && (
                     <button className="absolute bottom-0 left-0 right-0 bg-black text-white py-1" onClick={AddtoCart}>
                         Add to Cart
