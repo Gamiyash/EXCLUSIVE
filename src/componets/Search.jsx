@@ -44,47 +44,9 @@ const SearchComponent = () => {
   }, [query]);
 
 
-  // useEffect(() => {
-  //   if (query.trim()) {
-  //     const fetchSuggestions = async () => {
-  //       try {
-  //         const response = await axios.get('/api/search', { params: { q: query } });
-  //         // const products = Array.isArray(response.data) ? response.data : [];
-  //         const products = response.data;
-  //         // Sort the products based on relevance score
-  //         const sortedSuggestions = products.sort((a, b) =>b.relevanceScore - a.relevanceScore);
-
-  //         sortedSuggestions.forEach(product => {
-  //           console.log(`Product: ${product.name}, Relevance Score: ${product.relevanceScore}`);
-  //         });
-  //         setSuggestions(sortedSuggestions);
-
-  //         // const filteredSuggestions = products.flatMap(product =>
-  //         //   (product.keyword || []).filter(keyword =>
-  //         //     keyword.toLowerCase().includes(query.toLowerCase())
-  //         //   ).map(keyword => ({
-  //         //     ...product,
-  //         //     keyword,
-  //         //   }))
-  //         // );// Process suggestions to include only matched keywords
-
-
-  //         // setSuggestions(filteredSuggestions);
-  //         // console.log("API response data:", products);
-
-  //       } catch (error) {
-  //         console.error('Error fetching search suggestions:', error);
-  //       }
-  //     };
-  //     fetchSuggestions();
-  //   } else {
-  //     setSuggestions([]);
-  //   }
-  // }, [query]);
-
   const handleSearch = async () => {
     try {
-      const response = await axios.get('/api/search', { params: { q: query } });
+      const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/search`, { params: { q: query } });
       const products = response.data;
 
       onFilter(products);
@@ -101,7 +63,7 @@ const SearchComponent = () => {
     setSuggestions([]);
 
     try {
-      const response = await axios.get('/api/search', { params: { q: query } });
+      const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/search`, { params: { q: query } });
       const products = response.data;
       // window.location.reload();
       navigate('/searchproducts', { state: { products } });
