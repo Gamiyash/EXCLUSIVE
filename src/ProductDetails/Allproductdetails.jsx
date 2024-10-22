@@ -238,7 +238,7 @@ const AllProductDetails = ({ user, productId }) => {
     return (
         <>
             <div className='Main flex w-[100vw] xl:h-[80vh] h-[40vh] gap-10'>
-                <div className="img w-[50vw] gap-14 flex ">
+                <div className="img w-[50vw] gap-10 flex ">
                     <div className="sideimages xl:pl-0 pl-5 pt-10 flex gap-5 flex-col items-center w-[20vw]">
                         <img
                             width={70}
@@ -275,7 +275,7 @@ const AllProductDetails = ({ user, productId }) => {
                     </div>
                 </div>
 
-                <div className="details flex flex-col gap-3 w-[50vw]">
+                <div className="details flex flex-col gap-3 w-[50vw] xl:max-h-full maxh-[40vh] max-h-[90vh] overflow-y-auto scrollbar-hidden">
                     <div className="title pt-10 font-bold xl:text-2xl text-lg">{name}</div>
 
                     <div className="rating">
@@ -332,7 +332,7 @@ const AllProductDetails = ({ user, productId }) => {
                         <div className="Buy">
                             <button
                                 onClick={handleBuyNow}
-                                className='xl:px-10 px-5 py-2 xl:text-[16px] text-[10px] border rounded-sm bg-[#DB4444] text-white'
+                                className='xl:px-10 px-4 py-2 xl:text-[16px] text-[8px] border rounded-sm bg-[#DB4444] text-white'
                             >
                                 Buy Now
                             </button>

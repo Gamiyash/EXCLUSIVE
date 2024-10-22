@@ -8,25 +8,28 @@ import { MdOutlineDeleteOutline } from "react-icons/md";
 
 const WishList = ({ product, user }) => {
     const [Wishlistitems, setWishlistitems] = useState([]);
-    const [isHovered, setIsHovered] = useState(false);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [iconSize, setIconSize] = useState(17);
 
     const Allproductref = useRef(null);
 
-    // const { name, image, offerPrice, actualPrice, discount, rating, discription, _id, type, keyword } = product;
-
-    const scrollLeft = (ref) => {
-        if (ref.current) {
-            ref.current.scrollBy({ left: -250, behavior: 'smooth' });
+    const updateIconSize = () => {
+        // Tailwind's xl screen size is 1280px and above
+        if (window.innerWidth >= 1280) {
+            setIconSize(17); // Large screen size
+        } else {
+            setIconSize(10); // Smaller screen size
         }
     };
 
-    const scrollRight = (ref) => {
-        if (ref.current) {
-            ref.current.scrollBy({ left: 250, behavior: 'smooth' });
-        }
-    };
+    useEffect(() => {
+        updateIconSize(); // Set initial icon size on component mount
+        window.addEventListener('resize', updateIconSize); // Update icon size on window resize
+
+        // Cleanup listener on component unmount
+        return () => window.removeEventListener('resize', updateIconSize);
+    }, []);
 
     useEffect(() => {
         const fetchWishlistData = async () => {
@@ -158,8 +161,8 @@ const WishList = ({ product, user }) => {
 
                         {Wishlistitems.map((item) => (
                             <div key={item.productId}
-                                className="card w-[250px]  p-2 flex flex-col items-start justify-start relative hover:bg-[#ffff] hover:scale-105 transition-transform hover:shadow-md mb-20">
-                                <div className="w-[250px]  h-[200px] shadow-md  rounded-md  relative flex justify-center items-center overflow-hidden">
+                                className="card xl:w-[180px] w-[180px] h-full p-2 flex flex-col items-start justify-start relative hover:bg-[#ffff] hover:scale-105 transition-transform hover:shadow-md mb-20">
+                                <div className="xl:w-[180px] xl:h-[240px] w-full h-[180px] shadow-md  rounded-md  relative flex justify-center items-center overflow-hidden">
                                     <img className="object-contain  w-full h-full" src={item.image} alt={item.name} />
                                     <div className='absolute top-3 right-3 cursor-pointer' onClick={() => handleDelete(item.productId)} ><MdOutlineDeleteOutline size={25} /></div>
                                     <button className="absolute bottom-0 left-0 right-0 bg-black text-white py-2" onClick={AddtoCart}>
@@ -167,17 +170,17 @@ const WishList = ({ product, user }) => {
                                     </button>
                                 </div>
                                 <div className=''>
-                                    <div className="title font-medium text-lg mt-2">{item.name}</div>
-                                    <div className="price flex items-center gap-2 mt-2 ">
-                                        <div className="Offer-price font-medium text-xl text-[#DB4444] flex items-center">
-                                            <FaIndianRupeeSign size={17} /> {item.offerPrice}
+                                    <div className="title font-medium text-[12px] xl:text-[16px] mt-2">{item.name}</div>
+                                    <div className="price flex flex-wrap items-center gap-2 mt-2 ">
+                                        <div className="Offer-price font-medium text-[10px] xl:text-[16px] text-[#DB4444] flex items-center">
+                                            <FaIndianRupeeSign size={iconSize} /> {item.offerPrice}
                                         </div>
-                                        <div className="Actual-price font-medium text-xl line-through text-gray-400 flex items-center">
-                                            <FaIndianRupeeSign size={17} /> {item.actualPrice}
+                                        <div className="Actual-price font-medium text-[10px] xl:text-lg line-through text-gray-400 flex items-center">
+                                            <FaIndianRupeeSign size={iconSize} /> {item.actualPrice}
                                         </div>
-                                        <div className="offer-per font-medium text-xl text-green-500">{item.discount}% off</div>
+                                        <div className="offer-per font-medium text-[10px] xl:text-lg text-green-500">{item.discount}% off</div>
                                     </div>
-                                    <div className="rating mt-2"><StarRating rating={item.rating} /></div>
+                                    <div className="rating mt-2 xl:text-[16px] text-[10px]"><StarRating rating={item.rating} /></div>
                                 </div>
                             </div>
                         ))}

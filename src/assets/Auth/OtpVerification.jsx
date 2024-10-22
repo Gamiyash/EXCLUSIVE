@@ -22,7 +22,7 @@ const OtpVerification = ({ setUser }) => {
       if (response.data.success) {
         setSuccess('Login successful');
         setUser(response.data.user);
-        navigate('/home'); // Redirect to the homepage or protected route
+        navigate('/'); // Redirect to the homepage or protected route
       } else {
         setError(response.data.message);
       }

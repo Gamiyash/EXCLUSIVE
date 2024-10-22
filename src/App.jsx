@@ -28,6 +28,7 @@ import EcommerceAdminDashboard from './Admin/Dashboard';
 import Orders from './Admin/Orders';
 import ContactPage from './Pages/ContactUs';
 import AboutUsPage from './Pages/AboutUs';
+import Bottom_nav from './componets/Bottom_nav';
 
 // import TestHome from './TestWEb/Homepage';
 // import StatesPage from './TestWEb/Interactivemap';
@@ -74,7 +75,7 @@ function App() {
 
               <div className="pt-20">
                 <Routes>
-                  <Route path="/home" element={<Home user={user} setUser={setUser} />} />
+                  <Route path="/" element={<Home user={user} setUser={setUser} />} />
                   <Route path="/Signup" element={<Signup />} />
                   <Route path="/Profile" element={<Profile />} />
                   <Route path="/products" element={<ProductList user={user} setUser={setUser} />} />
@@ -97,29 +98,39 @@ function App() {
                   <Route path="/orderHistoryDetails/:orderId" element={<OrderHistoryDetails />} />
                   {/* <Route path="/Dashboard" element={<EcommerceAdminDashboard />} /> */}
                   {/* Other routes */}
-                  <Route path="/admin-dashboard" element={<EcommerceAdminDashboard  />} />
+                  <Route path="/admin-dashboard" element={<EcommerceAdminDashboard />} />
                   <Route path="/orders" element={<Orders />} />
                   <Route path="/contact" element={<ContactPage />} />
                   <Route path="/about" element={<AboutUsPage />} />
+                  <Route path="/Bottom_nav" element={<Bottom_nav />} />
 
                   {/* <Route path="/RollingWheeler" element={<Wheel />} /> */}
-                    {/* <Route path="/TestHome" element={<TestHome />} />
+                  {/* <Route path="/TestHome" element={<TestHome />} />
                   <Route path="/State" element={<StatesPage />} /> */}
 
 
-                  <Route path="/home" element={user ? <Home user={user} /> : <Navigate to="/login" />} />
-                  <Route path="/home" element={<Navigate to="/Signup" />} />
-                  <Route path="/home" element={<Navigate to="/Profile" />} />
+                  <Route path="/" element={user ? <Home user={user} /> : <Navigate to="/login" />} />
+                  <Route path="/" element={<Navigate to="/Signup" />} />
+                  <Route path="/" element={<Navigate to="/Profile" />} />
                   <Route path="/Signup" element={<Navigate to="/Login" />} />
                   <Route path="/Login" element={<Navigate to="/verify-otp" />} />
-                  <Route path="/Login" element={<Navigate to="/home" />} />
-                  <Route path="/Home" element={<Navigate to="/Cart" />} />
+                  <Route path="/Login" element={<Navigate to="/" />} />
+                  <Route path="/" element={<Navigate to="/Cart" />} />
                   <Route path="/Cart" element={<Navigate to="/Checkout" />} />
 
                 </Routes>
               </div>
             </div>
             {/* <Footer className="mt-auto" /> */}
+            {/* <div className='flex justify-around'>
+              <Link to="/" className="block px-4 py-2 text-[#FFFFFF flex items-center gap-3 hover:bg-gray-700 hover:rounded"> <span><IoHomeOutline size={25} /></span></Link>
+              <Link to="/Profile" className="block px-4 py-2 text-[#FFFFFF flex items-center gap-3 hover:bg-gray-700 hover:rounded"> <span><CgProfile size={25} /></span></Link>
+              <Link to={"/Cart"} className="block px-4 py-2 text-[#FFFFFF flex items-center gap-3 hover:bg-gray-700 hover:rounded"> <span><IoCartOutline size={25} /></span></Link>
+              <Link to={"/Wishlist"} className="block px-4 py-2 text-[#FFFFFF flex items-center gap-3 hover:bg-gray-700 hover:rounded"> <span><CiHeart size={25} /></span></Link>
+            </div> */}
+            <div>
+              <Bottom_nav />
+            </div>
           </div>
         </Router>
       </AuthProvider>

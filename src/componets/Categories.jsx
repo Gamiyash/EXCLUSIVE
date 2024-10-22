@@ -1,25 +1,3 @@
-// import React from 'react';
-
-// const Categories = ({ category }) => {
-
-//     return (
-//         //w-[200px] h-[150px]
-//         <div className="card overflow-x-auto cursor-pointer xl:w-[16vw] xl:h-[20vh] w-[11vw] h-[15vh] hover:text-white bg-white border rounded-md border-gray-300 relative flex justify-center items-center  hover:bg-[#DB4444]">
-//             <div className="img absolute flex flex-col justify-center items-center gap-1">
-//                 <div className="img">
-//                     {category.pic}
-//                 </div>
-//                 <div className="title xl:text-xl text-sm">{category.title}</div>
-//             </div>
-//         </div>
-
-//     );
-// };
-
-
-// export default Categories;
-
-
 import React, { useState, useEffect } from 'react';
 import { GiSmartphone } from 'react-icons/gi'; // Import the icon
 

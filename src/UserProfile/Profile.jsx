@@ -150,7 +150,7 @@ const Profile = () => {
                   <img
                     src={`${import.meta.env.VITE_BACKEND_URL}${profileImage}`}
                     alt=""
-                    className="xl:w-32 xl:h-32 w-44 h-44 rounded-full object-cover"
+                    className="xl:w-32 xl:h-32 w-36 h-36 rounded-full object-cover"
                   />
                 ) : (
                   <p>No profile image available</p>
@@ -205,7 +205,7 @@ const Profile = () => {
             </div>
           </section>
 
-          <section className="sec-2 shadow-xl border border-gray-300 rounded-xl w-[98vw] xl:w-[60vw] h-[45vh] xl:h-[85vh] my-10 mx-4">
+          <section className="sec-2 shadow-xl border border-gray-300 rounded-xl w-[98vw] xl:w-[60vw] h-[53vh] xl:h-[85vh] my-10 mx-4">
             <div className="EditProfile flex flex-col px-10 py-3">
               <h2 className='text-2xl font-medium  text-[#DB4444]'>Edit Your Profile</h2>
 

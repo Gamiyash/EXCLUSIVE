@@ -1,13 +1,15 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaIndianRupeeSign } from "react-icons/fa6";
 import StarRating from '../componets/Starrating';
 import { useNavigate } from 'react-router';
 import axios from 'axios';
 import { AiFillHeart } from "react-icons/ai";
+import { useFetcher } from 'react-router-dom';
 
 const Allproducts = ({ product, user }) => {
     const [isHovered, setIsHovered] = useState(false);
+    const [iconSize, setIconSize] = useState(17);
     const { name, image, offerPrice, actualPrice, discount, rating, discription, _id, type, keyword } = product;
 
     const navigate = useNavigate();
@@ -15,6 +17,22 @@ const Allproducts = ({ product, user }) => {
         navigate(`/Allproductdetails/${_id}`); // Redirect to product details page
     };
 
+    const updateIconSize = () => {
+        // Tailwind's xl screen size is 1280px and above
+        if (window.innerWidth >= 1280) {
+            setIconSize(17); // Large screen size
+        } else {
+            setIconSize(10); // Smaller screen size
+        }
+    };
+
+    useEffect(() => {
+        updateIconSize(); // Set initial icon size on component mount
+        window.addEventListener('resize', updateIconSize); // Update icon size on window resize
+
+        // Cleanup listener on component unmount
+        return () => window.removeEventListener('resize', updateIconSize);
+    }, []);
 
     const AddtoCart = async () => {
         if (user) {
@@ -112,28 +130,28 @@ const Allproducts = ({ product, user }) => {
 
     return (
         <div
-            className="card mb-7 p-2 xl:w-[180px] w-[140px] h-full flex flex-col items-start justify-start relative hover:bg-[#ffff] hover:scale-105  transition-transform hover:shadow-md"
+            className="card mb-7 p-2 xl:w-[180px] w-[120px] h-full flex flex-col items-start justify-start relative hover:bg-[#ffff] hover:scale-105  transition-transform hover:shadow-md"
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
         >
-            <div className="xl:w-[180px] xl:h-[220px] w-[140px] h-[180px] bg-white shadow-md rounded-md border-gray-300 relative flex justify-center items-center overflow-hidden ">
+            <div className="xl:w-[180px] xl:h-[220px] w-full h-[150px] bg-white shadow-md rounded-md border-gray-300 relative flex justify-center items-center overflow-hidden ">
                 <img className="object-contain w-full h-full" src={image} alt={name} onClick={handleClick} />
                 {isHovered && (
                     <button className="absolute bottom-0 left-0 right-0 bg-black text-white py-1" onClick={AddtoCart}>
                         Add to Cart
                     </button>
                 )}
-                <button className="absolute top-0 right-5 text-white py-2" onClick={AddtoWishList} >
+                <button className="absolute  top-0 right-0 text-white py-2" onClick={AddtoWishList} >
                     <AiFillHeart size={30} color='gray' />
                 </button>
             </div>
             <div className="title font-medium text-[10px] xl:text-[16px] mt-2">{name}</div>
             <div className="price flex flex-wrap items-center gap-2 mt-2">
-                <div className="Offer-price font-medium text-[10px] xl:text-lg  text-[#DB4444] flex items-center">
-                    <FaIndianRupeeSign size={17} /> {numberWithCommas(offerPrice)}
+                <div className="Offer-price font-medium text-[10px] xl:text-[16px]  text-[#DB4444] flex items-center">
+                    <FaIndianRupeeSign size={iconSize} /> {numberWithCommas(offerPrice)}
                 </div>
                 <div className="Actual-price font-medium text-[10px] xl:text-lg line-through text-gray-400 flex items-center">
-                    <FaIndianRupeeSign size={17} /> {numberWithCommas(actualPrice)}
+                    <FaIndianRupeeSign size={iconSize} /> {numberWithCommas(actualPrice)}
                 </div>
                 <div className="offer-per font-medium text-[10px] xl:text-lg text-green-500">{discount}% off</div>
             </div>
