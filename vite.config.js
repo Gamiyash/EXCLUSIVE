@@ -23,7 +23,7 @@ import react from '@vitejs/plugin-react';
 export default defineConfig({
   plugins: [react()],
   server: {
-    proxy: {
+    proxy:process.env.NODE_ENV === 'production' ? {} :  {
       '/api': {
         target: 'https://exclusive-4.onrender.com', // Proxy for backend
         changeOrigin: true,
