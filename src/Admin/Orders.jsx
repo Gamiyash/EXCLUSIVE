@@ -2,7 +2,7 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { BrowserRouter as Router, Routes, Route, Link, useFetchers } from 'react-router-dom'
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LineChart, Line } from 'recharts'
+// import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LineChart, Line } from 'recharts'
 import { DollarSignIcon, ShoppingCartIcon, UsersIcon, PackageIcon } from 'lucide-react'
 import { IoStatsChartSharp } from "react-icons/io5";
 import { FaIndianRupeeSign } from "react-icons/fa6";
@@ -71,7 +71,7 @@ function Orders() {
     useEffect(() => {
         const FetchOrders = async () => {
             try {
-                const responce = await axios.get('${import.meta.env.VITE_BACKEND_URL}/api/getOrdersForAdmin');
+                const responce = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/getOrdersForAdmin`);
                 setOrders(responce.data)
                 // console.log("Order Length is:",Orders.length)
             } catch (error) {
