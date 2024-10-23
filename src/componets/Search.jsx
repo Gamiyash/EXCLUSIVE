@@ -24,10 +24,11 @@ const SearchComponent = () => {
     const fetchSuggestions = debounce(async () => {
       if (query.trim()) {
         try {
-          const response = await axios.get('/api/search', { params: { q: query } });
+          const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/search`, { params: { q: query } });
           const products = response.data;
-          const sortedSuggestions = products.sort((a, b) => b.relevanceScore - a.relevanceScore);
-          setSuggestions(sortedSuggestions);
+          setSuggestions(products);
+          // const sortedSuggestions = products.sort((a, b) => b.relevanceScore - a.relevanceScore);
+          // setSuggestions(sortedSuggestions);
         } catch (error) {
           console.error('Error fetching search suggestions:', error);
         }
@@ -89,7 +90,7 @@ const SearchComponent = () => {
 
       {suggestions.length > 0 ? (
         <ul className="absolute left-0 w-full max-h-[40vh] bg-white border border-gray-300 rounded mt-1 overflow-y-auto z-50"
-          style={{ scrollbarWidth: 'none', '-ms-overflow-style': 'none' }}
+          style={{ scrollbarWidth: 'none', ' msOverflowStyle': 'none' }}
           ref={suggestionsRef}>
           {suggestions.map((product) => (
             <li
@@ -109,7 +110,7 @@ const SearchComponent = () => {
       ) : (
         query.trim() && (
             <div className="absolute left-0 w-full bg-white border border-gray-300 rounded mt-1 z-50 p-2 text-center">
-              <p>No suggestions found for "{query}".</p>
+              <p> Sorry No Products found for "{query}".</p>
             </div>
         )
       )}
