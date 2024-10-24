@@ -484,7 +484,8 @@ app.get('/api/auth/google/callback',
 
 app.get('/api/auth/session', (req, res) => {
   if (req.isAuthenticated()) {
-    res.json({ user: req.user });
+    console.log("User is Authenticated:",req.isAuthenticated());
+    res.status(200).json({ user: req.user });
   } else {
     res.status(401).json({ message: 'Not authenticated' });
   }

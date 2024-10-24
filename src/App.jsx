@@ -44,7 +44,7 @@ function App() {
         if (storedUser) {
           setUser(JSON.parse(storedUser));  // Set user from localStorage
         } else {
-          const response = await axios.get('/api/auth/session', { withCredentials: true });
+          const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/auth/session`, { withCredentials: true });
           const contentType = response.headers['content-type'];
           if (contentType && contentType.includes('application/json')) {
             setUser(response.data.user);
