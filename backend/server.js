@@ -473,7 +473,7 @@ app.get('/api/auth/google/callback',
 
 
       res.redirect(`${process.env.FRONTEND_URL}/`);
-      // res.redirect(`${process.env.FRONTEND_URL}/home`)
+
     } catch (error) {
       console.error('Error in Google OAuth callback:', error);
       // res.redirect('/signup');

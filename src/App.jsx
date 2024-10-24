@@ -30,8 +30,6 @@ import ContactPage from './Pages/ContactUs';
 import AboutUsPage from './Pages/AboutUs';
 import Bottom_nav from './componets/Bottom_nav';
 
-// import TestHome from './TestWEb/Homepage';
-// import StatesPage from './TestWEb/Interactivemap';
 
 function App() {
 
@@ -96,18 +94,13 @@ function App() {
                   {/* <Route path="/ProctedComponet" element={<ProtectedComponent user={user} setUser={setUser} />} /> */}
                   <Route path="/orderHistory" element={<HistoryPage />} />
                   <Route path="/orderHistoryDetails/:orderId" element={<OrderHistoryDetails />} />
-                  {/* <Route path="/Dashboard" element={<EcommerceAdminDashboard />} /> */}
+
                   {/* Other routes */}
                   <Route path="/admin-dashboard" element={<EcommerceAdminDashboard />} />
                   <Route path="/orders" element={<Orders />} />
                   <Route path="/contact" element={<ContactPage />} />
                   <Route path="/about" element={<AboutUsPage />} />
                   <Route path="/Bottom_nav" element={<Bottom_nav />} />
-
-                  {/* <Route path="/RollingWheeler" element={<Wheel />} /> */}
-                  {/* <Route path="/TestHome" element={<TestHome />} />
-                  <Route path="/State" element={<StatesPage />} /> */}
-
 
                   <Route path="/" element={user ? <Home user={user} /> : <Navigate to="/login" />} />
                   <Route path="/" element={<Navigate to="/Signup" />} />
@@ -121,13 +114,6 @@ function App() {
                 </Routes>
               </div>
             </div>
-            {/* <Footer className="mt-auto" /> */}
-            {/* <div className='flex justify-around'>
-              <Link to="/" className="block px-4 py-2 text-[#FFFFFF flex items-center gap-3 hover:bg-gray-700 hover:rounded"> <span><IoHomeOutline size={25} /></span></Link>
-              <Link to="/Profile" className="block px-4 py-2 text-[#FFFFFF flex items-center gap-3 hover:bg-gray-700 hover:rounded"> <span><CgProfile size={25} /></span></Link>
-              <Link to={"/Cart"} className="block px-4 py-2 text-[#FFFFFF flex items-center gap-3 hover:bg-gray-700 hover:rounded"> <span><IoCartOutline size={25} /></span></Link>
-              <Link to={"/Wishlist"} className="block px-4 py-2 text-[#FFFFFF flex items-center gap-3 hover:bg-gray-700 hover:rounded"> <span><CiHeart size={25} /></span></Link>
-            </div> */}
             <div>
               <Bottom_nav />
             </div>

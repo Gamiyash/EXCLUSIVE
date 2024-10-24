@@ -22,7 +22,7 @@ const Login = ({ user, setUser }) => {
 
   useEffect(() => {
     // Use axios to fetch the session data
-    axios.get('/api/auth/session', { withCredentials: true })
+    axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/auth/session`, { withCredentials: true })
       .then(response => {
         const data = response.data;
         if (data.user) {
