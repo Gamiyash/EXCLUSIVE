@@ -6,8 +6,8 @@ const Sidebar = () => {
 
     return (
         <>
-            <nav className="sidebar xl:pl-[5%] xl:flex">
-                <ul className='flex bg-white shadow-md xl:flex-col xl:shadow-none font-medium xl:mt-3  '>
+            <nav className="sidebar xl:pl-[5%] pl-[5%] xl:flex">
+                <ul className='flex  bg-white shadow-md xl:flex-col xl:shadow-none font-medium xl:mt-3  '>
 
                     <Link to={"/WomenFashionProducts"} className="block xl:text-sm md:text-[10px] text-[6px] xl:px-4 xl:py-2 text-[#FFFFFF flex items-center gap-3 xl:hover:bg-gray-200 hover:bg-gray-700 hover:rounded">
                         Woman's Fashion
