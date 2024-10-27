@@ -5,7 +5,7 @@ import StarRating from '../componets/Starrating';
 import { useNavigate } from 'react-router';
 import axios from 'axios';
 import { AiFillHeart } from "react-icons/ai";
-import { useFetcher } from 'react-router-dom';
+
 
 const Allproducts = ({ product, user }) => {
     const [isHovered, setIsHovered] = useState(false);

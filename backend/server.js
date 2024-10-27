@@ -416,16 +416,6 @@ app.get('/api/auth/google/callback',
       // Check if user exists by email
       const existingUser = await collection.findOne({ email });
 
-      // if (existingUser) {
-      //   // Update existing user record if necessary
-      //   await collection.updateOne(
-      //     { email },
-      //     { $set: { username: displayName } }
-      //   );
-      // } else {
-      //   // Insert new user record if not found
-      //   await collection.insertOne({ username: displayName, email });
-      // }
 
       if (existingUser) {
         // If the user exists, we can either update their information or just log them in
@@ -484,7 +474,7 @@ app.get('/api/auth/google/callback',
 
 app.get('/api/auth/session', (req, res) => {
   if (req.isAuthenticated()) {
-    console.log("User is Authenticated:",req.isAuthenticated());
+    // console.log("User is Authenticated:",req.isAuthenticated());
     res.status(200).json({ user: req.user });
   } else {
     res.status(401).json({ message: 'Not authenticated' });
