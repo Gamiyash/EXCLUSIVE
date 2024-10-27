@@ -79,11 +79,11 @@ const Login = ({ user, setUser }) => {
     <>
       <div className="flex flex-col min-h-screen">
         <div className="flex items-center flex-col sm:flex-row 2xl:gap-44 xl:gap-44 lg:gap-32 lg:pb-20 md:gap-16 md:pb-20 sm:gap-10 sm:pb-16">
-          <div className="img  flex justify-center  sm:justify-start items-center pb-10 pt-4 sm:my-0">
+          <div className="img flex justify-center sm:justify-start items-center pb-10 pt-4 sm:my-0">
             <img className='w-full sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl 2xl:max-w-[1000px]' src="../SignupBg.jpg" alt="Signup Background" />
           </div>
           <form onSubmit={submit} className="SignU flex space-y-3 flex-col items-center sm:items-start 2xl:mt-24 xl:mt-20 lg:mt-16 lg:gap-5 md:gap-5 md:mt-16 sm:mt-10">
-          {error && <p className="text-red-500 text-lg text-center justify-center items-center ">{error}</p>}
+            {error && <p className="text-red-500 text-lg text-center justify-center items-center ">{error}</p>}
             <div className='flex flex-col items-center sm:items-start gap-5'>
               <h1 className='font-medium text-2xl sm:text-3xl tracking-wider md:tracking-normal'>Login</h1>
               <p className='font-medium text-gray-700 sm:text-gray-950'>Enter your details below</p>
@@ -113,6 +113,7 @@ const Login = ({ user, setUser }) => {
                   <span><img width={25} src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0iMTgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48cGF0aCBkPSJNMTcuNiA5LjJsLS4xLTEuOEg5djMuNGg0LjhDMTMuNiAxMiAxMyAxMyAxMiAxMy42djIuMmgzYTguOCA4LjggMCAwIDAgMi42LTYuNnoiIGZpbGw9IiM0Mjg1RjQiIGZpbGwtcnVsZT0ibm9uemVybyIvPjxwYXRoIGQ9Ik05IDE4YzIuNCAwIDQuNS0uOCA2LTIuMmwtMy0yLjJhNS40IDUuNCAwIDAgMS04LTIuOUgxVjEzYTkgOSAwIDAgMCA4IDV6IiBmaWxsPSIjMzRBODUzIiBmaWxsLXJ1bGU9Im5vbnplcm8iLz48cGF0aCBkPSJNNCAxMC43YTUuNCA1LjQgMCAwIDEgMC0zLjRWNUgxYTkgOSAwIDAgMCAwIDhsMy0yLjN6IiBmaWxsPSIjRkJCQzA1IiBmaWxsLXJ1bGU9Im5vbnplcm8iLz48cGF0aCBkPSJNOSAzLjZjMS4zIDAgMi41LjQgMy40IDEuM0wxNSAyLjNBOSA5IDAgMCAwIDEgNWwzIDIuNGE1LjQgNS40IDAgMCAxIDUtMy43eiIgZmlsbD0iI0VBNDMzNSIgZmlsbC1ydWxlPSJub256ZXJvIi8+PHBhdGggZD0iTTAgMGgxOHYxOEgweiIvPjwvZz48L3N2Zz4=" alt="" /></span><span>Continue with Google</span>
                 </button>
               </div>
+              <span className='flex justify-center items-center mt-3 gap-1 text-black font-medium'>Don't have an account?<a href="/Signup" className='text-blue-500'>Signup</a></span>
             </div>
 
           </form>

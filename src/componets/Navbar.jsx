@@ -92,9 +92,9 @@ const Navbar = ({ user, setUser }) => {
             <Link to={"/"} className="hidden text-sm xl:block hover:border-b-2 border-transparent hover:border-slate-500 cursor-pointer">Home</Link>
             <Link to={"/contact"} className="hidden xl:block text-sm hover:border-b-2 border-transparent hover:border-slate-500 cursor-pointer">Contact</Link>
             <Link to={"/about"} className="hidden xl:block text-sm hover:border-b-2 border-transparent hover:border-slate-500 cursor-pointer">About</Link>
-            {!user && (
+            {/* {!user && (
               <li onClick={() => navigate('/Signup')} className="hover:border-b-2 border-transparent hover:border-slate-500 cursor-pointer">Sign Up</li>
-            )}
+            )} */}
           </ul>
 
           <div className='flex justify-center items-center gap-3 xl:gap-7'>
