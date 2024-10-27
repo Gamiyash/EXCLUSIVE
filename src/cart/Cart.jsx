@@ -74,7 +74,7 @@ const Cart = ({ user }) => {
     const handleDelete = async (productId) => {
         try {
             const userEmail = user.email;
-            // window.location.reload();
+            window.location.reload();
             await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/api/deleteflashCartItem/${userEmail}/${productId}`);
      
             setCartItems(prevItems => prevItems.filter(item => item.productId !== productId));

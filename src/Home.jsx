@@ -14,6 +14,7 @@ import ThisMonth from './ThisMonthBestProducts/ThisMonth';
 import Allproducts from './AllProducts/Allproducts';
 import { useNavigate, Link, redirect } from 'react-router-dom';
 import Footer from './componets/Footer';
+import { FaChevronRight, FaChevronLeft } from "react-icons/fa"
 
 const Home = ({ user }) => {
 
@@ -22,6 +23,7 @@ const Home = ({ user }) => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [CurrentImageIndex, setCurrentImageIndex] = useState(0)
 
   const navigate = useNavigate();
 
@@ -182,6 +184,18 @@ const Home = ({ user }) => {
     navigate("/products")
   }
 
+  const handlePreviousImage = () => {
+    setCurrentImageIndex((prevIndex) =>
+      prevIndex === 0 ? images.length - 1 : prevIndex - 1
+    );
+  };
+
+  const handleNextImage = () => {
+    setCurrentImageIndex((prevIndex) =>
+      prevIndex === images.length - 1 ? 0 : prevIndex + 1
+    );
+  };
+  const images = ["../Add.svg", " https://t3.ftcdn.net/jpg/06/00/42/04/240_F_600420453_vXQljuznZhAMwhf7a1vZdKWlBUDSdQMJ.jpg", " https://t3.ftcdn.net/jpg/04/65/46/52/360_F_465465248_FiKUDwScNZ1N5OoVncuiabtKsJqfWSWj.webp"]
 
 
   if (loading) return <p className='flex justify-center items-center text-2xl'>Loading...</p>;
@@ -189,16 +203,47 @@ const Home = ({ user }) => {
 
   return (
     <>
+      {/* <div className="relative aspect-w-1 aspect-h-1 bg-gray-200 rounded-lg overflow-hidden">
+        <img
+          src={product.images[currentImageIndex]}
+          alt={`${product.name} - Image ${currentImageIndex + 1}`}
+          className="object-cover w-full h-full"
+        />
+        <button
+          onClick={handlePreviousImage}
+          className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-50 rounded-full p-2 hover:bg-opacity-75 transition duration-300"
+        >
+          <FaChevronLeft className="h-6 w-6 text-gray-800" />
+        </button>
+        <button
+          onClick={handleNextImage}
+          className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-50 rounded-full p-2 hover:bg-opacity-75 transition duration-300"
+        >
+          <FaChevronRight className="h-6 w-6 text-gray-800" />
+        </button>
+      </div> */}
 
       <div className="main bg-white">
         <div className="main">
-          <div className="Sidebar flex flex-col items-center xl:flex-row xl:items-start xl:justify-between">
+          <div className="Sidebar relative flex flex-col items-center xl:flex-row xl:items-start xl:justify-between">
             <Sidebar />
             <img
-              className="mt-4 xl:mt-[3%] xl:mr-[10%] w-[95%] xl:w-[60%]"
-              src="../Add.svg"
+              className="mt-4 xl:mt-[3%] xl:mr-[10%] w-[95%] xl:w-[60%] xl:h-[50%]"
+              src={images[CurrentImageIndex]}
               alt=""
             />
+            <button
+              onClick={handlePreviousImage}
+              className="absolute xl:left-[30%] left-5 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-50 rounded-full p-2 hover:bg-opacity-75 transition duration-300"
+            >
+              <FaChevronLeft className="h-6 w-6 text-gray-800" />
+            </button>
+            <button
+              onClick={handleNextImage}
+              className="absolute xl:right-[10%] right-5 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-50 rounded-full p-2 hover:bg-opacity-75 transition duration-300"
+            >
+              <FaChevronRight className="h-6 w-6 text-gray-800" />
+            </button>
           </div>
         </div>
 

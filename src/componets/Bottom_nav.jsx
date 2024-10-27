@@ -1,11 +1,6 @@
 import { useState, useEffect } from "react";
 import { CiSearch, CiHeart, } from "react-icons/ci";
-import { FcAbout } from "react-icons/fc";
-import { MdContactSupport } from "react-icons/md";
 import { IoHomeOutline } from "react-icons/io5";
-import { FaUserPlus } from "react-icons/fa";
-import { RxHamburgerMenu } from "react-icons/rx";
-import { MdOutlineLogin } from "react-icons/md";
 import { IoCartOutline } from "react-icons/io5";
 import { useNavigate, Link } from 'react-router-dom';
 import { CgProfile } from "react-icons/cg";
@@ -38,10 +33,10 @@ export default function Bottom_nav() {
                 }`}
         >
             <div className="xl:flex-row flex xl:hidden  justify-around">
-                <Link to="/" className="px-4 py-2 text-white flex items-center gap-3 hover:bg-gray-700 hover:rounded-md"> <span><IoHomeOutline size={25} /></span></Link>
-                <Link to="/Profile" className=" px-4 py-2 text-white flex items-center gap-3 hover:bg-gray-700 hover:rounded-md"> <span><CgProfile size={25} /></span></Link>
-                <Link to={"/Cart"} className=" px-4 py-2 text-white flex items-center gap-3 hover:bg-gray-700 hover:rounded-md"> <span><IoCartOutline size={25} /></span></Link>
-                <Link to={"/Wishlist"} className="px-4 py-2 text-white flex items-center gap-3 hover:bg-gray-700 hover:rounded-md"> <span><CiHeart size={25} /></span></Link>
+                <Link to="/" className="px-4 py-2 text-white items-center gap-3 hover:bg-gray-700 hover:rounded-md"> <span><IoHomeOutline size={30} /></span></Link>
+                <Link to="/Profile" className=" px-4 py-2 text-white flex items-center gap-3 hover:bg-gray-700 hover:rounded-md"> <span><CgProfile size={30} /></span></Link>
+                <Link to={"/Cart"} className=" px-4 py-2 text-white flex items-center gap-3 hover:bg-gray-700 hover:rounded-md"> <span><IoCartOutline size={30} /></span></Link>
+                <Link to={"/Wishlist"} className="px-4 py-2 text-white flex items-center gap-3 hover:bg-gray-700 hover:rounded-md"> <span><CiHeart size={30} /></span></Link>
             </div>
             {/* </div> */}
         </nav>
