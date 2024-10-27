@@ -105,10 +105,9 @@ app.use(session({
   }),
   cookie: {
     maxAge: null,
-    sameSite: 'None',
     // maxAge: 1000 * 60 * 60 * 24, // 1 day
     httpOnly: true, // Helps prevent XSS attacks
-    secure: false // Set to true if using HTTPS
+    secure: true // Set to true if using HTTPS
   }
 }));
 
