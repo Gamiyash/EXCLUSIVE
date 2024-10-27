@@ -107,7 +107,7 @@ app.use(session({
     maxAge: null,
     // maxAge: 1000 * 60 * 60 * 24, // 1 day
     httpOnly: true, // Helps prevent XSS attacks
-    secure: false // Set to true if using HTTPS
+    secure:process.env.NODE_ENV === 'production' // Set to true if using HTTPS
   }
 }));
 
