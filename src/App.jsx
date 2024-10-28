@@ -19,7 +19,7 @@ import FlashProductDetails from './ProductDetails/FlashProductDetails';
 import AllProductDetails from './ProductDetails/Allproductdetails';
 import ThisMonthBestProductsDetails from './ProductDetails/ThisMonthBestproducts';
 import Cart from './cart/Cart';
-import Footer from './componets/Footer';
+import Sidebar from './componets/Sidebar';
 import WishList from './WishList/WishList';
 import ProductsPage from './componets/SearchProducts';
 import ElectronicsproductsList from './CategoriesPages/Electronics';
@@ -73,6 +73,7 @@ function App() {
 
               <div className="pt-20">
                 <Routes>
+                <Route path="/Sidebar" element={<Sidebar />} />
                   <Route path="/" element={<Home user={user} setUser={setUser} />} />
                   <Route path="/Signup" element={<Signup />} />
                   <Route path="/Profile" element={<Profile />} />

@@ -195,7 +195,7 @@ const Home = ({ user }) => {
       prevIndex === images.length - 1 ? 0 : prevIndex + 1
     );
   };
-  const images = ["../Add.svg", " https://t3.ftcdn.net/jpg/06/00/42/04/240_F_600420453_vXQljuznZhAMwhf7a1vZdKWlBUDSdQMJ.jpg", " https://t3.ftcdn.net/jpg/04/65/46/52/360_F_465465248_FiKUDwScNZ1N5OoVncuiabtKsJqfWSWj.webp"]
+  const images = ["../Add.svg", "../Add.svg"]
 
 
   if (loading) return <p className='flex justify-center items-center text-2xl'>Loading...</p>;
@@ -203,47 +203,35 @@ const Home = ({ user }) => {
 
   return (
     <>
-      {/* <div className="relative aspect-w-1 aspect-h-1 bg-gray-200 rounded-lg overflow-hidden">
-        <img
-          src={product.images[currentImageIndex]}
-          alt={`${product.name} - Image ${currentImageIndex + 1}`}
-          className="object-cover w-full h-full"
-        />
-        <button
-          onClick={handlePreviousImage}
-          className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-50 rounded-full p-2 hover:bg-opacity-75 transition duration-300"
-        >
-          <FaChevronLeft className="h-6 w-6 text-gray-800" />
-        </button>
-        <button
-          onClick={handleNextImage}
-          className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-50 rounded-full p-2 hover:bg-opacity-75 transition duration-300"
-        >
-          <FaChevronRight className="h-6 w-6 text-gray-800" />
-        </button>
-      </div> */}
-
       <div className="main bg-white">
-        <div className="main">
-          <div className="Sidebar relative flex flex-col items-center xl:flex-row xl:items-start xl:justify-between">
-            <Sidebar />
-            <img
-              className="mt-4 xl:mt-[3%] xl:mr-[10%] w-[95%] xl:w-[60%] xl:h-[50%]"
-              src={images[CurrentImageIndex]}
-              alt=""
-            />
-            <button
-              onClick={handlePreviousImage}
-              className="absolute xl:left-[30%] left-5 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-50 rounded-full p-2 hover:bg-opacity-75 transition duration-300"
-            >
-              <FaChevronLeft className="h-6 w-6 text-gray-800" />
-            </button>
-            <button
-              onClick={handleNextImage}
-              className="absolute xl:right-[10%] right-5 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-50 rounded-full p-2 hover:bg-opacity-75 transition duration-300"
-            >
-              <FaChevronRight className="h-6 w-6 text-gray-800" />
-            </button>
+        <div className="main w-full ">
+          <div className="w-full overflow-hidden">
+            <div className="flex overflow-x-hidden flex-col xl:flex-row max-h-[60vh]">
+              <div className="w-full pt-1 xl:pt-0 overflow-x-auto xl:ml-[6%] xl:w-1/4 h-full overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
+                <Sidebar />
+              </div>
+              <div className="w-full xl:w-3/4 h-full  relative flex items-center justify-center">
+                <img
+                  className="max-w-full max-h-full object-contain pt-3 xl:mr-[6%]"
+                  src={images[CurrentImageIndex]}
+                  alt={``}
+                />
+                {/* <button
+                  onClick={handlePreviousImage}
+                  className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-50 rounded-full p-2 hover:bg-opacity-75 transition duration-300"
+                  aria-label="Previous image"
+                >
+                  <FaChevronLeft className="h-6 w-6 text-gray-800" />
+                </button>
+                <button
+                  onClick={handleNextImage}
+                  className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-50 rounded-full p-2 hover:bg-opacity-75 transition duration-300"
+                  aria-label="Next image"
+                >
+                  <FaChevronRight className="h-6 w-6 text-gray-800" />
+                </button> */}
+              </div>
+            </div>
           </div>
         </div>
 
