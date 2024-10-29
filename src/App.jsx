@@ -29,7 +29,7 @@ import Orders from './Admin/Orders';
 import ContactPage from './Pages/ContactUs';
 import AboutUsPage from './Pages/AboutUs';
 import Bottom_nav from './componets/Bottom_nav';
-
+import AddProducts from './Admin/AddProducts';
 
 function App() {
 
@@ -73,7 +73,8 @@ function App() {
 
               <div className="pt-20">
                 <Routes>
-                <Route path="/Sidebar" element={<Sidebar />} />
+                  <Route path="/Sidebar" element={<Sidebar />} />
+                  <Route path="/Add-Products" element={<AddProducts />} />
                   <Route path="/" element={<Home user={user} setUser={setUser} />} />
                   <Route path="/Signup" element={<Signup />} />
                   <Route path="/Profile" element={<Profile />} />

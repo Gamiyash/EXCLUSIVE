@@ -29,6 +29,9 @@ const flashproductcommentRoutes = require("./routes/FlashProductsRoutes/flashpro
 const ProductcemmentsRoutes = require("./routes/AllProductsRoutes/Productcomment")
 const ThismonthcommentsRoutes = require("./routes/ThisMonthBestProductsRoutes/Thismonthcomment")
 
+//admin-Routes
+const AddProductsRoutes = require('./routes/Admin/Addproducts')
+
 //Profile_pic 
 const Upload_ProfilepicRoute = require('./routes/BillingDetailsOfUsers/Profile_pic')
 
@@ -152,6 +155,9 @@ app.use('/api', UserBillingDetailsRoute)
 
 //RazorPayment
 app.use('/api', RazorPayPaymentGetway);
+
+//Admin-Routes
+app.use('/api', AddProductsRoutes)
 
 function isAuthenticated(req, res, next) {
   if (req.session.user) {

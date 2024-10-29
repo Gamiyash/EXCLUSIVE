@@ -37,9 +37,9 @@ const Flashlist = ({ user }) => {
 
     return (
         <>
-            <div className="product-list flex w-[100vw] gap-5">
-                <div className='fixed left-0 w-[21vw] h-screen '><Sidebar /></div>
-                <div className="ml-[14vw] flex-1 overflow-auto p-4 ">
+            <div className="product-list flex w-full gap-5">
+                <div className='fixed left-0 xl:w-[21vw] h-screen w-full overflow-x-auto pt-1 xl:pt-0 '><Sidebar /></div>
+                <div className="xl:ml-[14vw] flex-1 overflow-auto xl:p-3 pt-7 ">
                     <FilterComponent products={Flashproducts} onFilter={handleFilter} />
                     <div className="flex flex-wrap justify-around items-start mt-5">
                         {/* {filteredProducts.map(Flashproduct => (
@@ -51,7 +51,7 @@ const Flashlist = ({ user }) => {
                     </div>
                 </div>
             </div>
-            <Footer/>
+            <Footer />
         </>
 
     );
