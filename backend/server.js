@@ -77,26 +77,13 @@ app.use(cors({
   credentials: true,
 }));
 
-// app.use(cors({
-//   origin:['http://localhost:5173', 'http://192.168.198.140:3000'], // Your frontend URL
-//   credentials: true,
-// }));
+
 
 app.use(bodyParser.json());
 // app.use(session({ secret: '8f8cf9d5b54eb1e3f8a3d637f0b2d9f1', resave: false, saveUninitialized: true ,cookie: { secure: true}}));
 app.use(passport.initialize());
 
-// app.use(session({
-//   secret: process.env.SESSION_SECRET,
-//   resave: true,
-//   saveUninitialized: false,
-//   store: store,
-//   cookie: {
-//     secure: false, // Set to true only if using HTTPS
-//     sameSite: 'strict',
-//     maxAge: 24 * 60 * 60 * 1000 // 24 hours
-//   }
-// }));
+;
 
 app.use(session({
   secret: process.env.SESSION_SECRET, // Replace with your own secret
@@ -109,8 +96,9 @@ app.use(session({
   cookie: {
     maxAge: null,
     // maxAge: 1000 * 60 * 60 * 24, // 1 day
-    httpOnly: true, // Helps prevent XSS attacks
-    secure: false // Set to true if using HTTPS
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production', 
+    sameSite: 'none', // Required for cross-origin cookies
   }
 }));
 
