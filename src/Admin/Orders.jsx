@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Routes, Route, Link, useFetchers } from 'react
 import { DollarSignIcon, ShoppingCartIcon, UsersIcon, PackageIcon } from 'lucide-react'
 import { IoStatsChartSharp } from "react-icons/io5";
 import { FaIndianRupeeSign } from "react-icons/fa6";
+import { useNavigate } from 'react-router-dom';
 
 // Product detail popup component
 function ProductDetailPopup({ order, onClose, onUpdateStatus }) {
@@ -32,7 +33,7 @@ function ProductDetailPopup({ order, onClose, onUpdateStatus }) {
                 >
                     X
                 </button>
-                <h2 className="text-xl font-bold mb-4">Order Details</h2>
+                <h2 className="xl:text-xl text-sm font-bold mb-4">Order Details</h2>
 
                 <div className=''>
                     <p><strong>Order ID:</strong> {order.orderId}</p>
@@ -67,6 +68,28 @@ function ProductDetailPopup({ order, onClose, onUpdateStatus }) {
 function Orders() {
     const [Orders, setOrders] = useState([]);
     const [selectedOrder, setSelectedOrder] = useState(null); // State for selected order
+    const [isadmin, setIsAdmin] = useState(false);
+
+    useEffect(() => {
+        const checkAdminStatus = async () => {
+            try {
+                const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/session`, { withCredentials: true });
+
+                if (response.data.user.isAdmin) {
+                    setIsAdmin(true);
+                }
+                console.log('Admin:', response.data.user.isAdmin);
+            } catch (error) {
+                console.error('Error fetching session:', error);
+            }
+        };
+
+        checkAdminStatus();
+    }, []);
+    const navigate = useNavigate();
+    if (isadmin == false) {
+        navigate('/')
+    }
 
     useEffect(() => {
         const FetchOrders = async () => {
@@ -166,26 +189,31 @@ export default function EcommerceAdminDashboard() {
 
     return (
         <>
-            <div className="flex h-screen bg-gray-100">
+            <div className="flex h-screen bg-gray-100 fixed w-full">
                 {/* Sidebar */}
-                <div className="w-64 bg-white shadow-md">
+                <div className="xl:w-64 w-52 bg-white shadow-md">
                     <div className="p-4">
-                        <h1 className="text-3xl font-bold text-purple-600 pt-2">E-com Admin</h1>
+                        <h1 className="xl:text-3xl text-xl font-bold text-purple-600 pt-2">E-com Admin</h1>
                     </div>
                     <nav className="mt-4 flex flex-col gap-3 px-1">
                         <Link to="/admin-dashboard">
                             <button className="w-full hover:bg-black py-2 hover:text-white flex justify-start px-5 items-center">
                                 <IoStatsChartSharp className="mr-2 h-4 w-4" />
-                                <span className='text-xl font-medium'>Dashboard</span>
+                                <span className='xl:text-xl text-sm font-medium'>Dashboard</span>
                             </button>
                         </Link>
                         <Link to="/orders">
                             <button className="w-full hover:bg-black py-2 hover:text-white flex justify-start px-5  items-center">
                                 <ShoppingCartIcon className="mr-2 h-4 w-4" />
-                                <span className='text-xl font-medium'>Orders</span>
+                                <span className='xl:text-xl text-sm font-medium'>Orders</span>
                             </button>
                         </Link>
-
+                        <Link to="/Add-Products">
+                        <button className="w-full hover:bg-black py-2 hover:text-white flex justify-start px-5  items-center">
+                            <ShoppingCartIcon className="mr-2 h-4 w-4" />
+                            <span className='xl:text-xl text-sm font-medium'>Products</span>
+                        </button>
+                    </Link>
                     </nav>
                 </div>
 

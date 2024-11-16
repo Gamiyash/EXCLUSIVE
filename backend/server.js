@@ -276,6 +276,18 @@ app.post('/Login', async (req, res) => {
     const collection = db.collection('EcommorceLoginData');
     const { email, password } = req.body;
 
+    // Check if the user is the admin
+    const emailMatches = email === process.env.ADMIN_EMAIL;
+    const passwordMatches = password === process.env.ADMIN_PASSWORD;
+    // console.log("Uer Entered Email is:", email)
+    // console.log("Uer Entered Password is:", password)
+    // console.log("Email Matches:", emailMatches);
+    // console.log("Email:", process.env.ADMIN_EMAIL);
+    // console.log("Password Matches:", passwordMatches);
+    // console.log("Password:", process.env.ADMIN_PASSWORD);
+
+    const isAdmin = emailMatches && passwordMatches;
+
     const user = await collection.findOne({ email });
 
     if (!user) {
@@ -302,12 +314,13 @@ app.post('/Login', async (req, res) => {
     //   secure:false, // Change to true if using HTTPS
     //   sameSite: 'strict', // Adjust as needed
     //   expires: new Date(Date.now() + 3600000) // 1 hour
-    // });
+    // });  
 
     req.session.user = {
       email: user.email,
       username: user.username,
       otpVerified: true,
+      isAdmin
     };
 
     // Send combined response
@@ -323,6 +336,7 @@ app.post('/Login', async (req, res) => {
       user: {
         email: user.email,
         displayName: user.displayName || user.username, // Include other user data as needed
+        isAdmin
       },
     });
   } catch (error) {
@@ -429,6 +443,7 @@ app.get('/api/auth/google/callback',
           email: existingUser.email,
           username: existingUser.username || displayName,
           otpVerified: true, // Assuming Google login is automatically verified
+
         };
       } else {
         // If the user does not exist, create a new user
@@ -477,11 +492,20 @@ app.get('/api/auth/google/callback',
   }
 );
 
+app.get('/api/session', (req, res) => {
+  // console.log('Session data:', req.session.user);
+  if (req.session.user) {
+    res.status(200).json({ user: req.session.user });
+  } else {
+    res.status(401).json({ message: 'Not authenticated' });
+  }
+});
+
 
 app.get('/api/auth/session', (req, res) => {
   if (req.isAuthenticated()) {
     // console.log("User is Authenticated:",req.isAuthenticated());
-    res.status(200).json({ user: req.user });
+    res.status(200).json({ user: req.session.user });
   } else {
     res.status(401).json({ message: 'Not authenticated' });
   }

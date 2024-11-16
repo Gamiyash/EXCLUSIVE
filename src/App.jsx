@@ -74,7 +74,6 @@ function App() {
               <div className="pt-20">
                 <Routes>
                   <Route path="/Sidebar" element={<Sidebar />} />
-                  <Route path="/Add-Products" element={<AddProducts />} />
                   <Route path="/" element={<Home user={user} setUser={setUser} />} />
                   <Route path="/Signup" element={<Signup />} />
                   <Route path="/Profile" element={<Profile />} />
@@ -100,6 +99,8 @@ function App() {
                   {/* Other routes */}
                   <Route path="/admin-dashboard" element={<EcommerceAdminDashboard />} />
                   <Route path="/orders" element={<Orders />} />
+                  <Route path="/Add-Products" element={<AddProducts />} />
+                  
                   <Route path="/contact" element={<ContactPage />} />
                   <Route path="/about" element={<AboutUsPage />} />
                   <Route path="/Bottom_nav" element={<Bottom_nav />} />
