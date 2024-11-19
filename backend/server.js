@@ -88,7 +88,7 @@ app.use(passport.initialize());
 app.use(session({
   secret: process.env.SESSION_SECRET, // Replace with your own secret
   resave: false,
-  saveUninitialized: false,
+  saveUninitialized: true,
   store: new MongoDBStore({
     uri: `${process.env.MONGO_URI}/EcommorceSignup`, // MongoDB URI
     collection: 'sessions'
@@ -96,7 +96,7 @@ app.use(session({
   cookie: {
     maxAge: null,
     // maxAge: 1000 * 60 * 60 * 24, // 1 day
-    httpOnly: true,
+    httpOnly:false,
     secure:true, 
     sameSite: 'none', // Required for cross-origin cookies
   }
