@@ -1,4 +1,3 @@
-
 const express = require('express');
 const path = require('path');
 const dotenv = require('dotenv');
@@ -74,6 +73,14 @@ store.on('error', function (error) {
 
 app.use(cors({
   origin: `${process.env.FRONTEND_URL}`, // Your frontend URL
+  methods: ["GET", "POST", "DELETE", "PUT"],
+  allowedHeaders: [
+    "Content-Type",
+    "Authorization",
+    "Cache-Control",
+    "Expires",
+    "Pragma"
+  ],
   credentials: true,
 }));
 
@@ -95,13 +102,17 @@ app.use(session({
   }),
   cookie: {
     maxAge: null,
-    // maxAge: 1000 * 60 * 60 * 24, // 1 day
-    httpOnly:false,
-    secure:true, 
-    sameSite: 'none', // Required for cross-origin cookies
+    httpOnly: true, // Adjust as needed for deployment
+    secure: true, // Set for deployment
+    sameSite: 'lax', // Adjust as needed for deployment
+    domain: `${process.env.FRONTEND_URL}`, // Replace with your domain
+    path: '/'
   }
 }));
 
+// if (process.env.NODE_ENV === "production") {
+//   app.set("trust proxy", 1);//Trust first proxy
+// }
 
 app.use(passport.initialize());//new
 app.use(passport.session());
@@ -311,6 +322,15 @@ app.post('/Login', async (req, res) => {
       isAdmin
     };
 
+
+    req.session.save((err) => {
+      if (err) {
+        console.error("Error saving session:", err);
+        // Handle error
+      } else {
+        res.status(200).json({ success: true, message: 'Login successful', user });
+      }
+    });
     // Send combined response
     // res.cookie('token', token, {
     //   httpOnly: true,
@@ -444,6 +464,16 @@ app.get('/api/auth/google/callback',
           otpVerified: true,
         };
       }
+
+
+      req.session.save((err) => {
+        if (err) {
+          console.error("Error saving session:", err);
+          // Handle error
+        } else {
+          res.status(200).json({ success: true, message: 'Login successful', user });
+        }
+      });
 
       // Create or update user database
       const userDb = client.db(userDbName);
