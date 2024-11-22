@@ -482,7 +482,10 @@ app.get('/api/auth/google/callback',
           res.status(200).json({
             success: true,
             message: 'Login successful and OTP sent to your email',
-            user: req.session.user
+            user: {
+              email: existingUser.email,
+              displayName: existingUser.displayName || existingUser.username, // Include other user data as needed
+            },
           });
         }
       });
