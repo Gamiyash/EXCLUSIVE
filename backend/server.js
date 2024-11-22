@@ -105,14 +105,14 @@ app.use(session({
     httpOnly: true, // Adjust as needed for deployment
     secure: true, // Set for deployment
     sameSite: 'none', // Adjust as needed for deployment
-    domain: `${process.env.FRONTEND_URL}`, // Replace with your domain
+    domain: 'exclusive-5.onrender.com', // Replace with your domain
     path: '/'
   }
 }));
 
-// if (process.env.NODE_ENV === "production") {
-//   app.set("trust proxy", 1);//Trust first proxy
-// }
+if (process.env.NODE_ENV === "production") {
+  app.set("trust proxy", 1);//Trust first proxy
+}
 
 app.use(passport.initialize());//new
 app.use(passport.session());
