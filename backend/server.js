@@ -104,7 +104,7 @@ app.use(session({
     maxAge: null,
     httpOnly: true, // Adjust as needed for deployment
     secure: true, // Set for deployment
-    sameSite: 'lax', // Adjust as needed for deployment
+    sameSite: 'none', // Adjust as needed for deployment
     domain: `${process.env.FRONTEND_URL}`, // Replace with your domain
     path: '/'
   }
