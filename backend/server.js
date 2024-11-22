@@ -105,8 +105,8 @@ app.use(session({
     httpOnly: true, // Adjust as needed for deployment
     secure: true, // Set for deployment
     sameSite: 'none', // Adjust as needed for deployment
-    domain: 'exclusive-5.onrender.com', // Replace with your domain
-    path: '/'
+    // domain: 'exclusive-5.onrender.com', // Replace with your domain
+    // path: '/'
   }
 }));
 
@@ -328,7 +328,15 @@ app.post('/Login', async (req, res) => {
         console.error("Error saving session:", err);
         // Handle error
       } else {
-        res.status(200).json({ success: true, message: 'Login successful', user });
+        res.status(200).json({
+          success: true,
+          message: 'Login successful and OTP sent to your email',
+          user: {
+            email: user.email,
+            displayName: user.displayName || user.username, // Include other user data as needed
+            isAdmin
+          },
+        });
       }
     });
     // Send combined response
@@ -338,15 +346,15 @@ app.post('/Login', async (req, res) => {
     //   // Ensure this is set correctly
     // }); // 1 hour
     // res.status(200).json({ success: true, message: 'Login successful and OTP sent to your email' });
-    res.status(200).json({
-      success: true,
-      message: 'Login successful and OTP sent to your email',
-      user: {
-        email: user.email,
-        displayName: user.displayName || user.username, // Include other user data as needed
-        isAdmin
-      },
-    });
+    // res.status(200).json({
+    //   success: true,
+    //   message: 'Login successful and OTP sent to your email',
+    //   user: {
+    //     email: user.email,
+    //     displayName: user.displayName || user.username, // Include other user data as needed
+    //     isAdmin
+    //   },
+    // });
   } catch (error) {
     console.error('Error in /Login:', error);
     res.status(500).json({ success: false, message: 'Invalid email or password' });
@@ -471,7 +479,11 @@ app.get('/api/auth/google/callback',
           console.error("Error saving session:", err);
           // Handle error
         } else {
-          res.status(200).json({ success: true, message: 'Login successful', user });
+          res.status(200).json({
+            success: true,
+            message: 'Login successful and OTP sent to your email',
+            user: req.session.user
+          });
         }
       });
 
