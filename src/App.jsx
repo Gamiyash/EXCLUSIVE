@@ -34,6 +34,7 @@ import AddProducts from './Admin/AddProducts';
 function App() {
 
   const [user, setUser] = useState(null);
+  // const navigate = useNavigate();
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -46,7 +47,7 @@ function App() {
           const contentType = response.headers['content-type'];
           if (contentType && contentType.includes('application/json')) {
             setUser(response.data.user);
-            localStorage.setItem('user', JSON.stringify(response.data.user)); // Update localStorage
+            localStorage.setItem('user', JSON.stringify(response.data.user)); // Update localStorage 
           } else {
             throw new Error('Unexpected response type');
           }
@@ -100,7 +101,7 @@ function App() {
                   <Route path="/admin-dashboard" element={<EcommerceAdminDashboard />} />
                   <Route path="/orders" element={<Orders />} />
                   <Route path="/Add-Products" element={<AddProducts />} />
-                  
+
                   <Route path="/contact" element={<ContactPage />} />
                   <Route path="/about" element={<AboutUsPage />} />
                   <Route path="/Bottom_nav" element={<Bottom_nav />} />

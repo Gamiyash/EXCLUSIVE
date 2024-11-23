@@ -103,7 +103,7 @@ app.use(session({
   cookie: {
     maxAge: null,
     httpOnly: true, // Adjust as needed for deployment
-    secure: true, // Set for deployment
+    secure:true, // True Set for deployment
     sameSite: 'none', // Adjust as needed for deployment
     // domain: 'exclusive-5.onrender.com', // Replace with your domain
     // path: '/'
@@ -226,20 +226,7 @@ app.post('/Signup', async (req, res) => {
       return res.status(200).json({ success: true, message: 'User updated' });
     }
 
-    // if (existingUser) {
-    //   if (existingUser.email) {
-    //     // If the user has signed up with Google, alert the user
-    //     return res.status(400).json({ message: 'Email already associated with a Google login. Please log in with Google.' });
-    //   } else {
-    //     // Update existing user password if they signed up manually
-    //     const hashedPassword = await bcrypt.hash(password, 10);
-    //     await collection.updateOne(
-    //       { email },
-    //       { $set: { username, password: hashedPassword } }
-    //     );
-    //     return res.status(200).json({ success: true, message: 'User updated' });
-    //   }
-    // }
+
 
     // Create new user if email does not exist
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -474,21 +461,39 @@ app.get('/api/auth/google/callback',
       }
 
 
+      // // Save session and respond with JSON
       req.session.save((err) => {
         if (err) {
           console.error("Error saving session:", err);
-          // Handle error
-        } else {
-          res.status(200).json({
-            success: true,
-            message: 'Login successful and OTP sent to your email',
-            user: {
-              email: existingUser.email,
-              displayName: existingUser.displayName || existingUser.username, // Include other user data as needed
-            },
+          return res.status(500).json({
+            success: false,
+            message: "Session save failed",
           });
         }
+
+        // Send JSON response
+        res.redirect(`${process.env.FRONTEND_URL}/`);
       });
+
+
+      // req.session.save((err) => {
+      //   if (err) {
+      //     console.error("Error saving session:", err);
+      //     return res.status(500).json({
+      //       success: false,
+      //       message: "Session save failed",
+      //     });
+      //   } else {
+      //     res.json({
+      //       success: true,
+      //       message: 'Login successful',
+      //       user: req.session.user,
+      //       redirectUrl: `${process.env.FRONTEND_URL}/`,
+      //     });
+      //     // res.redirect(`${process.env.FRONTEND_URL}/`);
+      //     console.log("Redirect Url is:",redirectUrl)
+      //   }
+      // });
 
       // Create or update user database
       const userDb = client.db(userDbName);
@@ -514,9 +519,7 @@ app.get('/api/auth/google/callback',
           { upsert: true } // If no document matches, insert a new one
         );
       }
-
-
-      res.redirect(`${process.env.FRONTEND_URL}/`);
+      // res.redirect(`${process.env.FRONTEND_URL}/`);
 
     } catch (error) {
       console.error('Error in Google OAuth callback:', error);

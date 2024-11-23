@@ -10,8 +10,6 @@ const Login = ({ user, setUser }) => {
   const navigate = useNavigate();
   const { login } = useAuth();
 
-  // const [user, setUser] = useState(null);
-  console.log("Login user is", user)
   const handleChangeEmail = (e) => {
     setEmail(e.target.value);
   };
@@ -33,7 +31,8 @@ const Login = ({ user, setUser }) => {
       .catch(err => {
         console.error('Error validating session:', err);
       });
-  }, [setUser, login]);
+  }, [login]);
+
 
   const submit = async (e) => {
     e.preventDefault();
