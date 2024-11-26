@@ -30,6 +30,7 @@ import ContactPage from './Pages/ContactUs';
 import AboutUsPage from './Pages/AboutUs';
 import Bottom_nav from './componets/Bottom_nav';
 import AddProducts from './Admin/AddProducts';
+import Skeliton_Loading from './componets/Skeliton_Loading';
 
 function App() {
 
@@ -96,6 +97,7 @@ function App() {
                   {/* <Route path="/ProctedComponet" element={<ProtectedComponent user={user} setUser={setUser} />} /> */}
                   <Route path="/orderHistory" element={<HistoryPage />} />
                   <Route path="/orderHistoryDetails/:orderId" element={<OrderHistoryDetails />} />
+                  <Route path="/skeliton_loading" element={<Skeliton_Loading />} />
 
                   {/* Other routes */}
                   <Route path="/admin-dashboard" element={<EcommerceAdminDashboard />} />

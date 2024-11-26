@@ -4,6 +4,7 @@ import axios from 'axios';
 import ThisMonth from './ThisMonth';
 import Sidebar from '../componets/Sidebar';
 import FilterComponent from '../componets/FilterComponet';
+import Skeliton_Loading from '../componets/Skeliton_Loading'
 
 const ThismonthList = ({ user }) => {
     const [Bestproducts, setBestProducts] = useState([]);
@@ -32,7 +33,7 @@ const ThismonthList = ({ user }) => {
     };
 
 
-    if (loading) return <p className='flex justify-center items-center text-2xl'>Loading...</p>;
+    if (loading) return <p><Skeliton_Loading /></p>;
     if (error) return <p>{error}</p>;
 
     return (

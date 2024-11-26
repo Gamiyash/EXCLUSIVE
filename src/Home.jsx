@@ -14,7 +14,7 @@ import ThisMonth from './ThisMonthBestProducts/ThisMonth';
 import Allproducts from './AllProducts/Allproducts';
 import { useNavigate, Link, redirect } from 'react-router-dom';
 import Footer from './componets/Footer';
-import { FaChevronRight, FaChevronLeft } from "react-icons/fa"
+import Skeliton_Loading from './componets/Skeliton_Loading';
 
 const Home = ({ user }) => {
 
@@ -198,7 +198,7 @@ const Home = ({ user }) => {
   const images = ["../Add.svg", "../Add.svg"]
 
 
-  if (loading) return <p className='flex justify-center items-center text-2xl'>Loading...</p>;
+  if (loading) return <p><Skeliton_Loading /></p>;
   if (error) return <p>{error}</p>;
 
   return (

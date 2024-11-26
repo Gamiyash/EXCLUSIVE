@@ -3,6 +3,7 @@ import axios from 'axios';
 import Allproducts from '../AllProducts/Allproducts';
 import Sidebar from '../componets/Sidebar';
 import Footer from '../componets/Footer';
+import Skeliton_Loading from '../componets/Skeliton_Loading';
 
 
 const MensFashionproductsList = ({ user }) => {
@@ -27,7 +28,7 @@ const MensFashionproductsList = ({ user }) => {
         fetchProducts();
     }, []);
 
-    if (loading) return <p className='flex justify-center items-center text-2xl'>Loading...</p>;
+    if (loading) return <p><Skeliton_Loading /></p>;
     if (error) return <p>{error}</p>;
 
     return (

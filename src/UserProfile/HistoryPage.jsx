@@ -6,13 +6,14 @@ import { LuPackage } from "react-icons/lu";
 import { FaIndianRupeeSign } from "react-icons/fa6";
 import axios from 'axios';
 import { useNavigate,useParams } from 'react-router';
-
+import Skeliton_Loading from '../componets/Skeliton_Loading';
 
 const HistoryPage = () => {
     const [orders, setOrders] = useState([]);
     const userEmail = JSON.parse(localStorage.getItem('user'))?.email;
     const navigate = useNavigate();
     const {orderId} = useParams();
+    const [loading, setLoading] = useState(true);
 
 
     useEffect(() => {
@@ -22,8 +23,10 @@ const HistoryPage = () => {
             try {
                 const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/getOrders/${userEmail}`);
                 setOrders(response.data);
+                setLoading(false)
             } catch (error) {
                 console.error('Error fetching orders:', error);
+                setLoading(false)
             }
         };
 
@@ -48,7 +51,7 @@ const HistoryPage = () => {
                 return 'bg-gray-500'; // Default gray
         }
     };
-
+    if (loading) return <p><Skeliton_Loading /></p>;
 
     return (
         <>

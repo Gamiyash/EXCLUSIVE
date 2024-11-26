@@ -1,9 +1,9 @@
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Allproducts from './Allproducts';
 import Sidebar from '../componets/Sidebar';
 import FilterComponent from '../componets/FilterComponet';
+import Skeliton_Loading from '../componets/Skeliton_Loading';
 
 const ProductList = ({ user }) => {
     const [products, setProducts] = useState([]);
@@ -30,8 +30,7 @@ const ProductList = ({ user }) => {
     const handleFilter = (filtered) => {
         setFilteredProducts(filtered);
     };
-
-    if (loading) return <p className='flex justify-center items-center text-2xl'>Loading...</p>;
+    if (loading) return <p><Skeliton_Loading /></p>;
     if (error) return <p>{error}</p>;
 
     return (

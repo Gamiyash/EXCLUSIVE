@@ -3,8 +3,8 @@ import axios from 'axios';
 import Flashslaes from './Flashsales';
 import Sidebar from '../componets/Sidebar';
 import FilterComponent from '../componets/FilterComponet';
-// import FlashProduct from '../../backend/models/Flashproduct';
 import Footer from '../componets/Footer';
+import Skeliton_Loading from '../componets/Skeliton_Loading'
 
 const Flashlist = ({ user }) => {
     const [Flashproducts, setFlashProducts] = useState([]);
@@ -32,7 +32,7 @@ const Flashlist = ({ user }) => {
         setFilteredProducts(filtered);
     };
 
-    if (loading) return <p className='flex justify-center items-center text-2xl'>Loading...</p>;
+    if (loading) return <p><Skeliton_Loading /></p>;
     if (error) return <p>{error}</p>;
 
     return (
