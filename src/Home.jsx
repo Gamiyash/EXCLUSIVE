@@ -293,7 +293,7 @@ const Home = ({ user }) => {
             <div className="font-bold flex text-xl xl:text-2xl xl:gap-16 gap-5 tracking-wider">
               <span>Browse By Category</span>
             </div>
-            <div className="two-arrow flex items-center gap-3 pr-24">
+            <div className="two-arrow flex items-center gap-3 xl:pr-24 pr-2">
               <div className="left" onClick={() => scrollLeftCategory}>
                 <FaArrowCircleLeft className="text-gray-400 text-2xl cursor-pointer" />
               </div>
@@ -356,7 +356,7 @@ const Home = ({ user }) => {
             <div className="font-bold  flex text-xl xl:text-2xl  xl:gap-16 gap-5 tracking-wider">
               <span>Explore Our Products</span>
             </div>
-            <div className="two-arrow flex items-center gap-3 pr-24">
+            <div className="two-arrow flex items-center gap-3 xl:pr-24 pr-2">
               <div className="left" onClick={() => scrollLeft(Allproductref)}>
                 <FaArrowCircleLeft className="text-gray-400 text-2xl cursor-pointer" />
               </div>

@@ -29,9 +29,15 @@ const Skeliton_Loading = () => {
                     <div className="w-4 h-7 bg-gray-400"></div>
                     <div className="w-24 h-6 bg-gray-400"></div>
                 </div>
-                <div className="flex gap-4 overflow-x-auto ">
+                <div className="hidden xl:flex gap-4 overflow-x-auto">
                     {[...Array(8)].map((_, index) => (
-                        <div key={index} className="w-32 h-32 bg-gray-300 rounded"></div>
+                        <div key={index} className="w-52 h-52 bg-gray-300 rounded"></div>
+                    ))}
+                </div>
+
+                <div className="flex xl:hidden gap-4 overflow-x-auto">
+                    {[...Array(5)].map((_, index) => (
+                        <div key={index} className="w-52 h-52 bg-gray-300 rounded"></div>
                     ))}
                 </div>
             </div>
@@ -62,9 +68,15 @@ const Skeliton_Loading = () => {
                         <div className="w-8 h-8 bg-gray-300 rounded-full"></div>
                     </div>
                 </div>
-                <div className="flex gap-4 overflow-x-auto">
+                <div className="hidden xl:flex gap-4 overflow-x-auto">
                     {[...Array(8)].map((_, index) => (
-                        <div key={index} className="w-40 h-40 bg-gray-300 rounded"></div>
+                        <div key={index} className="w-52 h-52 bg-gray-300 rounded"></div>
+                    ))}
+                </div>
+
+                <div className="flex xl:hidden gap-4 overflow-x-auto">
+                    {[...Array(5)].map((_, index) => (
+                        <div key={index} className="w-52 h-52 bg-gray-300 rounded"></div>
                     ))}
                 </div>
             </div>
