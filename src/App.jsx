@@ -62,6 +62,8 @@ function App() {
     checkAuth();
   }, []);
 
+  // List of routes where the Navbar should not be displayed
+  const hideNavbarRoutes = ['/verify-otp'];
 
   return (
     <>
@@ -69,11 +71,18 @@ function App() {
         <Router>
           <div className="flex flex-col min-h-screen">
             <div className="flex-grow">
-              <div className="fixed top-0 left-0 w-full bg-white shadow-md z-10">
+              {/* <div className="fixed top-0 left-0 w-full bg-white shadow-md z-10">
                 <Navbar user={user} setUser={setUser} />
-              </div>
+              </div> */}
 
-              <div className="pt-20">
+              {/* Conditionally render Navbar */}
+              {!hideNavbarRoutes.includes(location.pathname) && (
+                <div className="fixed top-0 left-0 w-full bg-white shadow-md z-10">
+                  <Navbar user={user} setUser={setUser} />
+                </div>
+              )}
+
+              <div className={`pt-${hideNavbarRoutes.includes(location.pathname) ? 0 : 20}`}>
                 <Routes>
                   <Route path="/Sidebar" element={<Sidebar />} />
                   <Route path="/" element={<Home user={user} setUser={setUser} />} />
