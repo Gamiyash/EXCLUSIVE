@@ -152,7 +152,7 @@ const WishList = ({ product, user }) => {
                 </div>
                 {Wishlistitems.length == 0 ? (
                     <div className="empty-cart text-center my-14">
-                        <p className="text-lg font-semibold">No items are added to the cart</p>
+                        <p className="text-lg font-semibold">No items are added to the wishlist</p>
                     </div>
                 ) : (
                     <div className="Cards xl:flex xl:flex-nowrap flex flex-wrap xl:justify-normal justify-around items-center xl:m-10 xl:gap-10 xl:overflow-auto xl:scrollbar-hidden xl:overflow-x-auto"

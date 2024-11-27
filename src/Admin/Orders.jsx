@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect,useRef } from 'react';
 import axios from 'axios';
 import { BrowserRouter as Router, Routes, Route, Link, useFetchers } from 'react-router-dom'
 // import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LineChart, Line } from 'recharts'
@@ -11,6 +11,19 @@ import { useNavigate } from 'react-router-dom';
 // Product detail popup component
 function ProductDetailPopup({ order, onClose, onUpdateStatus }) {
     const [status, setStatus] = useState(order.status);
+    const popupRef = useRef(null);
+
+    // Close the popup when clicking outside
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (popupRef.current && !popupRef.current.contains(event.target)) {
+                onClose();
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, [onClose]);
 
     // Handle status change
     const handleStatusChange = async (newStatus) => {
@@ -25,8 +38,8 @@ function ProductDetailPopup({ order, onClose, onUpdateStatus }) {
     };
 
     return (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-            <div className="bg-white p-8 shadow-lg w-[35vw] rounded-md relative">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 mt-20">
+            <div ref={popupRef} className="bg-white p-8 shadow-lg w-[37vw] rounded-md relative">
                 <button
                     className="absolute text-2xl top-5 right-3 text-gray-600 hover:text-black"
                     onClick={onClose}
@@ -40,6 +53,7 @@ function ProductDetailPopup({ order, onClose, onUpdateStatus }) {
                     <p><strong>Email:</strong> {order.email}</p>
                     <p><strong>Customer Name:</strong> {order.customerDetails.name}</p>
                     <p><strong>Address:</strong> {order.customerDetails.address}</p>
+                    <p><strong>Created-At:</strong> {new Date(order.createdAt).toLocaleDateString('en-CA')}</p>
                     <p className='flex items-center'><strong>Total Amount:</strong><span><FaIndianRupeeSign /></span><span>{order.amount}</span></p>
                     <p>
                         <strong>Status:</strong>
@@ -51,7 +65,7 @@ function ProductDetailPopup({ order, onClose, onUpdateStatus }) {
                         </select>
                     </p>
                     <h3 className="mt-4 font-semibold">Products:</h3>
-                    <ul className="list-disc list-inside space-y-3 max-h-[60vh] overflow-auto scrollbar-hidden">
+                    <ul className="list-disc list-inside space-y-3 max-h-[40vh] overflow-auto scrollbar-hidden">
                         {order.products.map((product, index) => (
                             <li className='flex items-center gap-2 w-[31vw] border border-gray-400 p-3' key={index}>
                                 <img width={30} src={product.image} alt="" /> <span className='w-1/2'>{product.name}</span> <span className='w-1/6'>(Q:{product.quantity})</span> - <span className='flex items-center w-1/4'><FaIndianRupeeSign />{product.price}</span>
@@ -96,7 +110,7 @@ function Orders() {
             try {
                 const responce = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/getOrdersForAdmin`);
                 setOrders(responce.data)
-                // console.log("Order Length is:",Orders.length)
+                console.log("Order data:",responce.data)
             } catch (error) {
                 console.error("Error fetching orders:", error);
             }
@@ -156,7 +170,7 @@ function Orders() {
                             </tr>
                         </thead>
                         <tbody>
-                            {Orders.map(order => (
+                        {Orders.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).map((order) => (
                                 <tr
                                     key={order.orderId}
                                     className="hover:bg-gray-100 cursor-pointer"

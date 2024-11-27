@@ -10,6 +10,7 @@ import { CiHeart } from 'react-icons/ci';
 import { FaArrowCircleRight, FaArrowCircleLeft } from 'react-icons/fa';
 import Allproducts from '../AllProducts/Allproducts';
 import { useNavigate } from 'react-router-dom';
+import Skeliton_Loading from '../componets/Skeliton_Loading';
 
 
 const AllProductDetails = ({ user, productId }) => {
@@ -199,9 +200,9 @@ const AllProductDetails = ({ user, productId }) => {
         return decimalPart ? formattedIntegerPart + '.' + decimalPart : formattedIntegerPart;
     }
 
-    if (loading) return <p>Loading...</p>;
+    if (loading) return <p><Skeliton_Loading /></p>;
     if (error) return <p>{error}</p>;
-    if (!product) return <p>No product found</p>;
+    if (!product) return <p className='flex justify-center items-center p-20'>No product found</p>;
 
     const { name, image, offerPrice, rating, discription, size, _id, sideimg1, sideimg2, sideimg3, sideimg4 } = product;
 

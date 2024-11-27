@@ -1,6 +1,3 @@
-
-
-
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
@@ -11,6 +8,7 @@ import { CiHeart } from 'react-icons/ci';
 import { FaArrowCircleRight, FaArrowCircleLeft } from 'react-icons/fa';
 import Allproducts from '../AllProducts/Allproducts';
 import { useNavigate } from 'react-router-dom';
+import Skeliton_Loading from '../componets/Skeliton_Loading';
 
 
 
@@ -212,7 +210,7 @@ const FlashProductDetails = ({ user, productId }) => {
         return decimalPart ? formattedIntegerPart + '.' + decimalPart : formattedIntegerPart;
     }
 
-    if (loading) return <p>Loading...</p>;
+    if (loading) return <p><Skeliton_Loading /></p>;
     if (error) return <p>{error}</p>;
     if (!product) return <p>No product found</p>;
 
