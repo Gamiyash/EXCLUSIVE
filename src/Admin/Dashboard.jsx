@@ -240,34 +240,78 @@ function Dashboard() {
 
 
 export default function EcommerceAdminDashboard() {
+
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+    // Variables to track touch positions
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    // Handle touch start
+    const handleTouchStart = (e) => {
+        touchStartX = e.touches[0].clientX;
+    };
+
+    // Handle touch move
+    const handleTouchMove = (e) => {
+        touchEndX = e.touches[0].clientX;
+    };
+
+    // Handle touch end to determine swipe direction
+    const handleTouchEnd = () => {
+        if (touchEndX - touchStartX > 50) {
+            // Swipe right detected
+            setIsSidebarOpen(true);
+        } else if (touchStartX - touchEndX > 50) {
+            // Swipe left detected
+            setIsSidebarOpen(false);
+        }
+    };
+
+    useEffect(() => {
+        // Attach touch event listeners
+        window.addEventListener('touchstart', handleTouchStart);
+        window.addEventListener('touchmove', handleTouchMove);
+        window.addEventListener('touchend', handleTouchEnd);
+
+        // Cleanup listeners on component unmount
+        return () => {
+            window.removeEventListener('touchstart', handleTouchStart);
+            window.removeEventListener('touchmove', handleTouchMove);
+            window.removeEventListener('touchend', handleTouchEnd);
+        };
+    }, []);
     return (
-        <div className="flex h-screen bg-gray-100 fixed w-full">
+        <>
+           <div className="flex h-screen bg-gray-100">
             {/* Sidebar */}
-            <div className="xl:w-64 w-52 bg-white shadow-md">
+            <div
+                className={`fixed xl:relative xl:w-64 w-52 bg-white shadow-md transform ${
+                    isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
+                } xl:translate-x-0 transition-transform duration-300 ease-in-out`}
+            >
                 <div className="p-4">
                     <h1 className="xl:text-3xl text-xl font-bold text-purple-600 pt-2">E-com Admin</h1>
                 </div>
-                <nav className="mt-4 flex flex-col gap-3 px-1">
+                <nav className="mt-4 flex flex-col gap-3 px-1 h-[100vh]">
                     <Link to="/admin-dashboard">
-                        <button className="w-full hover:bg-black py-2 hover:text-white flex justify-start px-5  items-center">
+                        <button className="w-full hover:bg-black py-2 hover:text-white flex justify-start px-5 items-center">
                             <IoStatsChartSharp className="mr-2 h-4 w-4" />
-                            <span className='xl:text-xl text-sm font-medium'>Dashboard</span>
+                            <span className="xl:text-xl text-sm font-medium">Dashboard</span>
                         </button>
                     </Link>
                     <Link to="/orders">
-                        <button className="w-full hover:bg-black py-2 hover:text-white flex justify-start px-5  items-center">
+                        <button className="w-full hover:bg-black py-2 hover:text-white flex justify-start px-5 items-center">
                             <ShoppingCartIcon className="mr-2 h-4 w-4" />
-                            <span className='xl:text-xl text-sm font-medium'>Orders</span>
+                            <span className="xl:text-xl text-sm font-medium">Orders</span>
                         </button>
                     </Link>
-
                     <Link to="/Add-Products">
-                        <button className="w-full hover:bg-black py-2 hover:text-white flex justify-start px-5  items-center">
+                        <button className="w-full hover:bg-black py-2 hover:text-white flex justify-start px-5 items-center">
                             <ShoppingCartIcon className="mr-2 h-4 w-4" />
-                            <span className='xl:text-xl text-sm font-medium'>Products</span>
+                            <span className="xl:text-xl text-sm font-medium">Products</span>
                         </button>
                     </Link>
-
                 </nav>
             </div>
 
@@ -278,5 +322,6 @@ export default function EcommerceAdminDashboard() {
                 </Routes>
             </div>
         </div>
+        </>
     )
 }
