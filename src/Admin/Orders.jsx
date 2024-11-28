@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState, useEffect,useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { BrowserRouter as Router, Routes, Route, Link, useFetchers } from 'react-router-dom'
 // import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LineChart, Line } from 'recharts'
@@ -38,43 +38,73 @@ function ProductDetailPopup({ order, onClose, onUpdateStatus }) {
     };
 
     return (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 mt-20">
-            <div ref={popupRef} className="bg-white p-8 shadow-lg w-[37vw] rounded-md relative">
-                <button
-                    className="absolute text-2xl top-5 right-3 text-gray-600 hover:text-black"
-                    onClick={onClose}
-                >
-                    X
-                </button>
-                <h2 className="xl:text-xl text-sm font-bold mb-4">Order Details</h2>
-
-                <div className=''>
-                    <p><strong>Order ID:</strong> {order.orderId}</p>
-                    <p><strong>Email:</strong> {order.email}</p>
-                    <p><strong>Customer Name:</strong> {order.customerDetails.name}</p>
-                    <p><strong>Address:</strong> {order.customerDetails.address}</p>
-                    <p><strong>Created-At:</strong> {new Date(order.createdAt).toLocaleDateString('en-CA')}</p>
-                    <p className='flex items-center'><strong>Total Amount:</strong><span><FaIndianRupeeSign /></span><span>{order.amount}</span></p>
-                    <p>
-                        <strong>Status:</strong>
-                        <select value={status} onChange={(e) => handleStatusChange(e.target.value)}>
-                            <option className='text-yellow-500' value="Pending">Pending</option>
-                            <option className='text-orange-500' value="Processing">Processing</option>
-                            <option className='text-blue-500' value="Shipped">Shipped</option>
-                            <option className='text-green-500' value="Delivered">Delivered</option>
-                        </select>
-                    </p>
-                    <h3 className="mt-4 font-semibold">Products:</h3>
-                    <ul className="list-disc list-inside space-y-3 max-h-[40vh] overflow-auto scrollbar-hidden">
-                        {order.products.map((product, index) => (
-                            <li className='flex items-center gap-2 w-[31vw] border border-gray-400 p-3' key={index}>
-                                <img width={30} src={product.image} alt="" /> <span className='w-1/2'>{product.name}</span> <span className='w-1/6'>(Q:{product.quantity})</span> - <span className='flex items-center w-1/4'><FaIndianRupeeSign />{product.price}</span>
-                            </li>
-                        ))}
-                    </ul>
-                </div>
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 mt-12">
+        <div ref={popupRef} className="bg-white p-8 shadow-2xl rounded-xl xl:w-[37vw] w-[90vw] max-h-[90vh] relative">
+            {/* <!-- Close Button --> */}
+            <button
+                className="absolute text-2xl top-5 right-3 text-gray-500 hover:text-red-500 transition-all"
+                onClick={onClose}
+            >
+                ✖
+            </button>
+    
+            {/* <!-- Header --> */}
+            <h2 className="text-lg xl:text-2xl font-extrabold mb-4 border-b pb-2 text-gray-800">
+                Order Details
+            </h2>
+    
+            {/* <!-- Order Information --> */}
+            <div className="space-y-2 text-gray-700">
+                <p><strong>Order ID:</strong> {order.orderId}</p>
+                <p><strong>Email:</strong> {order.email}</p>
+                <p><strong>Customer Name:</strong> {order.customerDetails.name}</p>
+                <p><strong>Address:</strong> {order.customerDetails.address}</p>
+                <p><strong>Created At:</strong> {new Date(order.createdAt).toLocaleDateString('en-CA')}</p>
+                <p className="flex items-center">
+                    <strong>Total Amount:</strong>
+                    <span className="ml-2 flex items-center font-semibold text-lg text-green-600">
+                        <FaIndianRupeeSign className="mr-1" />{order.amount}
+                    </span>
+                </p>
+                <p>
+                    <strong>Status:</strong>
+                    <select
+                        value={status}
+                        onChange={(e) => handleStatusChange(e.target.value)}
+                        className="ml-2 p-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+                    >
+                        <option className="text-yellow-500" value="Pending">Pending</option>
+                        <option className="text-orange-500" value="Processing">Processing</option>
+                        <option className="text-blue-500" value="Shipped">Shipped</option>
+                        <option className="text-green-500" value="Delivered">Delivered</option>
+                    </select>
+                </p>
             </div>
+    
+            {/* <!-- Products Section --> */}
+            <h3 className="mt-6 text-lg font-semibold text-gray-800 border-t pt-2 ">Products:</h3>
+            <ul className="list-none scrollbar-hidden space-y-2 max-h-[20vh] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200 pr-2">
+                {order.products.map((product, index) => (
+                    <li
+                        className="flex items-center gap-4 p-4 bg-gray-100 border border-gray-300 rounded-lg hover:shadow-md transition-shadow"
+                        key={index}
+                    >
+                        <img
+                            src={product.image}
+                            alt={product.name}
+                            className="w-10 h-10 rounded-md border border-gray-300"
+                        />
+                        <span className="w-1/2 font-medium text-gray-700">{product.name}</span>
+                        <span className="w-1/6 text-gray-600 text-sm">(Q: {product.quantity})</span>
+                        <span className="flex items-center w-1/4 font-semibold text-green-600">
+                            <FaIndianRupeeSign className="mr-1" />{product.price}
+                        </span>
+                    </li>
+                ))}
+            </ul>
         </div>
+    </div>
+    
     );
 }
 
@@ -83,6 +113,8 @@ function Orders() {
     const [Orders, setOrders] = useState([]);
     const [selectedOrder, setSelectedOrder] = useState(null); // State for selected order
     const [isadmin, setIsAdmin] = useState(false);
+    const [filteredOrders, setFilteredOrders] = useState([]); // State for filtered orders
+    const [selectedFilter, setSelectedFilter] = useState(''); // State for active filter
 
     useEffect(() => {
         const checkAdminStatus = async () => {
@@ -110,13 +142,23 @@ function Orders() {
             try {
                 const responce = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/getOrdersForAdmin`);
                 setOrders(responce.data)
-                console.log("Order data:",responce.data)
+                setFilteredOrders(responce.data);// Initially, show all orders
+                // console.log("Order data:",responce.data)
             } catch (error) {
                 console.error("Error fetching orders:", error);
             }
         }
         FetchOrders();
     }, [])
+
+    const handleFilterClick = (status) => {
+        setSelectedFilter(status);
+        if (status === '') {
+            setFilteredOrders(Orders); // Show all orders when no filter is selected
+        } else {
+            setFilteredOrders(Orders.filter(order => order.status === status));
+        }
+    };
 
     // Handler to open the product detail popup
     const handleRowClick = (order) => {
@@ -157,9 +199,21 @@ function Orders() {
     return (
         <div className="p-4">
             <h2 className="text-3xl font-bold text-gray-800 mb-4">Recent Orders</h2>
+            <div className="flex gap-4 mb-4">
+                {['', 'Pending', 'Processing', 'Shipped', 'Delivered'].map((status, index) => (
+                    <button
+                        key={index}
+                        onClick={() => handleFilterClick(status)}
+                        className={`px-4 py-2 rounded-md shadow-md ${selectedFilter === status ? 'bg-purple-600 text-white' : 'bg-white text-gray-800'
+                            }`}
+                    >
+                        {status === '' ? 'All' : status}
+                    </button>
+                ))}
+            </div>
             <div className="bg-white p-4 shadow-md">
                 <div className="overflow-x-auto">
-                    <table className="min-w-full table-auto max-h-[100vh] overflow-auto scrollbar-hidden">
+                    <table className="min-w-full table-auto max-h-[90vh] overflow-auto scrollbar-hidden">
                         <thead>
                             <tr className="bg-gray-200">
                                 <th className="px-4 py-2 text-left">Order ID</th>
@@ -170,7 +224,7 @@ function Orders() {
                             </tr>
                         </thead>
                         <tbody>
-                        {Orders.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).map((order) => (
+                        {filteredOrders.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).map((order) => (
                                 <tr
                                     key={order.orderId}
                                     className="hover:bg-gray-100 cursor-pointer"
@@ -223,11 +277,11 @@ export default function EcommerceAdminDashboard() {
                             </button>
                         </Link>
                         <Link to="/Add-Products">
-                        <button className="w-full hover:bg-black py-2 hover:text-white flex justify-start px-5  items-center">
-                            <ShoppingCartIcon className="mr-2 h-4 w-4" />
-                            <span className='xl:text-xl text-sm font-medium'>Products</span>
-                        </button>
-                    </Link>
+                            <button className="w-full hover:bg-black py-2 hover:text-white flex justify-start px-5  items-center">
+                                <ShoppingCartIcon className="mr-2 h-4 w-4" />
+                                <span className='xl:text-xl text-sm font-medium'>Products</span>
+                            </button>
+                        </Link>
                     </nav>
                 </div>
 

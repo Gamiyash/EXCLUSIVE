@@ -153,10 +153,10 @@ const Navbar = ({ user, setUser }) => {
                   {/* <Link to="/" className="block px-4 py-2 text-[#FFFFFF flex items-center gap-3 hover:bg-gray-700 hover:rounded"> <span><IoHomeOutline size={25} /></span>Home</Link>
                     <Link to={"/Cart"} className="block px-4 py-2 text-[#FFFFFF flex items-center gap-3 hover:bg-gray-700 hover:rounded"> <span><IoCartOutline size={25} /></span>Cart</Link>
                     <Link to={"/Wishlist"} className="block px-4 py-2 text-[#FFFFFF flex items-center gap-3 hover:bg-gray-700 hover:rounded"> <span><CiHeart size={25} /></span>Wishlist</Link> */}
-                  <Link to="/contact" className="block px-4 py-2 text-[#FFFFFF flex items-center gap-3 hover:bg-gray-700 hover:rounded"> <span><MdContactSupport size={25} /></span>Contact Us</Link>
-                  <Link to="/about" className="block px-4 py-2 text-[#FFFFFF flex items-center gap-3 hover:bg-gray-700 hover:rounded"> <span><FcAbout size={25} /></span>About Us</Link>
-                  <Link to="/login" className="block px-4 py-2 text-[#FFFFFF flex items-center gap-3 hover:bg-gray-700 hover:rounded"> <span><MdOutlineLogin size={25} /></span>Login</Link>
-                  <Link to="/signup" className="block px-4 py-2 text-[#FFFFFF flex items-center gap-3 hover:bg-gray-700 hover:rounded"> <span><FaUserPlus size={25} /></span>Sign Up</Link>
+                  <Link to="/contact" className="block w-full px-4 py-2 text-[#FFFFFF flex items-center gap-3 hover:bg-gray-700 hover:rounded"> <span><MdContactSupport size={25} /></span>Contact Us</Link>
+                  <Link to="/about" className="block w-full px-4 py-2 text-[#FFFFFF flex items-center gap-3 hover:bg-gray-700 hover:rounded"> <span><FcAbout size={25} /></span>About Us</Link>
+                  <Link to="/login" className="block w-full px-4 py-2 text-[#FFFFFF flex items-center gap-3 hover:bg-gray-700 hover:rounded"> <span><MdOutlineLogin size={25} /></span>Login</Link>
+                  <Link to="/signup" className="block w-full px-4 py-2 text-[#FFFFFF flex items-center gap-3 hover:bg-gray-700 hover:rounded"> <span><FaUserPlus size={25} /></span>Sign Up</Link>
                   <button onClick={handleLogout} className="block px-4 w-full py-2 text-[#FFFFFF flex items-center gap-3 hover:bg-gray-700 hover:rounded"><span><BiLogOut size={25} /></span>Logout</button>
                 </div>
               )}
